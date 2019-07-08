@@ -100,6 +100,33 @@ def scoreMashMapAlignments(ref_indices, read_name, read_alignments):
 		print("%s\t%d" % (mashmap_info, score))
 #####
 
+def parseDump(dump_filename):
+	kmer_indices = {}	
+	with open(dump_filename, "r") as dh:
+		curr_read = ""
+		ref_indices = []
+		for line in dh:
+			dump_data   = line.split()
+			read_name = dump_data[0]
+			ref_idx = dump_data[-1]
+			if (not curr_read): 
+				# Initialize
+				curr_read = read_name
+				continue
+			elif (curr_read == read_name):
+				# Update data
+				ref_indices.append(int(ref_idx))
+			else:
+				# Switching to a new read
+				kmer_indices[read_name] = ref_indices
+				ref_indices = []
+				curr_read = read_name
+			#####
+		#####
+	#####
+	return kmer_indices
+
+
 
 if __name__ == "__main__": main()
 
