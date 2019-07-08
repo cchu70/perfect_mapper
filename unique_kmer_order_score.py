@@ -21,16 +21,23 @@ def main():
 		for line in mh:
 			data = line.split()
 			read_name = data[0] 
-			start = int(data[7])
-			end = int(data[8])
-			
-			score = scoreMashMapAlignments(read_name, start, end, kmer_indices[read_name])
-			print("%s\t%d" % (line.strip(), score))
+			try:
+				read_kmer_idx = kmer_indices[read_name]
+				start = int(data[7])
+				end = int(data[8])
+				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
+				print("%s\t%d" % (line.strip(), score))
+			except:
+				continue
 		#####
 
 		# Reached end of file
-		score = scoreMashMapAlignments(ref_indices, read_name, alignments[read_name])		
-		print("%s\t%d" % (line.strip(), score))
+		try:
+			read_kmer_idx = kmer_indices[read_name]
+			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
+			print("%s\t%d" % (line.strip(), score))
+		except:
+			pass
 #####
 
 def scoreMashMapAlignments(read_name, start, end, read_kmer_idx):
@@ -72,17 +79,20 @@ def parseDump(dump_filename):
 			if (not curr_read): 
 				# Initialize
 				curr_read = read_name
+				ref_indices.append(int(ref_idx))
 				continue
 			elif (curr_read == read_name):
 				# Update data
 				ref_indices.append(int(ref_idx))
 			else:
 				# Switching to a new read
-				kmer_indices[read_name] = ref_indices
+				
+				kmer_indices[curr_read] = ref_indices
 				ref_indices = []
 				curr_read = read_name
 			#####
 		#####
+		kmer_indices[curr_read] = ref_indices
 	#####
 	return kmer_indices
 
