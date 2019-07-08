@@ -40,7 +40,7 @@ def main():
 					read_alignments = alignments[curr_read]
 					scoreMashMapAlignments(ref_indices, read_name, read_alignments)
 				except:
-					sys.stderr.write("%s has not mashmap mapping\n" % curr_read)
+					sys.stderr.write("%s has no mashmap mapping\n" % curr_read)
 				#####
 
 				# Begin the new read
