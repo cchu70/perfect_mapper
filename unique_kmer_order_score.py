@@ -16,36 +16,18 @@ def main():
 	# For each read, find the corresponding alignments *(array of tuples)
 	alignments = parseMashMap(mashmap)
 
-	with open(dump, "r") as dh:
+	with open(mashmap, "r") as mh:
 
-		curr_read = ""
-		ref_indices = []
-
-		for line in dh:
-			dump_data   = line.split()
-			read_name = dump_data[0]
-			ref_idx = dump_data[-1]
-			if (not curr_read): 
-				# Initialize
-				curr_read = read_name
-				continue
-			elif (curr_read == read_name):
-				# Update data
-				ref_indices.append(int(ref_idx))
-			else:
-				# Switching to a new read
-
-				# Get the scores of the current read
-				try:
-					read_alignments = alignments[curr_read]
-					scoreMashMapAlignments(ref_indices, read_name, read_alignments)
-				except:
-					sys.stderr.write("%s has no mashmap mapping\n" % curr_read)
-				#####
-
-				# Begin the new read
-				ref_indices = []
-				curr_read = read_name
+		for line in mh:
+			data = line.split()
+			read_name = data[0] 
+			start = int(data[7])
+			end = int(data[8])
+			aRange = (start, end, line.strip())
+			try: 
+				alignments[read_name].append(aRange)
+			except:
+				alignments[read_name] = [aRange]
 			#####
 		#####
 
