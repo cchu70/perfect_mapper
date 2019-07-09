@@ -52,7 +52,7 @@ class AlignData:
 
 
 
-def main:
+def main():
 
 	# Get the file with the read, the alignment, original mapping score, and the number of shared unique kmers
 
