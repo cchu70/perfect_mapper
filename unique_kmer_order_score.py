@@ -157,9 +157,13 @@ def main():
 		# get the function selected
 
 		try:
+			global reward
+			global penalty
 			reward = int(sys.argv[7])
 			penalty = int(sys.argv[8])
 		except:
+			global reward
+			global penalty
 			sys.stderr.write("Using defaults: reward = %d, penalty = %d\n" % (reward, penalty))
 		#####
 
