@@ -10,13 +10,13 @@ def main():
 	dump = sys.argv[1]
 
 	# Retrieve the alignment file
-	# cat chr22.k21_s500_none.true.out | awk '{print $1"\t"$8"\t"$9}'
+	# Specify columns later
 	maps = sys.argv[2]
 
 	if (not os.path.isFile(dump)):
 		sys.stderr.write("%s is not a file. Halting execution" % dump)
 	#####
-	
+
 	if (not os.path.isFile(maps)):
 		sys.stderr.write("%s is not a file. Halting execution" % maps)
 	#####
@@ -48,7 +48,7 @@ def main():
 		try:
 			read_kmer_idx = kmer_indices[read_name]
 			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
-			print("%s\t%d" % (line.strip(), score))
+			print("%s\t%d\t%d" % (line.strip(), score, len(read_kmer_idx)))
 		except:
 			pass
 #####
