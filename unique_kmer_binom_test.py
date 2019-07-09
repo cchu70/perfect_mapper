@@ -26,7 +26,7 @@ def main():
 				#p_val = binom_test(x= int(sim_uniq_cnt), n = int(org_uniq_cnt), p= p)
 				#p_val = poisson_probability(int(sim_uniq_cnt), int(org_uniq_cnt), p)
 				
-				p_val= poisson.pmf(sim_uniq_cnt, org_uniq_cnt)
+				p_val= poisson.pmf(sim_uniq_cnt, org_uniq_cnt * p)
 				fh.write(line.strip() + "\t" + str(p_val) + "\n")
 			else:
 				fh.write(line.strip() + "\tp_val\n")
