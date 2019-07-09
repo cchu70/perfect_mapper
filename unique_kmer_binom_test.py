@@ -19,8 +19,8 @@ def main():
 	with open(output_file, "w") as fh:
 
 		for line in open(org_sim_count_comp, "r"):
-			org_uniq_cnt = line.split()[1]
-			sim_uniq_cnt = line.split()[2]
+			org_uniq_cnt = int(line.split()[1])
+			sim_uniq_cnt = int(line.split()[2])
 			if (sim_uniq_cnt != "sim_count"):
 				#rv = poisson(org_uniq_cnt)
 				#p_val = binom_test(x= int(sim_uniq_cnt), n = int(org_uniq_cnt), p= p)
