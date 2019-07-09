@@ -12,6 +12,8 @@ def main():
 	# cat chr22.k21_s500_none.true.out | awk '{print $1"\t"$8"\t"$9}'
 	mashmap = sys.argv[2]
 
+	idx_start = int(sys.argv[3])
+	idx_end = int(sys.argv[4])
 
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
@@ -23,8 +25,8 @@ def main():
 			read_name = data[0] 
 			try:
 				read_kmer_idx = kmer_indices[read_name]
-				start = int(data[7])
-				end = int(data[8])
+				start = int(data[idx_start])
+				end = int(data[idx_end])
 				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
 				print("%s\t%d" % (line.strip(), score))
 			except:
