@@ -5,54 +5,11 @@ import sys
 import os.path
 
 
-def main():
-	# Retrieve the dump file (read_name <tab> read_index <tab> ref_index)
-	dump = sys.argv[1]
+#=================================================================================
+# Functions
+#=================================================================================
 
-	# Retrieve the alignment file
-	# Specify columns later
-	maps = sys.argv[2]
-
-	if (not os.path.isfile(dump)):
-		sys.stderr.write("%s is not a file. Halting execution" % dump)
-	#####
-
-	if (not os.path.isfile(maps)):
-		sys.stderr.write("%s is not a file. Halting execution" % maps)
-	#####
-
-
-	idx_read_name = sys.argv[3]
-	idx_start = int(sys.argv[4])
-	idx_end = int(sys.argv[5])
-
-	# For each read, get the indices of the unique kmers
-	kmer_indices = parseDump(dump)
-
-	with open(maps, "r") as mh:
-
-		for line in mh:
-			data = line.split()
-			read_name = data[0] 
-			try:
-				read_kmer_idx = kmer_indices[read_name]
-				start = int(data[idx_start])
-				end = int(data[idx_end])
-				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
-				print("%s\t%d\t%d" % (line.strip(), score, len(read_kmer_idx)))
-			except:
-				continue
-		#####
-
-		# Reached end of file
-		try:
-			read_kmer_idx = kmer_indices[read_name]
-			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
-			print("%s\t%d\t%d" % (line.strip(), score, len(read_kmer_idx)))
-		except:
-			pass
-#####
-
+# Scoring methods
 def scoreMashMapAlignments(read_name, start, end, read_kmer_idx):
 	# Go through each alignment of the previous read
 	score = 0
@@ -79,6 +36,9 @@ def scoreMashMapAlignments(read_name, start, end, read_kmer_idx):
 	return score
 	
 #####
+
+
+# Other functions
 
 def parseDump(dump_filename):
 	kmer_indices = {}	
@@ -108,6 +68,72 @@ def parseDump(dump_filename):
 		kmer_indices[curr_read] = ref_indices
 	#####
 	return kmer_indices
+
+#=================================================================================
+# Definitions
+#=================================================================================
+score_types_func = {'plus1_only': scoreMashMapAlignments,
+					'plus_minus': score_correct_incorrect_ordering}
+
+
+
+#=================================================================================
+# Main
+#=================================================================================
+def main():
+	# Retrieve the dump file (read_name <tab> read_index <tab> ref_index)
+	dump = sys.argv[1]
+
+	# Retrieve the alignment file
+	# Specify columns later
+	maps = sys.argv[2]
+
+	if (not os.path.isfile(dump)):
+		sys.stderr.write("%s is not a file. Halting execution" % dump)
+	#####
+
+	if (not os.path.isfile(maps)):
+		sys.stderr.write("%s is not a file. Halting execution" % maps)
+	#####
+
+
+	idx_read_name = sys.argv[3]
+	idx_start = int(sys.argv[4])
+	idx_end = int(sys.argv[5])
+
+	score_type = sys.argv[6]
+
+	if (score_type not in score_types_func):
+		sys.stderr.write("%s is not a valid scoring options. Select %s" % (score_type, ', '.join(score_types_func)))
+	#####
+
+	# For each read, get the indices of the unique kmers
+	kmer_indices = parseDump(dump)
+
+	with open(maps, "r") as mh:
+
+		for line in mh:
+			data = line.split()
+			read_name = data[0] 
+			try:
+				read_kmer_idx = kmer_indices[read_name]
+				start = int(data[idx_start])
+				end = int(data[idx_end])
+				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
+				print("%s\t%d\t%d" % (line.strip(), score, len(read_kmer_idx)))
+			except:
+				continue
+		#####
+
+		# Reached end of file
+		try:
+			read_kmer_idx = kmer_indices[read_name]
+			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
+			print("%s\t%d\t%d" % (line.strip(), score, len(read_kmer_idx)))
+		except:
+			pass
+#####
+
 
 
 
