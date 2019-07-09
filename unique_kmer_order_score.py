@@ -2,6 +2,7 @@
 
 
 import sys
+import os
 
 
 def main():
@@ -11,6 +12,15 @@ def main():
 	# Retrieve the alignment file
 	# cat chr22.k21_s500_none.true.out | awk '{print $1"\t"$8"\t"$9}'
 	maps = sys.argv[2]
+
+	if (not os.path.isFile(dump)):
+		sys.stderr.write("%s is not a file. Halting execution" % dump)
+	#####
+	
+	if (not os.path.isFile(maps)):
+		sys.stderr.write("%s is not a file. Halting execution" % maps)
+	#####
+
 
 	idx_read_name = sys.argv[3]
 	idx_start = int(sys.argv[4])
