@@ -85,7 +85,7 @@ def main():
 
 	for read_name in alignments:
 		print(read_name)
-		print(alignments[read_name].best)
+		print(alignments[read_name].best.sck_count)
 
 
 
