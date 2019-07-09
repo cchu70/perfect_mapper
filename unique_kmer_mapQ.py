@@ -62,8 +62,8 @@ def main():
 		sys.stderr.write("%s does not exist" % map_sck_counts)
 		assert false
 	#####
-
-	sck_count_idx = int(sys.argv[2])
+	read_name_idx = int(sys.argv[2])
+	sck_count_idx = int(sys.argv[3])
 
 	# For each read, get the top two alignments if there are at least 2, else just take the only one
 
@@ -72,6 +72,7 @@ def main():
 	for line in open(map_sck_counts, "r"):
 		# Dictionary of reads maintains queue of the sck alignment scores for each read
 		data = line.split()
+		read_name = data[read_name_idx]
 		sck_count = data[sck_count_idx]
 		align_data = AlignData(data, sck_count)
 
