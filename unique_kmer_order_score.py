@@ -10,7 +10,7 @@ import os.path
 #=================================================================================
 
 # Scoring methods
-def scoreMashMapAlignments(read_name, start, end, read_kmer_idx):
+def score_correct_order_only(read_name, start, end, read_kmer_idx):
 	# Go through each alignment of the previous read
 	score = 0
 	begin = False
@@ -34,7 +34,34 @@ def scoreMashMapAlignments(read_name, start, end, read_kmer_idx):
 		#####
 	#####
 	return score
-	
+#####
+
+def score_correct_incorrect_ordering(read_name, start, end, read_kmer_idx):
+	# Go through each alignment of the previous read
+	score = 0
+	begin = False
+	ref_idx_prev = 0
+
+	for ref_idx in read_kmer_idx:
+
+		if (ref_idx >= start and ref_idx <= end):
+			if (not begin):
+				# Intitialize
+				ref_idx_prev = ref_idx
+				begin = True
+			else:
+				if (ref_idx > ref_idx_prev):
+					score = score + 1
+				else:
+					score = score - 1
+				#####
+
+				# Update
+				ref_idx_prev = ref_idx
+			#####
+		#####
+	#####
+	return score
 #####
 
 
@@ -72,7 +99,7 @@ def parseDump(dump_filename):
 #=================================================================================
 # Definitions
 #=================================================================================
-score_types_func = {'plus1_only': scoreMashMapAlignments,
+score_types_func = {'plus1_only': score_correct_order_only,
 					'plus_minus': score_correct_incorrect_ordering}
 
 
@@ -105,6 +132,9 @@ def main():
 
 	if (score_type not in score_types_func):
 		sys.stderr.write("%s is not a valid scoring options. Select %s" % (score_type, ', '.join(score_types_func)))
+	else:
+		# get the function selected
+		scoreMashMapAlignments = score_types_func[score_type]
 	#####
 
 	# For each read, get the indices of the unique kmers
