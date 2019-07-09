@@ -17,7 +17,7 @@ def main():
 		sys.stderr.write("%s is not a file. Halting execution" % dump)
 	#####
 
-	if (not os.path.isFile(maps)):
+	if (not os.path.isfile(maps)):
 		sys.stderr.write("%s is not a file. Halting execution" % maps)
 	#####
 
