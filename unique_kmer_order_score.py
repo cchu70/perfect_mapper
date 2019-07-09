@@ -53,7 +53,7 @@ def score_correct_incorrect_ordering(read_name, start, end, read_kmer_idx):
 				if (ref_idx > ref_idx_prev):
 					score = score + 1
 				else:
-					score = score - 1
+					score = score - penalty
 				#####
 
 				# Update
@@ -103,6 +103,8 @@ score_types_func = {'plus1_only': score_correct_order_only,
 					'plus_minus': score_correct_incorrect_ordering}
 
 penalty = 0
+reward = 1
+args = None
 
 #=================================================================================
 # Main
@@ -117,10 +119,12 @@ def main():
 
 	if (not os.path.isfile(dump)):
 		sys.stderr.write("%s is not a file. Halting execution" % dump)
+		assert False
 	#####
 
 	if (not os.path.isfile(maps)):
 		sys.stderr.write("%s is not a file. Halting execution" % maps)
+		assert False
 	#####
 
 
@@ -132,16 +136,15 @@ def main():
 
 	if (score_type not in score_types_func):
 		sys.stderr.write("%s is not a valid scoring options. Select %s" % (score_type, ', '.join(score_types_func)))
+		assert False
 	else:
 		# get the function selected
-		if(score_type == "plus_minus"):
-			try:
-				penalty = int(sys.argv[7])
-				if (penalty == 0):
-					sys.stderr.write("Run 'plus1_only' instead without this argument")	
-			except:
-				sys.stderr.write("Provide a valid penalty score to run %s")
-			#####
+
+		try:
+			reward = int(sys.argv[7])
+			penalty = int(sys.argv[8])
+		except:
+			sys.stderr.write("Using defaults: reward = %d, penalty = %d" % (reward, penalty))
 		#####
 
 		scoreMashMapAlignments = score_types_func[score_type]
