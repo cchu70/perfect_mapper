@@ -24,7 +24,9 @@ def main():
 			if (sim_uniq_cnt != "sim_count"):
 				#rv = poisson(org_uniq_cnt)
 				#p_val = binom_test(x= int(sim_uniq_cnt), n = int(org_uniq_cnt), p= p)
-				p_val = poisson_probability(int(sim_uniq_cnt), int(org_uniq_cnt))
+				#p_val = poisson_probability(int(sim_uniq_cnt), int(org_uniq_cnt), p)
+				rv = poisson(org_uniq_cnt)
+				p_val= rv.pmf(sim_uniq_cnt)
 				fh.write(line.strip() + "\t" + str(p_val) + "\n")
 			else:
 				fh.write(line.strip() + "\tp_val\n")
@@ -32,16 +34,16 @@ def main():
 		#####
 #####
 
-def poisson_probability(actual, mean):
-    # naive:   math.exp(-mean) * mean**actual / factorial(actual)
+# def poisson_probability(actual, mean, p):
+#     # naive:   math.exp(-mean) * mean**actual / factorial(actual)
 
-    # iterative, to keep the components from getting too large or small:
-    p = math.exp(-mean)
-    for i in xrange(actual):
-        p *= mean
-        p /= i+1
-    return p
-#####
+#     # iterative, to keep the components from getting too large or small:
+#     p = math.exp(-mean)
+#     for i in xrange(actual):
+#         p *= mean
+#         p /= i+1
+#     return p
+# #####
 
 if __name__ == "__main__": main()
 

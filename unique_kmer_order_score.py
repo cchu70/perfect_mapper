@@ -135,7 +135,7 @@ def main():
 	score_type = sys.argv[6]
 
 	if (score_type not in score_types_func):
-		sys.stderr.write("%s is not a valid scoring options. Select %s" % (score_type, ', '.join(score_types_func)))
+		sys.stderr.write("%s is not a valid scoring option. Select from the following: \n %s\n" % (score_type, '\n\t-'.join(score_types_func)))
 		assert False
 	else:
 		# get the function selected
