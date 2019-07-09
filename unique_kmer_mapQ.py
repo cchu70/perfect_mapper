@@ -77,7 +77,7 @@ def main():
 
 		try:
 			alignments[read_name].add(align_data)
-		else:
+		except:
 			alignments[read_name] = TopTwo(align_data)
 		#####
 	#####
