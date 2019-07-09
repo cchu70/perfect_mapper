@@ -13,7 +13,7 @@ def main():
 	# Specify columns later
 	maps = sys.argv[2]
 
-	if (not os.path.isFile(dump)):
+	if (not os.path.isfile(dump)):
 		sys.stderr.write("%s is not a file. Halting execution" % dump)
 	#####
 
