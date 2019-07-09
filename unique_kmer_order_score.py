@@ -10,7 +10,7 @@ def main():
 
 	# Retrieve the alignment file
 	# cat chr22.k21_s500_none.true.out | awk '{print $1"\t"$8"\t"$9}'
-	mashmap = sys.argv[2]
+	maps = sys.argv[2]
 
 	idx_read_name = sys.argv[3]
 	idx_start = int(sys.argv[4])
@@ -19,7 +19,7 @@ def main():
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
 
-	with open(mashmap, "r") as mh:
+	with open(maps, "r") as mh:
 
 		for line in mh:
 			data = line.split()
