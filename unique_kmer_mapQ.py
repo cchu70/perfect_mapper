@@ -85,7 +85,7 @@ def main():
 
 	for read_name in alignments:
 		print(read_name)
-		if (alignments[read_name].second_best.sck_count):
+		if (alignments[read_name].second_best):
 			print("First best: " % alignments[read_name].best.sck_count)
 			print("Second best: " % alignments[read_name].second_best.sck_count)
 
