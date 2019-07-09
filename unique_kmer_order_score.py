@@ -119,8 +119,7 @@ score_types_func = {'plus1_only': score_correct_order_only,
 					'mapQ': score_mapQ}
 
 
-global reward
-			global penalty
+
 penalty = 0
 reward = 1
 args = None
@@ -159,12 +158,12 @@ def main():
 	else:
 		# get the function selected
 
-		try:
-			reward = int(sys.argv[7])
-			penalty = int(sys.argv[8])
-		except:
-			sys.stderr.write("Using defaults: reward = %d, penalty = %d\n" % (reward, penalty))
-		#####
+		# try:
+		# 	reward = int(sys.argv[7])
+		# 	penalty = int(sys.argv[8])
+		# except:
+		# 	sys.stderr.write("Using defaults: reward = 0, penalty = %d\n")
+		# #####
 
 		scoreMashMapAlignments = score_types_func[score_type]
 	#####
