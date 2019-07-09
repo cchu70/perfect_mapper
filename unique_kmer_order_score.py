@@ -102,7 +102,7 @@ def parseDump(dump_filename):
 score_types_func = {'plus1_only': score_correct_order_only,
 					'plus_minus': score_correct_incorrect_ordering}
 
-
+penalty = 0
 
 #=================================================================================
 # Main
@@ -134,6 +134,16 @@ def main():
 		sys.stderr.write("%s is not a valid scoring options. Select %s" % (score_type, ', '.join(score_types_func)))
 	else:
 		# get the function selected
+		if(score_type == "plus_minus"):
+			try:
+				penalty = int(sys.argv[7])
+				if (penalty == 0):
+					sys.stderr.write("Run 'plus1_only' instead without this argument")	
+			except:
+				sys.stderr.write("Provide a valid penalty score to run %s")
+			#####
+		#####
+
 		scoreMashMapAlignments = score_types_func[score_type]
 	#####
 
