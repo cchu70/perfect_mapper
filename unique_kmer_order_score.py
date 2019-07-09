@@ -160,11 +160,13 @@ def main():
 			reward = int(sys.argv[7])
 			penalty = int(sys.argv[8])
 		except:
-			sys.stderr.write("Using defaults: reward = %d, penalty = %d" % (reward, penalty))
+			sys.stderr.write("Using defaults: reward = %d, penalty = %d\n" % (reward, penalty))
 		#####
 
 		scoreMashMapAlignments = score_types_func[score_type]
 	#####
+
+	sys.stderr.write("%s,%s,%s,%s"%(idx_read_name, idx_start, idx_end,score_type))
 
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
