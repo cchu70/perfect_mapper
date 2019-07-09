@@ -65,6 +65,21 @@ def score_correct_incorrect_ordering(read_name, start, end, read_kmer_idx):
 #####
 
 
+# Return the number of shared unique kmers with the aligned region
+def score_mapQ(read_name, start, end, read_kmer_idx):
+	score = 0
+	begin = False
+
+	for ref_idx in read_kmer_idx:
+
+		if (ref_idx >= start and ref_idx <= end):
+			score = score + 1
+			#####
+		#####
+	#####
+	return score
+
+
 # Other functions
 
 def parseDump(dump_filename):
@@ -100,7 +115,8 @@ def parseDump(dump_filename):
 # Definitions
 #=================================================================================
 score_types_func = {'plus1_only': score_correct_order_only,
-					'plus_minus': score_correct_incorrect_ordering}
+					'plus_minus': score_correct_incorrect_ordering,
+					'mapQ': score_mapQ}
 
 penalty = 0
 reward = 1
