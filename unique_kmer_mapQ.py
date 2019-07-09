@@ -83,6 +83,10 @@ def main():
 		#####
 	#####
 
+	for read_name in alignments:
+		print(read_name)
+		print(alignments[read_name].best)
+
 
 
 
