@@ -13,10 +13,10 @@ class TopTwo:
 	def add(self, align_data):
 		if (best == None):
 			self.best = align_data
-		else if (align_data.greaterThan(best)):
+		elif (align_data.greaterThan(best)):
 			self.second_best = self.best
 			self.best = align_data
-		else if (align_data.greaterThan(second_best)):
+		elif (align_data.greaterThan(second_best)):
 			self.second_best = align_data
 		#####
 	#####
