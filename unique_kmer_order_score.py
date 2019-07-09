@@ -118,6 +118,9 @@ score_types_func = {'plus1_only': score_correct_order_only,
 					'plus_minus': score_correct_incorrect_ordering,
 					'mapQ': score_mapQ}
 
+
+global reward
+			global penalty
 penalty = 0
 reward = 1
 args = None
@@ -157,13 +160,9 @@ def main():
 		# get the function selected
 
 		try:
-			global reward
-			global penalty
 			reward = int(sys.argv[7])
 			penalty = int(sys.argv[8])
 		except:
-			global reward
-			global penalty
 			sys.stderr.write("Using defaults: reward = %d, penalty = %d\n" % (reward, penalty))
 		#####
 
