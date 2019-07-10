@@ -37,8 +37,11 @@ class TopTwo:
 		# print("Best: %s\n sck_count %s" % (self.best.data, self.best.sck_count))\
 
 	def mapQScore(self):
-		if (self.second_best):
-			self.best.score =  1.0 - (float(self.second_best.sck_count)/float(self.best.sck_count))
+		if (self.second_best != None):
+			if (self.best.sck_count > 0):
+				self.best.score =  1.0 - (float(self.second_best.sck_count)/float(self.best.sck_count))
+			else:
+				self.best.score = 0.0
 		else:
 			self.best.score =  1.0
 		#####
