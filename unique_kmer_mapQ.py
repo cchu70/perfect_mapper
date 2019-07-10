@@ -14,6 +14,10 @@ class TopTwo:
 		# print(align_data.data)
 		if (self.best == None):
 			self.best = align_data
+		elif (align_data.data.split()[1] == '2048'):
+			# Supplementary alignment to the primary read
+
+
 		elif (align_data.greaterThan(self.best)):
 			# print("Original best %s" % self.best.sck_count)
 			self.second_best = self.best
@@ -47,15 +51,33 @@ class TopTwo:
 		#####
 #####
 
+class ReadAlignments:
+	primary = None # Type alignData
+	secondary = None
+
+	def __init__(self, prim, sec):
+		self.primary = primary
+		self.secondary = sec
+	#####
+
+	def add_align(self, align_data):
+		minimap2_bam_split(align_data.data)
+
+
 class AlignData:
 	sck_count = 0
 	data = ""
 	score = 0.0
 
+	primary = False
+
+	supp = None
+
 	def __init__(self, data_string, sck_count, score=0):
 		self.sck_count = sck_count
 		self.data = data_string
 		self.score = score
+		self.primary = minimap2_bam_split(data_string)['primary']
 	#####
 
 	def greaterThan(self, align_data):
@@ -66,10 +88,33 @@ class AlignData:
 		#####
 	#####
 
+	def set_sck_count(self,i):
+		self.sck_count = i
+	#####
+
+	def incr_sck_count(self, to_add):
+		self.sck_count = self.sck_count + to_add
+	#####
+
 	def __str__(self):
 		return "%s\t%0.5f" % (self.data, self.score)
 #####
 
+
+# class Minimap2Alignment:
+
+# 	data = ""
+# 	read_name = ""
+# 	flag = 0
+# 	start_idx = 0
+# 	end_idx = 0
+
+# 	def split(bam_string):
+# 		data = bam_string.split()
+# 		read_name = data[0]
+# 		flag = data[1]
+# 		start_idx = data[3]
+# 		end_idx = data[4]
 
 
 def main():
