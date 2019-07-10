@@ -87,12 +87,13 @@ class ReadAlignments:
 		# 40 * (1 - f2/f1) * min(1, m/200) * log f1
 
 		if (self.primary.shared_sck_count == 0):
-			print("Prim has no unique kmers")
 			self.score =  0
 		elif (self.secondary):
-			self.score =  40 * (1 - self.secondary.shared_sck_count / self.primary.shared_sck_count) * min (1.0, self.primary.order_score / 200)
-			print("Secondary also has kmers")
-			print(self.secondary)
+			self.score =  40 * (1 - self.secondary.shared_sck_count / self.primary.shared_sck_count) * min(1.0, self.primary.order_score / 200)
+			
+			print("Secondary exists")
+			print(self)
+			print(self.score)
 		else:
 			self.score =  40 *  min (1.0, self.primary.order_score / 200)
 			#print(self.primary)
@@ -215,7 +216,7 @@ def main():
 	for read_name in alignments:
 		read_aligns = alignments[read_name]
 		read_aligns.mapQScore()
-		print(read_aligns)
+		#print(read_aligns)
 		#print(read_aligns)
 		# if(toptwo.second_best != None):
 		# 	print(toptwo.second_best)
