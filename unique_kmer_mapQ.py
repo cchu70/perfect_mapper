@@ -3,6 +3,7 @@
 # Where fi is the number of shared unique kemrs between a read and its alignment i. For each read, we only consider the first (f1) and second best (f2)
 import sys
 import os.path
+import math
 
 
 class TopTwo:
@@ -51,6 +52,7 @@ class TopTwo:
 class ReadAlignments:
 	primary = None # Type alignData
 	secondary = None
+	score = 0
 
 	def __init__(self, prim, sec):
 		self.primary = primary
@@ -81,8 +83,27 @@ class ReadAlignments:
 		#####
 	#####
 
-	# def mapQScore(self):
+	def mapQScore(self):
 		# 40 * (1 - f2/f1) * min(1, m/200) * log f1
+
+		if (self.primary.sck_count == 0):
+			print("Prim has no unique kmers")
+			self.score =  0
+		elif (self.secondary):
+			self.score =  40 * (1 - self.secondary.sck_count / self.primary.sck_count) * min (1.0, self.primary.order_score / 200)
+			print("Secondary also has kmers")
+			print(self.secondary)
+		else:
+			self.score =  40 *  min (1.0, self.primary.order_score / 200)
+			#print(self.primary)
+		#####
+	#####
+
+	def __str__(self):
+		if (self.secondary):
+			return "Score: %0.5f\nPrimary: %s\n Secondary: %s" % (self.score, self.primary, self.secondary)
+		else:
+			return "Score: %0.5f\nPrimary: %s" % (self.score, self.primary)
 
 
 
@@ -93,17 +114,14 @@ class AlignData:
 	MQ = 0
 
 	data = ""
-	score = 0.0
 
 	is_primary = False
 
 	supp = None
 
-	def __init__(self, data_string, sck_count, score=0):
-		self.sck_count = sck_count
-		self.data = data_string
-		self.score = score
-		self.primary = self.isPrimary(self.split(data_string)["flag"])
+	def __init__(self, data_string):
+		self.split(data_string)
+		
 	#####
 
 	def greaterThan(self, align_data):
@@ -123,7 +141,7 @@ class AlignData:
 	#####
 
 	def __str__(self):
-		return "%s\t%0.5f" % (self.data, self.score)
+		return "%s\t%0.5f" % (self.data, self.sck_count)
 #####
 
 
@@ -137,8 +155,17 @@ class Minimap2Alignment(AlignData):
 		data = bam_string.split()
 		self.read_name = data[0]
 		self.flag = int(data[1])
-		self.start_idx = int(data[3])
-		self.end_idx = int(data[4])
+		self.is_primary = self.isPrimary(self.flag)
+
+		self.start_idx = float(data[3])
+		self.end_idx = float(data[4])
+		self.MQ = float(data[5])
+
+		self.sck_count = float(data[6])
+		# self.order_score = float(data[3])
+		self.order_score = 100.0
+		self.data = bam_string
+
 		
 
 	def isPrimary(self,flag):
@@ -162,8 +189,9 @@ def main():
 	else:
 		sys.stderr.write("Loading file %s\n" % map_sck_counts)
 	#####
-	read_name_idx = int(sys.argv[2])
-	sck_count_idx = int(sys.argv[3])
+	# read_name_idx = int(sys.argv[2])
+	# sck_count_idx = int(sys.argv[3])
+	# order_score_idx = int(sys.argv[4])
 
 	
 	alignments = {}
@@ -171,23 +199,24 @@ def main():
 
 	for line in open(map_sck_counts, "r"):
 		# Dictionary of reads maintains queue of the sck alignment scores for each read
-		data = line.split()
-		read_name = data[read_name_idx]
-		sck_count = int(data[sck_count_idx])
-		align_data = Minimap2Alignment(line.strip(), float(sck_count))
+		# data = line.split()
+		# read_name = data[read_name_idx]
+		# sck_count = int(data[sck_count_idx])
+		# order_score = 
+		align_data = Minimap2Alignment(line.strip())
 
 		try:
-			alignments[read_name].add(align_data)
+			alignments[align_data.read_name].add(align_data)
 		except KeyError:
-			alignments[read_name] = ReadAlignments(align_data)
+			alignments[align_data.read_name] = ReadAlignments(align_data)
 		#####
 	#####
 
 	for read_name in alignments:
-		toptwo = alignments[read_name]
-		toptwo.mapQScore()
-		
-		print(toptwo.best)
+		read_aligns = alignments[read_name]
+		read_aligns.mapQScore()
+		print(read_aligns)
+		#print(read_aligns)
 		# if(toptwo.second_best != None):
 		# 	print(toptwo.second_best)
 	#####
