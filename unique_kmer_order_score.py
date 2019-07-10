@@ -183,7 +183,7 @@ def main():
 				start = int(data[idx_start])
 				end = int(data[idx_end])
 				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
-				print("%s\t%d\t%d" % (line.strip(), score))
+				print("%s\t%d" % (line.strip(), score))
 			except:
 				continue
 		#####
@@ -192,7 +192,7 @@ def main():
 		try:
 			read_kmer_idx = kmer_indices[read_name]
 			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
-			print("%s\t%d\t%d" % (line.strip(), score))
+			print("%s\t%d" % (line.strip(), score))
 		except:
 			pass
 #####
