@@ -206,7 +206,7 @@ def main():
 		align_data = Minimap2Alignment(line.strip())
 
 		try:
-			alignments[align_data.read_name].add(align_data)
+			alignments[align_data.read_name].add_align(align_data)
 		except KeyError:
 			alignments[align_data.read_name] = ReadAlignments(align_data)
 		#####
