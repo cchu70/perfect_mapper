@@ -14,9 +14,6 @@ class TopTwo:
 		# print(align_data.data)
 		if (self.best == None):
 			self.best = align_data
-		elif (align_data.data.split()[1] == '2048'):
-			# Supplementary alignment to the primary read
-
 
 		elif (align_data.greaterThan(self.best)):
 			# print("Original best %s" % self.best.sck_count)
@@ -60,16 +57,45 @@ class ReadAlignments:
 		self.secondary = sec
 	#####
 
+	def __init__(self, align_data):
+		if (align_data.is_primary):
+			self.primary = align_data
+		else:
+			self.secondary = align_data
+		#####
+	#####
+
 	def add_align(self, align_data):
-		minimap2_bam_split(align_data.data)
+		if (align_data.is_primary):
+			if (self.primary):
+				self.primary.incr_sck_count(align_data.sck_count)
+			else:
+				self.primary = align_data
+			#####
+		else:
+			if (self.secondary):
+				self.secondary.incr_sck_count(align_data.sck_count)
+			else:
+				self.secondary = align_data
+			#####
+		#####
+	#####
+
+	# def mapQScore(self):
+		# 40 * (1 - f2/f1) * min(1, m/200) * log f1
+
 
 
 class AlignData:
+	read_name = ""
 	sck_count = 0
+	order_score = 0
+	MQ = 0
+
 	data = ""
 	score = 0.0
 
-	primary = False
+	is_primary = False
 
 	supp = None
 
@@ -77,7 +103,7 @@ class AlignData:
 		self.sck_count = sck_count
 		self.data = data_string
 		self.score = score
-		self.primary = minimap2_bam_split(data_string)['primary']
+		self.primary = self.isPrimary(self.split(data_string)["flag"])
 	#####
 
 	def greaterThan(self, align_data):
@@ -101,21 +127,29 @@ class AlignData:
 #####
 
 
-# class Minimap2Alignment:
+class Minimap2Alignment(AlignData):
 
-# 	data = ""
-# 	read_name = ""
-# 	flag = 0
-# 	start_idx = 0
-# 	end_idx = 0
+	flag = 0
+	start_idx = 0
+	end_idx = 0
 
-# 	def split(bam_string):
-# 		data = bam_string.split()
-# 		read_name = data[0]
-# 		flag = data[1]
-# 		start_idx = data[3]
-# 		end_idx = data[4]
+	def split(self, bam_string):
+		data = bam_string.split()
+		self.read_name = data[0]
+		self.flag = int(data[1])
+		self.start_idx = int(data[3])
+		self.end_idx = int(data[4])
+		
 
+	def isPrimary(self,flag):
+		if (flag & 256 == 0):
+			# primary alignment
+			return True
+		else:
+			# secondary alignment
+			return False
+		#####
+	#####
 
 def main():
 
@@ -131,27 +165,21 @@ def main():
 	read_name_idx = int(sys.argv[2])
 	sck_count_idx = int(sys.argv[3])
 
-	# sys.stderr.write("Read name index: %d\nSCK count index: %d\n" %(read_name_idx, sck_count_idx))
-
-	# For each read, get the top two alignments if there are at least 2, else just take the only one
-
+	
 	alignments = {}
-
-	# Get the top two alignments for each read
+	# Collect all the shared unique kmers counts
 
 	for line in open(map_sck_counts, "r"):
 		# Dictionary of reads maintains queue of the sck alignment scores for each read
 		data = line.split()
 		read_name = data[read_name_idx]
 		sck_count = int(data[sck_count_idx])
-		align_data = AlignData(line.strip(), float(sck_count))
-		#print(align_data)
-		# print("Read Name: %s\t sck_count: %d" % (read_name, sck_count))
+		align_data = Minimap2Alignment(line.strip(), float(sck_count))
 
 		try:
 			alignments[read_name].add(align_data)
 		except KeyError:
-			alignments[read_name] = TopTwo(align_data)
+			alignments[read_name] = ReadAlignments(align_data)
 		#####
 	#####
 
