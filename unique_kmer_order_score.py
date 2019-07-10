@@ -158,12 +158,12 @@ def main():
 	else:
 		# get the function selected
 
-		# try:
-		# 	reward = int(sys.argv[7])
-		# 	penalty = int(sys.argv[8])
-		# except:
-		# 	sys.stderr.write("Using defaults: reward = 0, penalty = %d\n")
-		# #####
+		try:
+			reward = int(sys.argv[7])
+			penalty = int(sys.argv[8])
+		except:
+			sys.stderr.write("Using defaults: reward = 0, penalty = %d\n")
+		#####
 
 		scoreMashMapAlignments = score_types_func[score_type]
 	#####
