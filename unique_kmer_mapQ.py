@@ -6,7 +6,7 @@ import os.path
 import math
 
 
-class TopTwo:
+#class TopTwo:
 
 	# best = None
 	# second_best = None
