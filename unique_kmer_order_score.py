@@ -184,7 +184,9 @@ def main():
 				sck_count = count_shared_sck(start, end, read_kmer_idx)
 				total_shared[read_name] = total_shared[read_name] + sck_count # Add all the merged regions shared unique kmers together
 			except KeyError:
-				pass
+				read_kmer_idx = kmer_indices[read_name]
+				sck_count = count_shared_sck(start, end, read_kmer_idx)
+				total_shared[read_name] = sck_count
 			#####
 		#####
 	sys.stderr.write("Done with bed file")
