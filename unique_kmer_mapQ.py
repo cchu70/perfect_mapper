@@ -274,10 +274,19 @@ def main():
 	for read_name in alignments:
 		true_start = true_origins_start[read_name]
 		best_align = mapQBest[read_name]
+		print(read_name)
 		for read_align in alignments[read_name]:
 			# 50% covers
 			l_bound = true_start - read_align.length / 2.0
 			u_bound = true_start + read_align.length / 2.0
+
+			print(read_align.length)
+			print(true_start)
+			print(l_bound)
+			print(u_bound)
+			print(read_align.start_idx)
+			print("============")
+			
 			if l_bound <= read_align.start_idx <= u_bound:
 				read_align.isTrue = True
 
@@ -303,6 +312,7 @@ def main():
 				#####
 			#####
 		#####
+		assert False
 	###
 
 	print("=======================SUMMARY=======================")
