@@ -201,21 +201,20 @@ def main():
 			try:
 				read_kmer_idx = kmer_indices[read_name]
 				score = scoreMashMapAlignments(start, end, read_kmer_idx)
-				sys.stderr.write("%s\t%d"%(read_name, score))
 				print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
 			except KeyError:
 				pass
 			#####
 		#####
 
-		# Reached end of file
-		try:
-			read_kmer_idx = kmer_indices[read_name]
-			score = scoreMashMapAlignments(start, end, read_kmer_idx)		
-			print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
-		except KeyError:
-			pass
-		#####
+		# # Reached end of file
+		# try:
+		# 	read_kmer_idx = kmer_indices[read_name]
+		# 	score = scoreMashMapAlignments(start, end, read_kmer_idx)		
+		# 	print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
+		# except KeyError:
+		# 	pass
+		# #####
 
 	
 
