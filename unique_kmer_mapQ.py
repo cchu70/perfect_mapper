@@ -4,7 +4,6 @@
 import sys
 import os.path
 import math
-from enum import Enum
 
 
 #class TopTwo:
@@ -108,19 +107,40 @@ class ReadAlignments:
 			return "Score: %0.5f\nPrimary: %s" % (self.score, self.primary)
 
 
-
 class AlignData:
 	read_name = ""
 	start_idx = 0
 	end_idx   = 0 
-	MQ        = 0
-	shared_sck_count = 0
-	order_score = 0
+	MQ        = 0.0
+	shared_sck_count = 0.0
+	order_score = 0.0
+	total_shared_sck_count = 0.0
 	align_type = None
 	data = ""
 
 	# To score based on the unique kmer counts
 	score = 0
+
+	def set(self, read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, data_string, total_shared_sck_count):
+		self.read_name = read_name
+		self.start_idx = start_idx
+		self.end_idx = end_idx
+		self.MQ = MQ
+		self.shared_sck_count = shared_sck_count
+		self.order_score = order_score
+		self.align_type = align_type
+		self.data = data_string
+		self.total_shared_sck_count = total_shared_sck_count
+		print("Made alignment for %s; align_type: %s, total_shared_sck_count: %d, shared_sck_count: %d" % (self.read_name, self.align_type, self.total_shared_sck_count, self.shared_sck_count))
+	#####
+
+	def mapQScore(self):
+		print(self.total_shared_sck_count)
+		if (self.total_shared_sck_count != 0.0):
+			print("Scoring!")
+			return 40 * (self.shared_sck_count / self.total_shared_sck_count) * min(1, self.order_score/500)*self.shared_sck_count
+		#####
+		
 
 	def greaterThan(self, align_data):
 		if (align_data == None):
@@ -139,8 +159,10 @@ class AlignData:
 	#####
 
 	def __str__(self):
-		return "%s\t%0.5f" % (self.data, self.shared_sck_count)
-#####
+		return "%s\t%0.5f\t%d\t%d\t%s" % (self.read_name, self.MQ, self.shared_sck_count, self.order_score, self.align_type)
+
+	def print_score(self):
+		return "%s\t%0.5f" % (self.data, self.score)
 
 
 class Minimap2Alignment(AlignData):
@@ -176,35 +198,35 @@ class Minimap2Alignment(AlignData):
 		#####
 	#####
 
-class AlignType(Enum):
-	PRIMARY, SECONDARY
+def which_align_type(string):
+	if (string == "tp:A:P"): 
+		return "primary"
+	elif (string == "tp:A:S"): 
+		return "secondary"
+	elif (string == "tp:A:I"): 
+		return "inversion"
+	else:
+		print("no alignment type for %s" % string)
+		assert False
+
+####
 
 class PAFAlign(AlignData):
-	align_type = None
 
 	def __init__(self, paf_string):
 		data = paf_string.split()
 
 		read_name = data[0]
-		start_idx = data[0]
-		end_idx = data[0]
-		MQ = data[0]
-		shared_sck_count = data[0]
-		order_score = data[0]
-		align_type = data[0]
+		start_idx = int(data[6])
+		end_idx = int(data[7])
+		MQ = float(data[11])
+		shared_sck_count = float(data[-2])
+		print("Shared sck_count: %s" % data[-2])
+		order_score = float(data[-2])
+		total_shared_sck_count = float(data[-1])
+		align_type = which_align_type(data[12])
 
-		self(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string)
-	#####
-
-	def __init__(self, read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, data_string):
-		self.read_name = read_name
-		self.start_idx = start_idx
-		self.end_idx = end_idx
-		self.MQ = MQ
-		self.shared_sck_count = shared_sck_count
-		self.order_score = order_score
-		self.align_type = align_type
-		self.data = data_string
+		self.set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string, total_shared_sck_count)
 	#####
 
 
@@ -233,18 +255,21 @@ def main():
 		# read_name = data[read_name_idx]
 		# shared_sck_count = int(data[shared_sck_count_idx])
 		# order_score = 
-		align_data = Minimap2Alignment(line.strip())
+		align_data = PAFAlign(line.strip())
 
 		try:
-			alignments[align_data.read_name].add_align(align_data)
+			alignments[align_data.read_name].append(align_data)
 		except KeyError:
-			alignments[align_data.read_name] = ReadAlignments(align_data)
+			# Assume each line is independent in a PAF file
+			# alignments[align_data.read_name] = ReadAlignments(align_data)
+			alignments[align_data.read_name] = [align_data]
 		#####
 	#####
 
 	for read_name in alignments:
-		read_aligns = alignments[read_name]
-		read_aligns.mapQScore()
+		for read_align in alignments[read_name]:
+			read_align.score = read_align.mapQScore()
+			#print(read_align.score)
 		#print(read_aligns)
 		#print(read_aligns)
 		# if(toptwo.second_best != None):

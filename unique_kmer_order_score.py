@@ -160,14 +160,6 @@ def main():
 		sys.stderr.write("%s is not a valid scoring option. Select from the following: \n %s\n" % (score_type, '\n\t-'.join(score_types_func)))
 		assert False
 	else:
-		# # get the function selected
-
-		# try:
-		# 	reward = int(sys.argv[8])
-		# 	penalty = int(sys.argv[9])
-		# except:
-		# 	sys.stderr.write("Using defaults: reward = 0, penalty = %d\n")
-		# #####
 
 		scoreMashMapAlignments = score_types_func[score_type]
 	#####
@@ -193,12 +185,12 @@ def main():
 				pass
 			#####
 		#####
-	print("Done with bed file")
+	sys.stderr.write("Done with bed file")
 
 	
 	# Get the actual sck counts for each alignment
 	with open(maps, "r") as mh:
-		print("# HEADER # Last two columns: %s_score\ttotal_shared_sck" % (score_type))
+		#print("# HEADER # Last two columns: %s_score\ttotal_shared_sck" % (score_type))
 		for line in mh:
 			data = line.split()
 			read_name = data[0] 
