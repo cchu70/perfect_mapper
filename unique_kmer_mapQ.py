@@ -252,6 +252,8 @@ def main():
 		mapQBest[read_name] = best_align
 	#####
 
+	print("Number of reads in mapQBest: %d" % len(mapQBest))
+
 	fh.close()
 
 ##############################################################################
@@ -313,6 +315,7 @@ def main():
 				#####
 
 			else:
+				# Alignment is false
 				if (read_align.isPrimary and (read_align == best_align)):
 					minimap_prim_false_count += 1
 					sck_mapQ_prim_false_count += 1
@@ -342,7 +345,7 @@ def main():
 	print("MapQ Primary False: %d" % sck_mapQ_prim_false_count)
 	print("MapQ Secondary True: %d" % sck_mapQ_sec_true_count)
 	print("MapQ Secondary False: %d\n" % sck_mapQ_sec_false_count)
-	
+
 	print("Minimap and MapQ Primary True: %d" % minimap_sck_mapQ_agree_true)
 	print("Minimap and MapQ Primary False: %d" % minimap_sck_mapQ_agree_false)
 
