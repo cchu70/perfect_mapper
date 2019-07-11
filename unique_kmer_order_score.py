@@ -179,7 +179,16 @@ def main():
 			read_name = data[0]
 			start = float(data[1])
 			end = float(data[2])
-			read_kmer_idx = kmer_indices[read_name]
+
+			read_kmer_idx = None
+			try:
+				read_kmer_idx = kmer_indices[read_name]
+			except:
+				# This read had no unique kmers to begin with
+				total_shared[read_name] = 0
+				continue
+			#####
+
 			sck_count = count_shared_sck(start, end, read_kmer_idx)
 			try:
 				total_shared[read_name] = total_shared[read_name] + sck_count # Add all the merged regions shared unique kmers together
