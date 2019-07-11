@@ -66,7 +66,7 @@ def score_correct_incorrect_ordering(read_name, start, end, read_kmer_idx):
 
 
 # Return the number of shared unique kmers with the aligned region
-def score_mapQ(read_name, start, end, read_kmer_idx):
+def count_shared_sck(read_name, start, end, read_kmer_idx):
 	score = 0
 	begin = False
 
@@ -77,6 +77,7 @@ def score_mapQ(read_name, start, end, read_kmer_idx):
 			#####
 		#####
 	#####
+
 	return score
 
 
@@ -116,7 +117,7 @@ def parseDump(dump_filename):
 #=================================================================================
 score_types_func = {'plus1_only': score_correct_order_only,
 					'plus_minus': score_correct_incorrect_ordering,
-					'mapQ': score_mapQ}
+					'mapQ': count_shared_sck}
 
 
 
@@ -135,6 +136,9 @@ def main():
 	# Specify columns later
 	maps = sys.argv[2]
 
+	# Sorted and merged bed file of each read's alignments
+	align_merge_bed = sys.argv[3]
+
 	if (not os.path.isfile(dump)):
 		sys.stderr.write("%s is not a file. Halting execution" % dump)
 		assert False
@@ -146,24 +150,24 @@ def main():
 	#####
 
 
-	idx_read_name = sys.argv[3]
-	idx_start = int(sys.argv[4])
-	idx_end = int(sys.argv[5])
+	idx_read_name = sys.argv[4]
+	idx_start = int(sys.argv[5])
+	idx_end = int(sys.argv[6])
 
-	score_type = sys.argv[6]
+	score_type = sys.argv[7]
 
 	if (score_type not in score_types_func):
 		sys.stderr.write("%s is not a valid scoring option. Select from the following: \n %s\n" % (score_type, '\n\t-'.join(score_types_func)))
 		assert False
 	else:
-		# get the function selected
+		# # get the function selected
 
-		try:
-			reward = int(sys.argv[7])
-			penalty = int(sys.argv[8])
-		except:
-			sys.stderr.write("Using defaults: reward = 0, penalty = %d\n")
-		#####
+		# try:
+		# 	reward = int(sys.argv[8])
+		# 	penalty = int(sys.argv[9])
+		# except:
+		# 	sys.stderr.write("Using defaults: reward = 0, penalty = %d\n")
+		# #####
 
 		scoreMashMapAlignments = score_types_func[score_type]
 	#####
@@ -173,28 +177,57 @@ def main():
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
 
-	with open(maps, "r") as mh:
+ 	# Count the total number of unique kmers on all the alignments for a single read (overlapping alignments)
+	total_shared = {}
+	with open(align_merge_bed, "r") as bh:
+		for line in bh:
+			data = line.split()
+			read_name = data[0]
+			start = float(data[1])
+			end = float(data[2])
+			try:
+				read_kmer_idx = kmer_indices[read_name]
+				sck_count = count_shared_sck(read_name, start, end, read_kmer_idx)
+				total_shared[read_name] = sck_count
+			except KeyError:
+				pass
+			#####
+		#####
+	print("Done with bed file")
 
+	
+	# Get the actual sck counts for each alignment
+	with open(maps, "r") as mh:
+		print("# HEADER # Last two columns: %s_score\ttotal_shared_sck" % (score_type))
 		for line in mh:
 			data = line.split()
 			read_name = data[0] 
+			start = int(data[idx_start])
+			end = int(data[idx_end])
 			try:
 				read_kmer_idx = kmer_indices[read_name]
-				start = int(data[idx_start])
-				end = int(data[idx_end])
 				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
-				print("%s\t%d" % (line.strip(), score))
-			except:
-				continue
+				print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
+			except KeyError:
+				pass
+			#####
 		#####
 
 		# Reached end of file
 		try:
 			read_kmer_idx = kmer_indices[read_name]
 			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
-			print("%s\t%d" % (line.strip(), score))
-		except:
+			print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
+		except KeyError:
 			pass
+		#####
+
+	
+
+
+
+	
+
 #####
 
 
