@@ -350,11 +350,11 @@ def main():
 			if l_bound <= read_align.start_idx <= u_bound:
 				read_align.isTrue = True
 
-				if (read_align.isPrimary and (read_align == best_align)):
+				if ((read_align == comp_best_align) and (read_align == best_align)):
 					minimap_prim_true_count += 1
 					sck_mapQ_prim_true_count += 1
 					minimap_sck_mapQ_agree_true += 1
-				elif(read_align.isPrimary):
+				elif(read_align == comp_best_align):
 					minimap_prim_true_count += 1
 					sck_mapQ_sec_true_count += 1
 				elif(read_align == best_align):
@@ -368,11 +368,11 @@ def main():
 
 			else:
 				# Alignment is false
-				if (read_align.isPrimary and (read_align == best_align)):
+				if ((read_align == comp_best_align) and (read_align == best_align)):
 					minimap_prim_false_count += 1
 					sck_mapQ_prim_false_count += 1
 					minimap_sck_mapQ_agree_false += 1
-				elif(read_align.isPrimary):
+				elif(read_align == comp_best_align):
 					minimap_prim_false_count += 1
 					sck_mapQ_sec_false_count += 1
 				elif(read_align == best_align):
