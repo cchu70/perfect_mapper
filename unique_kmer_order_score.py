@@ -12,6 +12,7 @@ import os.path
 # Scoring methods
 def score_correct_order_only(start, end, read_kmer_idx):
 	# Go through each alignment of the previous read
+	# sys.stderr.write("In score_correct_order_only\nStart: %d, End: %d\n" %(start, end))
 	score = 0
 	begin = False
 	ref_idx_prev = 0
@@ -67,6 +68,7 @@ def score_correct_incorrect_ordering(start, end, read_kmer_idx):
 
 # Return the number of shared unique kmers with the aligned region
 def count_shared_sck(start, end, read_kmer_idx):
+	# sys.stderr.write("In count_shared_sck\n")
 	score = 0
 	begin = False
 
