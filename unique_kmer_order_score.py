@@ -165,7 +165,7 @@ def main():
 			assert False
 		#####
 
-	sys.stderr.write("%s,%s,%s,%s\n"%(idx_read_name, idx_start, idx_end,",".joint(score_types)))
+	sys.stderr.write("%s,%s,%s,%s\n"%(idx_read_name, idx_start, idx_end,",".join(score_types)))
 
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
