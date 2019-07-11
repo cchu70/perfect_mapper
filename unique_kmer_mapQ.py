@@ -268,6 +268,12 @@ def main():
 	minimap_prim_false_count = 0
 	sck_mapQ_prim_false_count = 0
 
+	minimap_sec_true_count = 0
+	sck_mapQ_sec_true_count = 0
+
+	minimap_sec_false_count = 0
+	sck_mapQ_sec_false_count = 0
+
 	minimap_sck_mapQ_agree_true = 0
 	minimap_sck_mapQ_agree_false = 0
 
@@ -296,8 +302,14 @@ def main():
 					minimap_sck_mapQ_agree_true += 1
 				elif(read_align.isPrimary):
 					minimap_prim_true_count += 1
+					sck_mapQ_sec_true_count += 1
 				elif(read_align == best_align):
 					sck_mapQ_prim_true_count += 1
+					minimap_sec_true_count += 1
+				else:
+					# Secondary read for both minimap and our scoring system
+					sck_mapQ_sec_true_count += 1
+					minimap_sec_true_count += 1
 				#####
 
 			else:
@@ -307,8 +319,14 @@ def main():
 					minimap_sck_mapQ_agree_false += 1
 				elif(read_align.isPrimary):
 					minimap_prim_false_count += 1
+					sck_mapQ_sec_false_count += 1
 				elif(read_align == best_align):
 					sck_mapQ_prim_false_count += 1
+					minimap_sec_false_count += 1
+				else:
+					# Both methods indicate false secondary alignment
+					minimap_sec_false_count += 1
+					sck_mapQ_sec_false_count += 1
 				#####
 			#####
 		#####
