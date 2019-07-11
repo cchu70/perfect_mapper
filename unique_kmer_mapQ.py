@@ -391,7 +391,7 @@ def main():
 	print("%s Primary True: %d" % (file_type, minimap_prim_true_count))
 	print("%s Primary False: %d" % (file_type, minimap_prim_false_count))
 	print("%s Secondary True: %d" % (file_type, minimap_sec_true_count))
-	print("%s Secondary False: %d\n" % (file_type, minimap_sec_false_count)
+	print("%s Secondary False: %d\n" % (file_type, minimap_sec_false_count))
 
 	print("MapQ Primary True: %d" % sck_mapQ_prim_true_count)
 	print("MapQ Primary False: %d" % sck_mapQ_prim_false_count)
