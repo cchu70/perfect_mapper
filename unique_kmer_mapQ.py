@@ -4,6 +4,7 @@
 import sys
 import os.path
 import math
+from enum import Enum
 
 
 #class TopTwo:
@@ -110,20 +111,16 @@ class ReadAlignments:
 
 class AlignData:
 	read_name = ""
+	start_idx = 0
+	end_idx   = 0 
+	MQ        = 0
 	shared_sck_count = 0
 	order_score = 0
-	MQ = 0
-
+	align_type = None
 	data = ""
 
-	is_primary = False
-
-	supp = None
-
-	def __init__(self, data_string):
-		self.split(data_string)
-		
-	#####
+	# To score based on the unique kmer counts
+	score = 0
 
 	def greaterThan(self, align_data):
 		if (align_data == None):
@@ -178,6 +175,38 @@ class Minimap2Alignment(AlignData):
 			return False
 		#####
 	#####
+
+class AlignType(Enum):
+	PRIMARY, SECONDARY
+
+class PAFAlign(AlignData):
+	align_type = None
+
+	def __init__(self, paf_string):
+		data = paf_string.split()
+
+		read_name = data[0]
+		start_idx = data[0]
+		end_idx = data[0]
+		MQ = data[0]
+		shared_sck_count = data[0]
+		order_score = data[0]
+		align_type = data[0]
+
+		self(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string)
+	#####
+
+	def __init__(self, read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, data_string):
+		self.read_name = read_name
+		self.start_idx = start_idx
+		self.end_idx = end_idx
+		self.MQ = MQ
+		self.shared_sck_count = shared_sck_count
+		self.order_score = order_score
+		self.align_type = align_type
+		self.data = data_string
+	#####
+
 
 def main():
 
