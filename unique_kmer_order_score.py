@@ -10,7 +10,7 @@ import os.path
 #=================================================================================
 
 # Scoring methods
-def score_correct_order_only(read_name, start, end, read_kmer_idx):
+def score_correct_order_only(start, end, read_kmer_idx):
 	# Go through each alignment of the previous read
 	score = 0
 	begin = False
@@ -36,7 +36,7 @@ def score_correct_order_only(read_name, start, end, read_kmer_idx):
 	return score
 #####
 
-def score_correct_incorrect_ordering(read_name, start, end, read_kmer_idx):
+def score_correct_incorrect_ordering(start, end, read_kmer_idx):
 	# Go through each alignment of the previous read
 	score = 0
 	begin = False
@@ -66,7 +66,7 @@ def score_correct_incorrect_ordering(read_name, start, end, read_kmer_idx):
 
 
 # Return the number of shared unique kmers with the aligned region
-def count_shared_sck(read_name, start, end, read_kmer_idx):
+def count_shared_sck(start, end, read_kmer_idx):
 	score = 0
 	begin = False
 
@@ -179,8 +179,8 @@ def main():
 			end = float(data[2])
 			try:
 				read_kmer_idx = kmer_indices[read_name]
-				sck_count = count_shared_sck(read_name, start, end, read_kmer_idx)
-				total_shared[read_name] = sck_count
+				sck_count = count_shared_sck(start, end, read_kmer_idx)
+				total_shared[read_name] = total_shared[read_name] + sck_count # Add all the merged regions shared unique kmers together
 			except KeyError:
 				pass
 			#####
@@ -198,7 +198,8 @@ def main():
 			end = int(data[idx_end])
 			try:
 				read_kmer_idx = kmer_indices[read_name]
-				score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)
+				score = scoreMashMapAlignments(start, end, read_kmer_idx)
+				sys.stderr.write("%s\t%d"%(read_name, score))
 				print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
 			except KeyError:
 				pass
@@ -208,7 +209,7 @@ def main():
 		# Reached end of file
 		try:
 			read_kmer_idx = kmer_indices[read_name]
-			score = scoreMashMapAlignments(read_name, start, end, read_kmer_idx)		
+			score = scoreMashMapAlignments(start, end, read_kmer_idx)		
 			print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
 		except KeyError:
 			pass
