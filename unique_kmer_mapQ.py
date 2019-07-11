@@ -335,10 +335,17 @@ def main():
 	print("=======================SUMMARY=======================")
 	print("Minimap Primary True: %d" % minimap_prim_true_count)
 	print("Minimap Primary False: %d" % minimap_prim_false_count)
+	print("Minimap Secondary True: %d" % minimap_sec_true_count)
+	print("Minimap Secondary False: %d\n" % minimap_sec_false_count)
+
 	print("MapQ Primary True: %d" % sck_mapQ_prim_true_count)
 	print("MapQ Primary False: %d" % sck_mapQ_prim_false_count)
+	print("MapQ Secondary True: %d" % sck_mapQ_sec_true_count)
+	print("MapQ Secondary False: %d\n" % sck_mapQ_sec_false_count)
+	
 	print("Minimap and MapQ Primary True: %d" % minimap_sck_mapQ_agree_true)
 	print("Minimap and MapQ Primary False: %d" % minimap_sck_mapQ_agree_false)
+
 	print("=====================================================")
 
 
