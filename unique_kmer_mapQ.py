@@ -93,6 +93,19 @@ class AlignData:
 		# print("Made alignment for %s; align_type: %s, total_shared_sck_count: %d, shared_sck_count: %d" % (self.read_name, self.align_type, self.total_shared_sck_count, self.shared_sck_count))
 	#####
 
+	def set(self, read_name, length, start_idx, end_idx, MQ, shared_sck_count, order_score, data_string, total_shared_sck_count):
+		self.read_name = read_name
+		self.length = length
+		self.start_idx = start_idx
+		self.end_idx = end_idx
+		self.MQ = MQ
+		self.shared_sck_count = shared_sck_count
+		self.order_score = order_score
+		self.data = data_string
+		self.total_shared_sck_count = total_shared_sck_count
+	
+
+
 	def mapQScore(self):
 		# print(self.total_shared_sck_count)
 		if (self.total_shared_sck_count != 0.0):
@@ -165,7 +178,7 @@ def which_align_type(string):
 ####
 
 class PAFAlign(AlignData):
-	isPrimary = False
+
 
 	# Somehow allow dynamic selection of these indices
 	def __init__(self, paf_string):
@@ -181,12 +194,36 @@ class PAFAlign(AlignData):
 		total_shared_sck_count = float(data[-3])
 		align_type = which_align_type(data[12])
 
-		if (align_type == "primary"):
-			self.isPrimary = True
-		#####
-
 		self.set(read_name, length, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string, total_shared_sck_count)
 	#####
+
+	def isPrimary(self, align_data):
+		if (align_type == "primary"):
+			return True
+		#####
+	####
+#####
+
+class MashMapAlign(AlignData):
+	# Somehow allow dynamic selection of these indices
+	def __init__(self, mash_string):
+		data = mash_string.split()
+
+		read_name = data[0]
+		length = int(data[1])
+		start_idx = int(data[7])
+		end_idx = int(data[8])
+		MQ = float(data[9])
+		shared_sck_count = float(data[-1])
+		order_score = float(data[-2])
+		total_shared_sck_count = float(data[-3])
+
+		self.set(read_name, length, start_idx, end_idx, MQ, shared_sck_count, order_score, mash_string, total_shared_sck_count)
+	#####
+
+	def isPrimary(self, align_data):
+		if self.MQ > align_data.MQ:
+			return True
 
 def parse_bed(bed_file):
 	true_origins = {}
@@ -209,7 +246,10 @@ def main():
 		sys.stderr.write("Loading file %s\n" % map_shared_sck_counts)
 	#####
 	
-	mapQ_output = sys.argv[2]
+	# Get the type of file (paf or mashmap)
+	file_type = sys.argv[2]
+
+	mapQ_output = sys.argv[3]
 	fh = open(mapQ_output, "w")
 
 	
@@ -221,9 +261,13 @@ def main():
 		# data = line.split()
 		# read_name = data[read_name_idx]
 		# shared_sck_count = int(data[shared_sck_count_idx])
-		# order_score = 
-		align_data = PAFAlign(line.strip())
-
+		# order_score =
+		align_data = None
+		if (file_type == "paf"):
+			align_data = PAFAlign(line.strip())
+		elif (file_type == "mashmap"):
+			align_data = MashMapAlign(line.strip())
+		#####
 		try:
 			alignments[align_data.read_name].append(align_data)
 		except KeyError:
@@ -236,20 +280,25 @@ def main():
 
 	# Collected the primary read according to our calculated mapQ score
 	mapQBest = {}
+	mapPrimary = {}
 
 	for read_name in alignments:
-		best_align = None
+		mapQ_best_align = None
+		map_comp_prim = None
 		for read_align in alignments[read_name]:
 			read_align.score = read_align.mapQScore()
 			fh.write(read_align.print_score())
 
-			if (read_align.greaterThan(best_align)):
-				best_align = read_align
+			if (read_align.greaterThan(mapQ_best_align)):
+				mapQ_best_align = read_align
 			#####
-		#####
 
+			if (read_align.isPrimary(mapQ_best_align)):
+				map_comp_prim = read_align
+		#####
 		# Record the best alignment for each read based on our score
-		mapQBest[read_name] = best_align
+		mapQBest[read_name] = mapQ_best_align
+		mapPrimary[read_name] = map_comp_prim
 	#####
 
 	print("Number of reads in mapQBest: %d" % len(mapQBest))
@@ -260,7 +309,7 @@ def main():
 	# Verify correctness
 	# Pass in the read's true region
 
-	read_org_bed = sys.argv[3]
+	read_org_bed = sys.argv[4]
 
 	true_origins_start = parse_bed(read_org_bed)
 
@@ -281,8 +330,9 @@ def main():
 
 	for read_name in alignments:
 		true_start = true_origins_start[read_name]
-		best_align = mapQBest[read_name]
-		# print(read_name)
+		best_align = mapQBest[read_name] # Our scoring scheme
+		comp_best_align = mapPrimary[read_name] # mapper we are comparing to
+		
 		for read_align in alignments[read_name]:
 			# 50% covers
 			l_bound = true_start - read_align.length / 2.0
