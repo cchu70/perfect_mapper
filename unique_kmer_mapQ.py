@@ -5,50 +5,6 @@ import sys
 import os.path
 import math
 
-
-#class TopTwo:
-
-	# best = None
-	# second_best = None
-
-	# def add(self, align_data):
-	# 	# print(align_data.data)
-	# 	if (self.best == None):
-	# 		self.best = align_data
-
-	# 	elif (align_data.greaterThan(self.best)):
-	# 		# print("Original best %s" % self.best.sck_count)
-	# 		self.second_best = self.best
-	# 		self.best = align_data
-	# 		# print("New best: %d" % align_data.sck_count)
-	# 	elif (align_data.greaterThan(self.second_best)):
-	# 		self.second_best = align_data
-	# 		#print("Second best: %d" % align_data.sck_count)
-	# 	#####
-	# #####
-
-	# def __init__(self, align_data_A, align_data_B=None):
-
-	# 	if (align_data_A.greaterThan(align_data_B)):
-	# 		self.best = align_data_A
-	# 		self.second_best = align_data_B
-	# 	else:
-	# 		self.best = align_data_B
-	# 		self.second_best = align_data_A
-	# 	#####
-	# 	# print("Best: %s\n sck_count %s" % (self.best.data, self.best.sck_count))\
-
-	# def mapQScore(self):
-	# 	if (self.second_best != None):
-	# 		if (self.best.sck_count > 0):
-	# 			self.best.score =  1.0 - (float(self.second_best.sck_count)/float(self.best.sck_count))
-	# 		else:
-	# 			self.best.score = 0.0
-	# 	else:
-	# 		self.best.score =  1.0
-	# 	#####
-#####
-
 class ReadAlignments:
 	primary = None # Type alignData
 	secondary = None
@@ -109,6 +65,7 @@ class ReadAlignments:
 
 class AlignData:
 	read_name = ""
+	length = 0
 	start_idx = 0
 	end_idx   = 0 
 	MQ        = 0.0
@@ -117,12 +74,14 @@ class AlignData:
 	total_shared_sck_count = 0.0
 	align_type = None
 	data = ""
+	isTrue = False
 
 	# To score based on the unique kmer counts
 	score = 0
 
-	def set(self, read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, data_string, total_shared_sck_count):
+	def set(self, read_name, length, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, data_string, total_shared_sck_count):
 		self.read_name = read_name
+		self.length = length
 		self.start_idx = start_idx
 		self.end_idx = end_idx
 		self.MQ = MQ
@@ -148,23 +107,15 @@ class AlignData:
 		if (align_data == None):
 			return True
 		else:
-			return self.shared_sck_count > align_data.shared_sck_count 
+			return self.score > align_data.score 
 		#####
-	#####
-
-	def set_shared_sck_count(self,i):
-		self.shared_sck_count = i
-	#####
-
-	def incr_shared_sck_count(self, to_add):
-		self.shared_sck_count = self.shared_sck_count + to_add
 	#####
 
 	def __str__(self):
 		return "%s\t%0.5f\t%d\t%d\t%s" % (self.read_name, self.MQ, self.shared_sck_count, self.order_score, self.align_type)
 
 	def print_score(self):
-		print("%s\t%0.5f" % (self.data, self.score)) 
+		return "%s\t%0.5f" % (self.data, self.score)
 
 
 class Minimap2Alignment(AlignData):
@@ -214,12 +165,14 @@ def which_align_type(string):
 ####
 
 class PAFAlign(AlignData):
+	isPrimary = False
 
 	# Somehow allow dynamic selection of these indices
 	def __init__(self, paf_string):
 		data = paf_string.split()
 
 		read_name = data[0]
+		length = int(data[1])
 		start_idx = int(data[6])
 		end_idx = int(data[7])
 		MQ = float(data[11])
@@ -228,8 +181,20 @@ class PAFAlign(AlignData):
 		total_shared_sck_count = float(data[-3])
 		align_type = which_align_type(data[12])
 
-		self.set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string, total_shared_sck_count)
+		if (align_type == "primary"):
+			self.isPrimary = True
+		#####
+
+		self.set(read_name, length, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string, total_shared_sck_count)
 	#####
+
+def parse_bed(bed_file):
+	true_origins = {}
+	for line in open(bed_file, "r"):
+		read_name, start, end = line.strip().split()
+		true_origins[read_name] = int(start)
+	#####
+	return true_origins
 
 
 def main():
@@ -243,9 +208,9 @@ def main():
 	else:
 		sys.stderr.write("Loading file %s\n" % map_shared_sck_counts)
 	#####
-	# read_name_idx = int(sys.argv[2])
-	# shared_sck_count_idx = int(sys.argv[3])
-	# order_score_idx = int(sys.argv[4])
+	
+	mapQ_output = sys.argv[2]
+	fh = open(mapQ_output, "w")
 
 	
 	alignments = {}
@@ -268,15 +233,86 @@ def main():
 		#####
 	#####
 
+
+	# Collected the primary read according to our calculated mapQ score
+	mapQBest = {}
+
 	for read_name in alignments:
+		best_align = None
 		for read_align in alignments[read_name]:
 			read_align.score = read_align.mapQScore()
-			read_align.print_score()
-		#print(read_aligns)
-		#print(read_aligns)
-		# if(toptwo.second_best != None):
-		# 	print(toptwo.second_best)
+			fh.write(read_align.print_score())
+
+			if (read_align.greaterThan(best_align)):
+				best_align = read_align
+			#####
+		#####
+
+		# Record the best alignment for each read based on our score
+		mapQBest[read_name] = best_align
 	#####
+
+	fh.close()
+
+##############################################################################
+	# Verify correctness
+	# Pass in the read's true region
+
+	read_org_bed = sys.argv[3]
+
+	true_origins_start = parse_bed(read_org_bed)
+
+	# For each alignment, check if the alignment is true, and if it is primary or not
+	minimap_prim_true_count = 0
+	sck_mapQ_prim_true_count = 0
+	minimap_prim_false_count = 0
+	sck_mapQ_prim_false_count = 0
+
+	minimap_sck_mapQ_agree_true = 0
+	minimap_sck_mapQ_agree_false = 0
+
+	for read_name in alignments:
+		true_start = true_origins_start[read_name]
+		best_align = mapQBest[read_name]
+		for read_align in alignments[read_name]:
+			# 50% covers
+			l_bound = true_start - read_align.length / 2.0
+			u_bound = true_start + read_align.length / 2.0
+			if l_bound <= read_align.start_idx <= u_bound:
+				read_align.isTrue = True
+
+				if (read_align.isPrimary and (read_align == best_align)):
+					minimap_prim_true_count += 1
+					sck_mapQ_prim_true_count += 1
+					minimap_sck_mapQ_agree_true += 1
+				elif(read_align.isPrimary):
+					minimap_prim_true_count += 1
+				elif(read_align == best_align):
+					sck_mapQ_prim_true_count += 1
+				#####
+
+			else:
+				if (read_align.isPrimary and (read_align == best_align)):
+					minimap_prim_false_count += 1
+					sck_mapQ_prim_false_count += 1
+					minimap_sck_mapQ_agree_false += 1
+				elif(read_align.isPrimary):
+					minimap_prim_false_count += 1
+				elif(read_align == best_align):
+					sck_mapQ_prim_false_count += 1
+				#####
+			#####
+		#####
+	###
+
+	print("=======================SUMMARY=======================")
+	print("Minimap Primary True: %d" % minimap_prim_true_count)
+	print("Minimap Primary False: %d" % minimap_prim_false_count)
+	print("MapQ Primary True: %d" % sck_mapQ_prim_true_count)
+	print("MapQ Primary False: %d" % sck_mapQ_prim_false_count)
+	print("=====================================================")
+
+
 
 
 
