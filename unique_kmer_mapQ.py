@@ -173,8 +173,8 @@ class PAFAlign(AlignData):
 
 		read_name = data[0]
 		length = int(data[1])
-		start_idx = int(data[6])
-		end_idx = int(data[7])
+		start_idx = int(data[7])
+		end_idx = int(data[8])
 		MQ = float(data[11])
 		shared_sck_count = float(data[-1])
 		order_score = float(data[-2])
