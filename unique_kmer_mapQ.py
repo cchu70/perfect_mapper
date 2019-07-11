@@ -221,7 +221,6 @@ class PAFAlign(AlignData):
 		end_idx = int(data[7])
 		MQ = float(data[11])
 		shared_sck_count = float(data[-2])
-		print("Shared sck_count: %s" % data[-2])
 		order_score = float(data[-2])
 		total_shared_sck_count = float(data[-1])
 		align_type = which_align_type(data[12])
@@ -269,7 +268,7 @@ def main():
 	for read_name in alignments:
 		for read_align in alignments[read_name]:
 			read_align.score = read_align.mapQScore()
-			print(read_align)
+			read_align.print_score()
 		#print(read_aligns)
 		#print(read_aligns)
 		# if(toptwo.second_best != None):

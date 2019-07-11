@@ -117,9 +117,9 @@ def parseDump(dump_filename):
 #=================================================================================
 # Definitions
 #=================================================================================
-score_types_func = {'plus1_only': score_correct_order_only,
+score_types_func = {'count_order_plus1_only': score_correct_order_only,
 					'plus_minus': score_correct_incorrect_ordering,
-					'mapQ': count_shared_sck}
+					'count_shared_sck': count_shared_sck}
 
 
 
@@ -156,15 +156,14 @@ def main():
 	idx_start = int(sys.argv[5])
 	idx_end = int(sys.argv[6])
 
-	score_type = sys.argv[7]
+	score_types = sys.argv[7:]
 
-	if (score_type not in score_types_func):
-		sys.stderr.write("%s is not a valid scoring option. Select from the following: \n %s\n" % (score_type, '\n\t-'.join(score_types_func)))
-		assert False
-	else:
+	for score_type in score_types:
 
-		scoreMashMapAlignments = score_types_func[score_type]
-	#####
+		if (score_type not in score_types_func):
+			sys.stderr.write("%s is not a valid scoring option. Select from the following: \n %s\n" % (score_type, '\n\t-'.join(score_types_func)))
+			assert False
+		#####
 
 	sys.stderr.write("%s,%s,%s,%s"%(idx_read_name, idx_start, idx_end,score_type))
 
@@ -209,8 +208,13 @@ def main():
 			end = int(data[idx_end])
 			try:
 				read_kmer_idx = kmer_indices[read_name]
-				score = scoreMashMapAlignments(start, end, read_kmer_idx)
-				print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
+				out_scores = []
+				# Get multiple scores in the order requested 
+				for score_type in score_types:
+					score = score_types_func[score_type](start, end, read_kmer_idx)
+					out_scores.append(str(score))
+				# print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
+				print("%s\t%d\t%s" % (line.strip(), total_shared[read_name], "\t".join(out_scores)))
 			except KeyError:
 				pass
 			#####
