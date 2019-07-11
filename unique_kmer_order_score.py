@@ -142,12 +142,12 @@ def main():
 	align_merge_bed = sys.argv[3]
 
 	if (not os.path.isfile(dump)):
-		sys.stderr.write("%s is not a file. Halting execution" % dump)
+		sys.stderr.write("%s is not a file. Halting execution\n" % dump)
 		assert False
 	#####
 
 	if (not os.path.isfile(maps)):
-		sys.stderr.write("%s is not a file. Halting execution" % maps)
+		sys.stderr.write("%s is not a file. Halting execution\n" % maps)
 		assert False
 	#####
 
@@ -165,7 +165,7 @@ def main():
 			assert False
 		#####
 
-	sys.stderr.write("%s,%s,%s,%s"%(idx_read_name, idx_start, idx_end,score_type))
+	sys.stderr.write("%s,%s,%s,%s\n"%(idx_read_name, idx_start, idx_end,score_type))
 
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
@@ -195,7 +195,7 @@ def main():
 				total_shared[read_name] = sck_count
 			#####
 		#####
-	sys.stderr.write("Done with bed file")
+	sys.stderr.write("Done with bed file\n")
 
 	
 	# Get the actual sck counts for each alignment

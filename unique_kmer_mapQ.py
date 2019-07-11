@@ -162,7 +162,7 @@ class AlignData:
 		return "%s\t%0.5f\t%d\t%d\t%s" % (self.read_name, self.MQ, self.shared_sck_count, self.order_score, self.align_type)
 
 	def print_score(self):
-		return "%s\t%0.5f" % (self.data, self.score)
+		print("%s\t%0.5f" % (self.data, self.score)) 
 
 
 class Minimap2Alignment(AlignData):
@@ -213,6 +213,7 @@ def which_align_type(string):
 
 class PAFAlign(AlignData):
 
+	# Somehow allow dynamic selection of these indices
 	def __init__(self, paf_string):
 		data = paf_string.split()
 
@@ -220,9 +221,9 @@ class PAFAlign(AlignData):
 		start_idx = int(data[6])
 		end_idx = int(data[7])
 		MQ = float(data[11])
-		shared_sck_count = float(data[-2])
+		shared_sck_count = float(data[-1])
 		order_score = float(data[-2])
-		total_shared_sck_count = float(data[-1])
+		total_shared_sck_count = float(data[-3])
 		align_type = which_align_type(data[12])
 
 		self.set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, paf_string, total_shared_sck_count)
