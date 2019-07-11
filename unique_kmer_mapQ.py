@@ -137,7 +137,7 @@ class AlignData:
 	def mapQScore(self):
 		# print(self.total_shared_sck_count)
 		if (self.total_shared_sck_count != 0.0):
-			
+			print("40 * (%s / %s) * min(1, %s/500)*%s" % (self.shared_sck_count, self.total_shared_sck_count, self.order_score, self.shared_sck_count))
 			return 40 * (self.shared_sck_count / self.total_shared_sck_count) * min(1, self.order_score/500)*self.shared_sck_count
 		else:
 			return 0.0
