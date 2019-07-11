@@ -274,7 +274,7 @@ def main():
 	for read_name in alignments:
 		true_start = true_origins_start[read_name]
 		best_align = mapQBest[read_name]
-		print(read_name)
+		# print(read_name)
 		for read_align in alignments[read_name]:
 			# 50% covers
 			l_bound = true_start - read_align.length / 2.0
@@ -319,6 +319,8 @@ def main():
 	print("Minimap Primary False: %d" % minimap_prim_false_count)
 	print("MapQ Primary True: %d" % sck_mapQ_prim_true_count)
 	print("MapQ Primary False: %d" % sck_mapQ_prim_false_count)
+	print("Minimap and MapQ Primary True: %d" % minimap_sck_mapQ_agree_true)
+	print("Minimap and MapQ Primary False: %d" % minimap_sck_mapQ_agree_false)
 	print("=====================================================")
 
 
