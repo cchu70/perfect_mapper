@@ -156,16 +156,16 @@ def main():
 	idx_start = int(sys.argv[5])
 	idx_end = int(sys.argv[6])
 
-	score_types = sys.argv[7:]
+	score_types = sys.argv[7]
 
-	for score_type in score_types:
+	for score_type in score_types.split(","):
 
 		if (score_type not in score_types_func):
 			sys.stderr.write("%s is not a valid scoring option. Select from the following: \n %s\n" % (score_type, '\n\t-'.join(score_types_func)))
 			assert False
 		#####
 
-	sys.stderr.write("%s,%s,%s,%s\n"%(idx_read_name, idx_start, idx_end,score_type))
+	sys.stderr.write("%s,%s,%s,%s\n"%(idx_read_name, idx_start, idx_end,score_types))
 
 	# For each read, get the indices of the unique kmers
 	kmer_indices = parseDump(dump)
