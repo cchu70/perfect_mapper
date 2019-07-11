@@ -131,13 +131,13 @@ class AlignData:
 		self.align_type = align_type
 		self.data = data_string
 		self.total_shared_sck_count = total_shared_sck_count
-		print("Made alignment for %s; align_type: %s, total_shared_sck_count: %d, shared_sck_count: %d" % (self.read_name, self.align_type, self.total_shared_sck_count, self.shared_sck_count))
+		# print("Made alignment for %s; align_type: %s, total_shared_sck_count: %d, shared_sck_count: %d" % (self.read_name, self.align_type, self.total_shared_sck_count, self.shared_sck_count))
 	#####
 
 	def mapQScore(self):
-		print(self.total_shared_sck_count)
+		# print(self.total_shared_sck_count)
 		if (self.total_shared_sck_count != 0.0):
-			print("Scoring!")
+			
 			return 40 * (self.shared_sck_count / self.total_shared_sck_count) * min(1, self.order_score/500)*self.shared_sck_count
 		#####
 		
@@ -269,7 +269,7 @@ def main():
 	for read_name in alignments:
 		for read_align in alignments[read_name]:
 			read_align.score = read_align.mapQScore()
-			#print(read_align.score)
+			print(read_align)
 		#print(read_aligns)
 		#print(read_aligns)
 		# if(toptwo.second_best != None):
