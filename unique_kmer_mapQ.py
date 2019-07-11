@@ -280,12 +280,12 @@ def main():
 			l_bound = true_start - read_align.length / 2.0
 			u_bound = true_start + read_align.length / 2.0
 
-			print(read_align.length)
-			print(true_start)
-			print(l_bound)
-			print(u_bound)
-			print(read_align.start_idx)
-			print("============")
+			# print(read_align.length)
+			# print(true_start)
+			# print(l_bound)
+			# print(u_bound)
+			# print(read_align.start_idx)
+			# print("============")
 			
 			if l_bound <= read_align.start_idx <= u_bound:
 				read_align.isTrue = True
@@ -312,7 +312,6 @@ def main():
 				#####
 			#####
 		#####
-		assert False
 	###
 
 	print("=======================SUMMARY=======================")
