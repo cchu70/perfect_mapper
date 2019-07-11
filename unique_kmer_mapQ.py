@@ -139,6 +139,8 @@ class AlignData:
 		if (self.total_shared_sck_count != 0.0):
 			
 			return 40 * (self.shared_sck_count / self.total_shared_sck_count) * min(1, self.order_score/500)*self.shared_sck_count
+		else:
+			return 0.0
 		#####
 		
 
