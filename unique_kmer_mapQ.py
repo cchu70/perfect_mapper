@@ -224,6 +224,8 @@ class MashMapAlign(AlignData):
 	def isPrimary(self, align_data):
 		if self.MQ > align_data.MQ:
 			return True
+		else:
+			return False
 
 def parse_bed(bed_file):
 	true_origins = {}
@@ -386,18 +388,18 @@ def main():
 	###
 
 	print("=======================SUMMARY=======================")
-	print("Minimap Primary True: %d" % minimap_prim_true_count)
-	print("Minimap Primary False: %d" % minimap_prim_false_count)
-	print("Minimap Secondary True: %d" % minimap_sec_true_count)
-	print("Minimap Secondary False: %d\n" % minimap_sec_false_count)
+	print("%s Primary True: %d" % (file_type, minimap_prim_true_count))
+	print("%s Primary False: %d" % (file_type, minimap_prim_false_count))
+	print("%s Secondary True: %d" % (file_type, minimap_sec_true_count))
+	print("%s Secondary False: %d\n" % (file_type, minimap_sec_false_count)
 
 	print("MapQ Primary True: %d" % sck_mapQ_prim_true_count)
 	print("MapQ Primary False: %d" % sck_mapQ_prim_false_count)
 	print("MapQ Secondary True: %d" % sck_mapQ_sec_true_count)
 	print("MapQ Secondary False: %d\n" % sck_mapQ_sec_false_count)
 
-	print("Minimap and MapQ Primary True: %d" % minimap_sck_mapQ_agree_true)
-	print("Minimap and MapQ Primary False: %d" % minimap_sck_mapQ_agree_false)
+	print("%s and MapQ Primary True: %d" % (file_type, minimap_sck_mapQ_agree_true))
+	print("%s and MapQ Primary False: %d" % (file_type, minimap_sck_mapQ_agree_false))
 
 	print("=====================================================")
 
