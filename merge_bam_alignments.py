@@ -39,19 +39,22 @@ def parseCigar(cigar_string):
 
 	length = 0
 	num_string = ""
-	print(cigar_string)
+	
 
 	for c in cigar_string:
 		if c.isdigit():
 			num_string += c
 		else:
 			# A letter
-			d = int(num_string) # Convert the current num_string into a number
-			if (c == "M" or c == "D"):
-				# Only add up matches and deletions in the read
-				length += d
-			#####
-			num_string = ""
+			try:
+				d = int(num_string) # Convert the current num_string into a number
+				if (c == "M" or c == "D"):
+					# Only add up matches and deletions in the read
+					length += d
+				#####
+				num_string = ""
+			except:
+				sys.stderr.write("No cigar string? %s" % cigar_string)
 		#####
 	#####
 	return length
@@ -90,8 +93,6 @@ def main():
 	# Read through the sam file
 	for line in sam_fh:
 		read_name, flag, start, MQ, cigar = parseSam(line.split())
-
-		sys.stderr.write(line)
 
 		# print("%s\t%d\t%d\t%d" % (read_name, flag, start, MQ))
 		align_type = alignType(flag)
