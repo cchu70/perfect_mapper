@@ -309,7 +309,7 @@ def main():
 		mapPrimary[read_name] = map_comp_prim
 	#####
 
-	print("Number of reads in mapQBest: %d" % len(mapQBest))
+	print("Number of reads in mapQBest: %d" % len(alignments))
 
 	fh.close()
 
