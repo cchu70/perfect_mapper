@@ -222,6 +222,8 @@ class MashMapAlign(AlignData):
 	#####
 
 	def isPrimary(self, align_data):
+		if (align_data == None):
+			return True
 		if self.MQ > align_data.MQ:
 			return True
 		else:
@@ -291,12 +293,16 @@ def main():
 			read_align.score = read_align.mapQScore()
 			fh.write(read_align.print_score())
 
+			# This is our scheme's best alignment
 			if (read_align.greaterThan(mapQ_best_align)):
 				mapQ_best_align = read_align
 			#####
 
-			if (read_align.isPrimary(mapQ_best_align)):
+			# This is the original scheme's best alignment
+			if (read_align.isPrimary(map_comp_prim)):
 				map_comp_prim = read_align
+			# else:
+			# 	print("%d is not the best %s alignment for read %s" % (read_align.MQ, file_type, read_name))
 		#####
 		# Record the best alignment for each read based on our score
 		mapQBest[read_name] = mapQ_best_align
