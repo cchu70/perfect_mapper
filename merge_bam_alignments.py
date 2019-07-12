@@ -74,7 +74,7 @@ def alignType(flag):
 def main():
 
 	# Get sam file
-	sam_fh = open(sys.argv[1], "r")
+	sam_fh = sys.stdin
 
 	# initialize starting variables
 	curr_align = None
