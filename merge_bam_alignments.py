@@ -91,6 +91,8 @@ def main():
 	for line in sam_fh:
 		read_name, flag, start, MQ, cigar = parseSam(line.split())
 
+		print(line)
+
 		# print("%s\t%d\t%d\t%d" % (read_name, flag, start, MQ))
 		align_type = alignType(flag)
 		# print(align_type)
