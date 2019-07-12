@@ -129,7 +129,7 @@ class AlignData:
 		return "%s\t%0.5f\t%d\t%d\t%s" % (self.read_name, self.MQ, self.shared_sck_count, self.order_score, self.align_type)
 
 	def print_score(self):
-		return "%s\t%0.5f" % (self.data, self.score)
+		return "%s\t%0.5f\n" % (self.data, self.score)
 
 
 class Minimap2Alignment(AlignData):
@@ -199,9 +199,10 @@ class PAFAlign(AlignData):
 	#####
 
 	def isPrimary(self, align_data):
-		if (align_type == "P"):
+		if (self.align_type == "P"):
 			return True
 		#####
+		return False
 	####
 #####
 
@@ -242,10 +243,10 @@ class MergedSuppAlign(AlignData):
 		shared_sck_count = float(data[-1])
 		order_score = float(data[-2])
 		total_shared_sck_count = float(data[-3])
-		self.set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, merged_supp_string, total_shared_sck_count)
+		self.set(read_name, start, end, MQ, shared_sck_count, order_score, align_type, merged_supp_string, total_shared_sck_count)
 
 	# Merged supp
-	def set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, data_string, total_shared_sck_count):
+	def set(self, read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, data_string, total_shared_sck_count):
 		self.read_name = read_name
 		self.start_idx = start_idx
 		self.end_idx = end_idx
@@ -253,7 +254,15 @@ class MergedSuppAlign(AlignData):
 		self.shared_sck_count = shared_sck_count
 		self.order_score = order_score
 		self.data = data_string
+		self.align_type = align_type
 		self.total_shared_sck_count = total_shared_sck_count
+
+	def isPrimary(self, align_data):
+		if (self.align_type == "P"):
+			return True
+		#####
+		return False
+	####
 
 #####
 
@@ -301,7 +310,7 @@ def main():
 			align_data = PAFAlign(line.strip())
 		elif (file_type == "mashmap"):
 			align_data = MashMapAlign(line.strip())
-		elif (file_type == "merged_supp")
+		elif (file_type == "merged_supp"):
 			align_data = MergedSuppAlign(line.strip())
 		#####
 		try:
