@@ -39,6 +39,7 @@ def parseCigar(cigar_string):
 
 	length = 0
 	num_string = ""
+	print(cigar_string)
 
 	for c in cigar_string:
 		if c.isdigit():
@@ -57,7 +58,7 @@ def parseCigar(cigar_string):
 #####
 
 def alignType(flag):
-	if (flag & 0x900 == 0):
+	if (flag == 0):
 		return "P"
 	elif (flag & 0x800):
 		return "supplementary"
@@ -77,12 +78,19 @@ def main():
 	# Get sam file
 	sam_fh = sys.stdin
 
+	keepSupp = 1
+	try:
+		keepSupp = int(sys.argv[1])
+	except IndexError:
+		pass
+
 	# initialize starting variables
 	curr_align = None
 
 	# Read through the sam file
 	for line in sam_fh:
 		read_name, flag, start, MQ, cigar = parseSam(line.split())
+
 
 		# print("%s\t%d\t%d\t%d" % (read_name, flag, start, MQ))
 		align_type = alignType(flag)
@@ -99,20 +107,27 @@ def main():
 				curr_align = Alignment(read_name, align_type, start, end, MQ)
 			else:
 				# Assuming the order of the sam file, if we switch to a new read, the first alignment listed will have an alignment type of "P"
-				if (align_type == "supplementary"):
-					# Continue on the current alignment
-					if (end > curr_align.end):
-						curr_align.end = end
+				if (keepSupp):
+					if (align_type == "supplementary"):
+						# Continue on the current alignment
+						if (end > curr_align.end):
+							curr_align.end = end
 
-					if (start < curr_align.start):
-						curr_align.start = start
-				else:
-					# Print out the results of the current alignment
+						if (start < curr_align.start):
+							curr_align.start = start
+					else:
+						# Print out the results of the current alignment
+						print(curr_align)
+						# Start a new alignment
+						curr_align = Alignment(read_name, align_type, start, end, MQ)
+					
+					#####
+				elif (align_type != "supplementary"):
+					# Only include the main alignment
 					print(curr_align)
 					# Start a new alignment
 					curr_align = Alignment(read_name, align_type, start, end, MQ)
-				
-				#####
+
 			#####
 		#####
 	######
