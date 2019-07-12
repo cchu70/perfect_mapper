@@ -77,6 +77,12 @@ def main():
 	# Get sam file
 	sam_fh = sys.stdin
 
+	keepSupp = 1
+	try:
+		keepSupp = int(sys.argv[1])
+	except IndexError:
+		pass
+
 	# initialize starting variables
 	curr_align = None
 
@@ -99,20 +105,27 @@ def main():
 				curr_align = Alignment(read_name, align_type, start, end, MQ)
 			else:
 				# Assuming the order of the sam file, if we switch to a new read, the first alignment listed will have an alignment type of "P"
-				if (align_type == "supplementary"):
-					# Continue on the current alignment
-					if (end > curr_align.end):
-						curr_align.end = end
+				if (keepSupp):
+					if (align_type == "supplementary"):
+						# Continue on the current alignment
+						if (end > curr_align.end):
+							curr_align.end = end
 
-					if (start < curr_align.start):
-						curr_align.start = start
-				else:
-					# Print out the results of the current alignment
+						if (start < curr_align.start):
+							curr_align.start = start
+					else:
+						# Print out the results of the current alignment
+						print(curr_align)
+						# Start a new alignment
+						curr_align = Alignment(read_name, align_type, start, end, MQ)
+					
+					#####
+				elif (align_type != "supplementary"):
+					# Only include the main alignment
 					print(curr_align)
 					# Start a new alignment
 					curr_align = Alignment(read_name, align_type, start, end, MQ)
-				
-				#####
+
 			#####
 		#####
 	######
