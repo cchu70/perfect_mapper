@@ -58,7 +58,7 @@ def parseCigar(cigar_string):
 #####
 
 def alignType(flag):
-	if (flag & 0x900 == 0):
+	if (flag == 0):
 		return "P"
 	elif (flag & 0x800):
 		return "supplementary"
