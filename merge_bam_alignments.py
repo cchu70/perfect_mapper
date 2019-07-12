@@ -115,8 +115,10 @@ def main():
 			#####
 		#####
 	######
+	
 	# print the last one
 	print(curr_align)
+#####
 
 
 if __name__ == "__main__": main()

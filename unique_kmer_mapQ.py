@@ -93,6 +93,7 @@ class AlignData:
 		# print("Made alignment for %s; align_type: %s, total_shared_sck_count: %d, shared_sck_count: %d" % (self.read_name, self.align_type, self.total_shared_sck_count, self.shared_sck_count))
 	#####
 
+	# mashmap
 	def set(self, read_name, length, start_idx, end_idx, MQ, shared_sck_count, order_score, data_string, total_shared_sck_count):
 		self.read_name = read_name
 		self.length = length
@@ -166,11 +167,11 @@ class Minimap2Alignment(AlignData):
 
 def which_align_type(string):
 	if (string == "tp:A:P"): 
-		return "primary"
+		return "P"
 	elif (string == "tp:A:S"): 
-		return "secondary"
+		return "S"
 	elif (string == "tp:A:I"): 
-		return "inversion"
+		return "I"
 	else:
 		print("no alignment type for %s" % string)
 		assert False
@@ -198,7 +199,7 @@ class PAFAlign(AlignData):
 	#####
 
 	def isPrimary(self, align_data):
-		if (align_type == "primary"):
+		if (align_type == "P"):
 			return True
 		#####
 	####
@@ -229,6 +230,33 @@ class MashMapAlign(AlignData):
 		else:
 			return False
 
+class MergedSuppAlign(AlignData):
+	# Version where I only kept the read name, alignment type, start, end, and MQ from the original mapper
+	def __init__(self, merged_supp_string):
+		data = merged_supp_string.split()
+		read_name = data[0]
+		align_type = data[1]
+		start = int(data[2])
+		end = int(data[3])
+		MQ = float(data[4])
+		shared_sck_count = float(data[-1])
+		order_score = float(data[-2])
+		total_shared_sck_count = float(data[-3])
+		self.set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, align_type, merged_supp_string, total_shared_sck_count)
+
+	# Merged supp
+	def set(read_name, start_idx, end_idx, MQ, shared_sck_count, order_score, data_string, total_shared_sck_count):
+		self.read_name = read_name
+		self.start_idx = start_idx
+		self.end_idx = end_idx
+		self.MQ = MQ
+		self.shared_sck_count = shared_sck_count
+		self.order_score = order_score
+		self.data = data_string
+		self.total_shared_sck_count = total_shared_sck_count
+
+#####
+
 def parse_bed(bed_file):
 	true_origins = {}
 	for line in open(bed_file, "r"):
@@ -256,6 +284,8 @@ def main():
 	mapQ_output = sys.argv[3]
 	fh = open(mapQ_output, "w")
 
+	read_org_bed = sys.argv[4]
+
 	
 	alignments = {}
 	# Collect all the shared unique kmers counts
@@ -271,6 +301,8 @@ def main():
 			align_data = PAFAlign(line.strip())
 		elif (file_type == "mashmap"):
 			align_data = MashMapAlign(line.strip())
+		elif (file_type == "merged_supp")
+			align_data = MergedSuppAlign(line.strip())
 		#####
 		try:
 			alignments[align_data.read_name].append(align_data)
@@ -316,8 +348,6 @@ def main():
 ##############################################################################
 	# Verify correctness
 	# Pass in the read's true region
-
-	read_org_bed = sys.argv[4]
 
 	true_origins_start = parse_bed(read_org_bed)
 

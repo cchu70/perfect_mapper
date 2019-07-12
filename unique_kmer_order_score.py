@@ -4,6 +4,13 @@
 import sys
 import os.path
 
+# Example: 
+# ../../scripts/_submit_norm.sh 20 20g minimap_supp_merge_sck_count get_minimap_paf_sck_counts.sh 
+	# "../../chr22_info/chr22.asm.sck_pos.intersect.sim_reads.dump.txt 
+	# ../../chr22_info/chr22.minimap2_N50_30kb.supp_merged.sam 
+	# ../../chr22_info/chr22.minimap2_N50_30kb.ref_align.sort.merge.bed 
+	# 0 2 3 count_order_plus1_only,count_shared_sck chr22.minimap2_N50_30kb.supp_merged.total_sck_per_read.order.sck_counts.txt"
+
 
 #=================================================================================
 # Functions
@@ -152,7 +159,7 @@ def main():
 	#####
 
 
-	idx_read_name = sys.argv[4]
+	idx_read_name = int(sys.argv[4])
 	idx_start = int(sys.argv[5])
 	idx_end = int(sys.argv[6])
 
@@ -203,7 +210,7 @@ def main():
 		#print("# HEADER # Last two columns: %s_score\ttotal_shared_sck" % (score_type))
 		for line in mh:
 			data = line.split()
-			read_name = data[0] 
+			read_name = data[idx_read_name] 
 			start = int(data[idx_start])
 			end = int(data[idx_end])
 			try:
@@ -219,18 +226,7 @@ def main():
 				pass
 			#####
 		#####
-
-		# # Reached end of file
-		# try:
-		# 	read_kmer_idx = kmer_indices[read_name]
-		# 	score = scoreMashMapAlignments(start, end, read_kmer_idx)		
-		# 	print("%s\t%d\t%d" % (line.strip(), score, total_shared[read_name]))
-		# except KeyError:
-		# 	pass
-		# #####
-
-	
-
+	#####
 
 
 	
