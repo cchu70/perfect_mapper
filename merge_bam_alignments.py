@@ -45,20 +45,19 @@ def parseCigar(cigar_string):
 			num_string += c
 		else:
 			# A letter
-
 			d = int(num_string) # Convert the current num_string into a number
 			if (c == "M" or c == "D"):
 				# Only add up matches and deletions in the read
 				length += d
 			#####
 			num_string = ""
-
+		#####
 	#####
 	return length
 #####
 
 def alignType(flag):
-	if (flag == 0):
+	if (flag & 0x900 == 0):
 		return "P"
 	elif (flag & 0x800):
 		return "supplementary"
@@ -78,12 +77,6 @@ def main():
 	# Get sam file
 	sam_fh = sys.stdin
 
-	keepSupp = 1
-	try:
-		keepSupp = int(sys.argv[1])
-	except IndexError:
-		pass
-
 	# initialize starting variables
 	curr_align = None
 
@@ -96,42 +89,30 @@ def main():
 		# print(align_type)
 
 		if (align_type):
-			# Is an alignment we care about. 
-			try:
-				align_length = parseCigar(cigar)
-				end = start + align_length
+			# Is an alignment we care about. We are ignoring the reverse alignments for now
 
-				if (not curr_align):
-					# initialize
-					curr_align = Alignment(read_name, align_type, start, end, MQ)
+			align_length = parseCigar(cigar)
+			end = start + align_length
+
+			if (not curr_align):
+				# initialize
+				curr_align = Alignment(read_name, align_type, start, end, MQ)
+			else:
+				# Assuming the order of the sam file, if we switch to a new read, the first alignment listed will have an alignment type of "P"
+				if (align_type == "supplementary"):
+					# Continue on the current alignment
+					if (end > curr_align.end):
+						curr_align.end = end
+
+					if (start < curr_align.start):
+						curr_align.start = start
 				else:
-					# Assuming the order of the sam file, if we switch to a new read, the first alignment listed will have an alignment type of "P"
-					if (keepSupp):
-						if (align_type == "supplementary"):
-							# Continue on the current alignment
-							if (end > curr_align.end):
-								curr_align.end = end
-
-							if (start < curr_align.start):
-								curr_align.start = start
-						else:
-							# Print out the results of the current alignment
-							print(curr_align)
-							# Start a new alignment
-							curr_align = Alignment(read_name, align_type, start, end, MQ)
-						
-						#####
-					elif (align_type != "supplementary"):
-						# Only include the main alignment
-						print(curr_align)
-						# Start a new alignment
-						curr_align = Alignment(read_name, align_type, start, end, MQ)
-
+					# Print out the results of the current alignment
+					print(curr_align)
+					# Start a new alignment
+					curr_align = Alignment(read_name, align_type, start, end, MQ)
+				
 				#####
-
-			except:
-				sys.stderr.write("%s" % line)
-				assert False
 			#####
 		#####
 	######
