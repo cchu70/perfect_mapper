@@ -145,7 +145,7 @@ def main():
 	# Specify columns later
 	maps = sys.argv[2]
 
-	# Sorted and merged bed file of each read's alignments
+	# Sorted and merged bed file of each read's alignments (MAKE SURE YOU DERIVE THIS DIRECTLY FROM YOUR maps FILE)
 	align_merge_bed = sys.argv[3]
 
 	if (not os.path.isfile(dump)):

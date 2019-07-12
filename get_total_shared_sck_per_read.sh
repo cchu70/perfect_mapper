@@ -22,3 +22,6 @@ python ../../scripts/mashmap_postfilter/unique_kmer_order_score.py $dump_file $m
 
 # Get the mapQ scores
 python unique_kmer_mapQ.py $scores_out $mapQ_out $true_reads_bed_file > summary.log
+
+
+# ../../scripts/_submit_norm.sh 20 20g minimap_supp_merge_sck_count get_minimap_paf_sck_counts.sh "../../chr22_info/chr22.asm.sck_pos.intersect.sim_reads.dump.txt ../../chr22_info/chr22.minimap2_N50_30kb.supp_merged.sam chr22.minimap2_N50_30kb.supp_merged.ref_align.sort.bed 0 2 3 count_order_plus1_only,count_shared_sck chr22.minimap2_N50_30kb.supp_merged.total_sck_per_read.order.sck_counts.txt"
