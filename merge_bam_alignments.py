@@ -57,11 +57,12 @@ def parseCigar(cigar_string):
 #####
 
 def alignType(flag):
-	if (flag == 0):
+	if (flag & 0x900 == 0):
 		return "P"
-	elif (flag == 2048):
+	elif (flag & 0x800):
 		return "supplementary"
-	elif (flag == 256):
+	elif (flag & 256):
+		# Secondary alignment
 		return "S"
 	else:
 		# Ignoring reverse alignments
