@@ -39,7 +39,6 @@ def parseCigar(cigar_string):
 
 	length = 0
 	num_string = ""
-	print(cigar_string)
 
 	for c in cigar_string:
 		if c.isdigit():
