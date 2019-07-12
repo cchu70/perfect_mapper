@@ -270,7 +270,7 @@ def parse_bed(bed_file):
 	true_origins = {}
 	for line in open(bed_file, "r"):
 		read_name, start, end = line.strip().split()
-		true_origins[read_name] = int(start)
+		true_origins[read_name] = (int(start), int(end))
 	#####
 	return true_origins
 
@@ -358,7 +358,7 @@ def main():
 	# Verify correctness
 	# Pass in the read's true region
 
-	true_origins_start = parse_bed(read_org_bed)
+	true_origins = parse_bed(read_org_bed)
 
 	# For each alignment, check if the alignment is true, and if it is primary or not
 	minimap_prim_true_count = 0
@@ -376,14 +376,15 @@ def main():
 	minimap_sck_mapQ_agree_false = 0
 
 	for read_name in alignments:
-		true_start = true_origins_start[read_name]
+		true_start, true_end = true_origins[read_name]
+		length = true_end - true_start
 		best_align = mapQBest[read_name] # Our scoring scheme
 		comp_best_align = mapPrimary[read_name] # mapper we are comparing to
 		
 		for read_align in alignments[read_name]:
 			# 50% covers
-			l_bound = true_start - read_align.length / 2.0
-			u_bound = true_start + read_align.length / 2.0
+			l_bound = true_start - length / 2.0
+			u_bound = true_start + length / 2.0
 
 			# print(read_align.length)
 			# print(true_start)
