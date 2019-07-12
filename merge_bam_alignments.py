@@ -132,7 +132,7 @@ def main():
 	######
 	
 	# print the last one
-	if (align_type and (keepSupp or align_type != "supplementary")):
+	if (keepSupp or align_type != "supplementary"):
 		print(curr_align)
 #####
 
