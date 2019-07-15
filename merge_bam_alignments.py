@@ -119,7 +119,6 @@ def main():
 						print(curr_align)
 						# Start a new alignment
 						curr_align = Alignment(read_name, align_type, start, end, MQ)
-					
 					#####
 				elif (align_type != "supplementary"):
 					# Only include the main alignment
