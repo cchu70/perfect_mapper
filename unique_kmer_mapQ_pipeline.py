@@ -253,27 +253,29 @@ def main():
 			sys.stderr.write("Parsing alignments for read %s\n" % read_name)
 		#####
 
-		print(align_type)
-
 		if (align_type == "P" or align_type == "S"):
 			# Add the representative alignment
-			shared, order = score([(start, end)], kmer_indices[read_name], 21)
-			curr_align = Alignment(read_name, align_type, start, end, MQ, shared, order)
 
-			if (read_name == curr_read.read_name):
-				curr_read.add(curr_align)
-			else:
-				# Calc and print data
-				regions = sortMerge(curr_read.alignments)
+			try:
+				shared, order = score([(start, end)], kmer_indices[read_name], 21)
+				curr_align = Alignment(read_name, align_type, start, end, MQ, shared, order)
 
-				curr_read.total_sck = CountSharedSCKs(regions, kmer_indices[curr_read.read_name], k_size)
-				curr_read.finish()
-				sys.stderr.write("Finished parsing alignments for read %s\n" % read_name)
+				if (read_name == curr_read.read_name):
+					curr_read.add(curr_align)
+				else:
+					# Calc and print data
+					regions = sortMerge(curr_read.alignments)
 
-				# start new read
-				sys.stderr.write("Parsing alignments for read %s\n" % read_name)
-				curr_read = Read(read_name)
-				curr_read.add(curr_align)
+					curr_read.total_sck = CountSharedSCKs(regions, kmer_indices[curr_read.read_name], k_size)
+					curr_read.finish()
+					sys.stderr.write("Finished parsing alignments for read %s\n" % read_name)
+
+					# start new read
+					sys.stderr.write("Parsing alignments for read %s\n" % read_name)
+					curr_read = Read(read_name)
+					curr_read.add(curr_align)
+			except KeyError:
+				pass
 
 		#####
 
