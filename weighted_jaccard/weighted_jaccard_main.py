@@ -56,6 +56,7 @@ def main():
 			#####
 		else:
 			# initialize
+			sys.stderr.write("Initialize\nread name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 		#####
 
@@ -69,11 +70,8 @@ def main():
 		# score alignments with different weighting schemes
 		for sch in schemes:
 			x = score(curr_read.k_set, ref_k_set, sch, k_size)
-			print(sch, x)
 			alignment.add_score(sch, score)
 		#####
-		assert False
-
 		curr_read.add_alignment(alignment)
 
 
