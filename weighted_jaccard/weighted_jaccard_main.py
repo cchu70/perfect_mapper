@@ -1,6 +1,6 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-import "weighted_jaccard_func.py"
+import weighted_jaccard_func
 from Bio import SeqIO
 import sys
 import subprocess
