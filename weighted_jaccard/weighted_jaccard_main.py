@@ -1,6 +1,6 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-from  weighted_jaccard_func import getKmers, score, parseSam, Read, Alignment
+from  weighted_jaccard_func import getKmers, score, parsePaf, Read, Alignment
 from Bio import SeqIO
 import sys
 import os
@@ -32,17 +32,18 @@ def main():
 
 	
 	# Get read sequences
-	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
-	read_records = SeqIO.to_dict(SeqIO.parse(read_fasta, "fasta"))
+	# sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
+	# read_records = SeqIO.to_dict(SeqIO.parse(read_fasta, "fasta"))
 
-	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
-	ref_record = list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
+	# sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
+	# ref_record = list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
 
 	curr_read = None
 
 	for line in open(align_file, "r"):
 
-		read_name, start, end, ground_truth = parseSam(line.strip())
+		print(line)
+		read_name, start, end, ground_truth = parsePaf(line.strip())
 
 		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %b\n" % (read_name, start, end, ground_truth))
 		assert False
