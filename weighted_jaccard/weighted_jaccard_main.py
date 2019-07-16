@@ -42,10 +42,9 @@ def main():
 
 	for line in open(align_file, "r"):
 
-		print(line)
 		read_name, start, end, ground_truth = parsePaf(line.strip())
 
-		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %b\n" % (read_name, start, end, ground_truth))
+		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 		assert False
 
 		alignment = Alignment(start, end, flag, ground_truth)

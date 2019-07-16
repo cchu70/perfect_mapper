@@ -80,7 +80,6 @@ def parsePaf(paf_string):
 
 def parseCigar(cigar_string):
 
-	print(cigar_string)
 	length = 0
 	num_string = ""
 
