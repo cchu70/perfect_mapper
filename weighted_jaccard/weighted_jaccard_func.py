@@ -53,7 +53,7 @@ def weightJaccard(w_unique, w_non_unique, shared_unique_sum, shared_non_unique_s
 def getKmers(seq_str, k_size):
 	k_set = {}
 	for i in range(len(seq_str) - k_size):
-		k = seq_str[i, i + k_size]
+		k = seq_str[i: i + k_size]
 		k_set[k] = True
 	#####
 	return k_set
