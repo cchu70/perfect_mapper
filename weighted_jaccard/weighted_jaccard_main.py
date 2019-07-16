@@ -17,19 +17,33 @@ def main():
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
 	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
 
+	if not isfile(read_fasta):
+		assert False 
+
+	if not isfile(ref_fasta):
+		assert False
+
+	#####
+
+
 	schemes = [(1, w2) for w2 in range(sch_start, sch_end)]
 
 	
 	# Get read sequences
+	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
 	read_records = SeqIO.to_dict(SeqIO.parse(read_fasta, "fasta"))
 
-	ref_record = SeqIO.parse(ref_fasta, "fasta")[0] # Should only be one reference
+	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
+	ref_record = SeqIO.to_list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
 
 	curr_read = None
 
 	for line in align_file:
 
 		read_name, start, end, ground_truth = parseSam(line.strip())
+
+		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %b\n" % (read_name, start, end, ground_truth))
+		assert False
 
 		alignment = Alignment(start, end, flag, ground_truth)
 
