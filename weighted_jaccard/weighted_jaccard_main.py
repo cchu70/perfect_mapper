@@ -42,7 +42,7 @@ def main():
 
 		read_name, length, start, end, ground_truth = parsePaf(line.strip())
 
-		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
+		# sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 
 		alignment = Alignment(start, end, ground_truth)
 
@@ -71,7 +71,7 @@ def main():
 			x = score(curr_read.k_set, ref_k_set, sch, k_size)
 			alignment.scores[sch] = x
 		#####
-		print(alignment)
+		print("%s\t%s" % (read_name, alignment.toString()))
 		# curr_read.alignments.append(alignment)
 	#####
 
