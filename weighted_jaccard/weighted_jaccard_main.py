@@ -60,7 +60,6 @@ def main():
 		#####
 		# Update to next read
 		print(read_records[read_name].seq)
-		assert False
 		curr_read = Read(read_name, getKmers(read_records[read_name].seq, k_size))
 
 		# Continue adding more alignments
