@@ -36,6 +36,7 @@ def main():
 	ref_record = list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
 
 	curr_read = None
+	alignment = None
 
 	for line in open(align_file, "r"):
 
@@ -44,6 +45,7 @@ def main():
 		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 
 		alignment = Alignment(start, end, ground_truth)
+		print(curr_read.alignments[0])
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read):
