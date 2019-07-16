@@ -23,7 +23,7 @@ def counts(read_k_set, align_k_set, k_size):
 			align_k_set[k] = False
 			read_k_set[k] = False
 		else:
-			if l.isUnique():
+			if k.isUnique():
 				non_shared_unique_sum += 1
 			else:
 				non_shared_non_unique_sum += 1

@@ -61,6 +61,9 @@ def main():
 		else:
 			# initialize
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
+
+			print(curr_read.k_set)
+			assert False
 		#####
 
 		# Continue adding more alignments
