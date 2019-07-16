@@ -27,6 +27,8 @@ def counts(read_k_set, align_k_set, k_size):
 	# Sets initialized so the kmers are the keys and all have true as the value
 
 	for k in read_k_set:
+		if (unique): 
+			print(unique)
 		if k in align_k_set:
 			if isUnique(k):
 				shared__unique_sum += 1
@@ -49,7 +51,8 @@ def counts(read_k_set, align_k_set, k_size):
 
 	for k in align_k_set:
 		unique = isUnique(k)
-		print(unique)
+		if (unique): 
+			print(unique)
 		if align_k_set[k]:
 			if isUnique(k):
 				non_shared_unique_sum += 1
@@ -99,8 +102,6 @@ def parsePaf(paf_string):
 	end = int(data[8])
 
 	ground_truth = data[-1]
-
-	
 
 	return read_name, length, start, end, ground_truth
 
