@@ -51,10 +51,13 @@ def weightJaccard(w_unique, w_non_unique, shared_unique_sum, shared_non_unique_s
 	return float(intersection)/float(union)
 
 def getKmers(seq_str, k_size):
+	print(seq_str)
 	k_set = {}
 	for i in range(len(seq_str) - k_size):
 		k = seq_str[i: i + k_size]
+		print(k)
 		k_set[k] = True
+		assert False
 	#####
 	return k_set
 #####
