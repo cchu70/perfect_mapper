@@ -69,6 +69,9 @@ def parseSam(sam_string):
 	read_name = sam_string[0]
 	start = int(sam_string[3])
 	cigar = sam_string[5]
+
+	print(cigar)
+	
 	ground_truth = sam_string[-1]
 
 	end = start + parseCigar(cigar)

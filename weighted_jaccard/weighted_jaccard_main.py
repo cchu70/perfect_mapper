@@ -17,7 +17,7 @@ def main():
 	sch_end = 5
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
 	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
-	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/multiple_aligns_only.minimap2_N50_30kb.sam"
+	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.minimap2_N50_30kb.cigar.multiple_align_only.paf"
 
 	if not os.path.isfile(read_fasta):
 		assert False 
