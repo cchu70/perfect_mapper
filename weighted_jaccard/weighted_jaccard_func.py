@@ -27,15 +27,13 @@ def counts(read_k_set, align_k_set, k_size):
 	# Sets initialized so the kmers are the keys and all have true as the value
 
 	for k in read_k_set:
-		unique = isUnique(k)
-		if (unique): 
-			print(unique)
 		if k in align_k_set:
 			if isUnique(k):
 				shared__unique_sum += 1
 			else:
 				shared_non_unique_sum += 1
 			#####
+			print(k)
 			align_k_set[k] = False
 			read_k_set[k] = False
 		else:
@@ -51,9 +49,6 @@ def counts(read_k_set, align_k_set, k_size):
 	time.sleep(5)
 
 	for k in align_k_set:
-		unique = isUnique(k)
-		if (unique): 
-			print(unique)
 		if align_k_set[k]:
 			if isUnique(k):
 				non_shared_unique_sum += 1
