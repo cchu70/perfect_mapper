@@ -21,7 +21,7 @@ def main():
 	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.minimap2_N50_30kb.cigar.multiple_align_only.paf"
 	unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
 
-
+	sys.stderr.write("Parsing unique file: %s\n" % read_fasta)
 	unique_table = parseUniqueFile(unique_k_file)
 
 
@@ -57,17 +57,22 @@ def main():
 		else:
 			# initialize
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
-			assert False
 		#####
 
 		# Continue adding more alignments
+
+
 
 		# Get the alignment region's kmers
 		ref_k_set = getKmers(ref_record.seq[start:end], k_size)
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
-			alignment.add_score(sch, score(curr_read.k_set, ref_k_set, sch, k_size))
+			print(sch)
+			score = score(curr_read.k_set, ref_k_set, sch, k_size)
+			print(score)
+			assert False
+			alignment.add_score(sch, score)
 		#####
 
 		curr_read.add_alignment(alignment)
