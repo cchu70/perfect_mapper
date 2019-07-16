@@ -47,7 +47,7 @@ def main():
 
 		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 
-		alignment = Alignment(start, end, length, ground_truth)
+		alignment = Alignment(start, end, ground_truth)
 
 		# Check which read (current or next) this alignment corresponds to 
 
@@ -57,7 +57,7 @@ def main():
 			assert False
 		#####
 		# Update to next read
-		curr_read = Read(read_name, getKmers(read_records[read_name].seq, k_size))
+		curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 
 		# Continue adding more alignments
 
