@@ -55,9 +55,10 @@ def getKmers(seq_str, k_size):
 	k_set = {}
 	for i in range(len(seq_str) - k_size):
 		k = str(seq_str[i: i + k_size])
-		print(type(k))
 		k_set[k] = True
 	#####
+	print(k_set)
+	assert False
 	return k_set
 #####
 
