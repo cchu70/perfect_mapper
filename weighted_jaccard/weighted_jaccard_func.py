@@ -27,6 +27,9 @@ def counts(read_k_set, align_k_set, k_size):
 	# Sets initialized so the kmers are the keys and all have true as the value
 
 	for k in read_k_set:
+		unique = isUnique(k)
+		print(unique)
+
 		if k in align_k_set:
 			if isUnique(k):
 				shared__unique_sum += 1
@@ -36,7 +39,7 @@ def counts(read_k_set, align_k_set, k_size):
 			align_k_set[k] = False
 			read_k_set[k] = False
 		else:
-			if k.isUnique():
+			if isUnique(k):
 				non_shared_unique_sum += 1
 			else:
 				non_shared_non_unique_sum += 1
@@ -74,10 +77,13 @@ def getKmers(seq_str, k_size):
 #####
 
 def isUnique(k_str):
-	try:
-		return unique_table[k_str] 
-	except:
-		return False
+	for i in unique_table:
+		print i
+		try:
+			return unique_table[k_str] 
+		except:
+			return False
+		#####
 	#####
 
 def score(k_set1, k_set2, sch, k_size):
