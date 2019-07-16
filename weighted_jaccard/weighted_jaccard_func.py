@@ -7,7 +7,7 @@ unique_table = {}
 
 def parseUniqueFile(unique_k_file):
 	for k in open(unique_k_file, "r"):
-		unique_table[k] = True
+		unique_table[k.strip()] = True
 	#####
 #####
 
@@ -74,7 +74,7 @@ def getKmers(seq_str, k_size):
 def isUnique(k_str):
 	try:
 		return unique_table[k_str] 
-	except:
+	except KeyError:
 		return False
 	#####
 

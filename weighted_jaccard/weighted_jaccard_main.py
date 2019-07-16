@@ -57,7 +57,7 @@ def main():
 			#####
 		else:
 			# initialize
-			sys.stderr.write("Initialize\nread name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
+			# sys.stderr.write("Initialize\nread name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 		#####
 
