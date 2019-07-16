@@ -91,7 +91,7 @@ def isUnique(k_str):
 def score(k_set1, k_set2, sch, k_size):
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(k_set1, k_set2, k_size)
 	score = weightJaccard(sch[0], sch[1], shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-
+	return score
 
 def parsePaf(paf_string):
 	# Based on sam file

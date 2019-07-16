@@ -64,7 +64,10 @@ def main():
 
 
 		# Get the alignment region's kmers
+		print(ref_record.seq[start:end])
+		assert False
 		ref_k_set = getKmers(ref_record.seq[start:end], k_size)
+		print(ref_k_set)
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
