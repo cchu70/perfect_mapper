@@ -25,10 +25,6 @@ def counts(read_k_set, align_k_set, k_size):
 	
 	# Query the read onto the align set. If match, mark true and increment
 	# Sets initialized so the kmers are the keys and all have true as the value
-
-	c = 0
-	ca = 0
-	cb = 0
 	for k in read_k_set:
 		if k in align_k_set:
 			if isUnique(k):
@@ -38,44 +34,31 @@ def counts(read_k_set, align_k_set, k_size):
 			#####
 			align_k_set[k] = False
 			read_k_set[k] = False
-			ca += 1
 		else:
 			if isUnique(k):
 				non_shared_unique_sum += 1
 			else:
 				non_shared_non_unique_sum += 1
 			#####
-			cb += 1
 		#####
-		c += 1
 	#####
 
-	d = 0
-	da = 0
-	db = 0
 	for k in align_k_set:
 		if align_k_set[k]:
 			if isUnique(k):
 				non_shared_unique_sum += 1
-				da += 1
 			else:
 				non_shared_non_unique_sum += 1
-				db += 1
 			#####
 		#####
-		d += 1
 	#####
-
-	print(c, ca, cb, d, da, db)
-
-	print(shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 
 	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
 
 def weightJaccard(w_unique, w_non_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
 
 	intersection = w_unique * shared_unique_sum + w_non_unique * shared_non_unique_sum
-	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum
+	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
 
 	return float(intersection)/float(union)
 
