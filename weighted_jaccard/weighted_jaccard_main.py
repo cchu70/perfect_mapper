@@ -69,8 +69,8 @@ def main():
 		# score alignments with different weighting schemes
 		for sch in schemes:
 			print(sch)
-			score = score(curr_read.k_set, ref_k_set, sch, k_size)
-			print(score)
+			x = score(curr_read.k_set, ref_k_set, sch, k_size)
+			print(x)
 			assert False
 			alignment.add_score(sch, score)
 		#####
