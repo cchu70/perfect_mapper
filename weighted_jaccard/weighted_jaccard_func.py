@@ -1,5 +1,18 @@
 # This Script outlines the major functions used in weighted_jaccard_main.py
 
+
+# Set up
+unique_table = {}
+
+
+def parseUniqueFile(unique_k_file):
+	for k in open(unique_k_file, "r"):
+		unique_table[k] = True
+	#####
+#####
+
+
+
 # Counts the number in each set
 def counts(read_k_set, align_k_set, k_size):
 
@@ -15,7 +28,7 @@ def counts(read_k_set, align_k_set, k_size):
 
 	for k in read_k_set:
 		if k in align_k_set:
-			if k.isUnique():
+			if isUnique(k):
 				shared__unique_sum += 1
 			else:
 				shared_non_unique_sum += 1
@@ -33,7 +46,7 @@ def counts(read_k_set, align_k_set, k_size):
 
 	for k in align_k_set:
 		if align_k_set[k]:
-			if k.isUnique():
+			if isUnique(k):
 				non_shared_unique_sum += 1
 			else:
 				non_shared_non_unique_sum += 1
@@ -57,10 +70,15 @@ def getKmers(seq_str, k_size):
 		k = str(seq_str[i: i + k_size])
 		k_set[k] = True
 	#####
-	print(k_set)
-	assert False
 	return k_set
 #####
+
+def isUnique(k_str):
+	try:
+		return unique_table[k_str] 
+	except:
+		return False
+	#####
 
 def score(k_set1, k_set2, sch, k_size):
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(k_set1, k_set2, k_size)
