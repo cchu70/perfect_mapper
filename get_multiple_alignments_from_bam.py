@@ -28,9 +28,6 @@ def main():
 		true_origin_table[read] = (start, end)
 	#####
 
-	print(true_origin_table)
-		
-
 	curr_read_name = ""
 	first_data = ""
 
