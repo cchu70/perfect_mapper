@@ -61,7 +61,9 @@ def main():
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 		#####
 
-		print(curr_read.alignments)
+		for i in curr_read.alignments:
+			print(i)
+		#####
 
 		# Continue adding more alignments
 
