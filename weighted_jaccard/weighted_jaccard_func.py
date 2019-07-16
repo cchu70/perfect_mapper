@@ -51,18 +51,22 @@ def counts(read_k_set, align_k_set, k_size):
 	#####
 
 	d = 0
+	da = 0
+	db = 0
 	for k in align_k_set:
 		if align_k_set[k]:
 			if isUnique(k):
 				non_shared_unique_sum += 1
+				da += 1
 			else:
 				non_shared_non_unique_sum += 1
+				db += 1
 			#####
 		#####
 		d += 1
 	#####
 
-	print(c, ca, d)
+	print(c, ca, cb, d, da, db)
 
 	print(shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 
