@@ -59,12 +59,12 @@ def main():
 			#####
 		#####
 		# Update to next read
-		curr_read = Read(read_name, getKmers(read_records[read_name], k_size))
+		curr_read = Read(read_name, getKmers(str(read_records[read_name]), k_size))
 
 		# Continue adding more alignments
 
 		# Get the alignment region's kmers
-		ref_k_set = getKmers(ref_record.seq[start:end], k_size)
+		ref_k_set = getKmers(str(ref_record.seq[start:end]), k_size)
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
