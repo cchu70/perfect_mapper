@@ -59,7 +59,7 @@ def main():
 				curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 			#####
 		else:
-			initialize
+			# initialize
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 		#####
 
