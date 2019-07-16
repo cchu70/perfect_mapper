@@ -40,7 +40,7 @@ def main():
 
 	curr_read = None
 
-	for line in align_file:
+	for line in open(align_file, "r"):
 
 		read_name, start, end, ground_truth = parseSam(line.strip())
 
