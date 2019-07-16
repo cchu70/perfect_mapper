@@ -14,8 +14,8 @@ def main():
 	# Set weight schemes?
 	sch_start = 1
 	sch_end = 5
-	read_fasta = ""
-	ref_fasta = ""
+	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
+	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
 
 	schemes = [(1, w2) for w2 in range(sch_start, sch_end)]
 
