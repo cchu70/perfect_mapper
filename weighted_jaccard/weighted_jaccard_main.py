@@ -46,7 +46,7 @@ def main():
 
 		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 
-		alignment = Alignment(start, end, flag, ground_truth)
+		alignment = Alignment(start, end, ground_truth)
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (read_name != curr_read_name):
