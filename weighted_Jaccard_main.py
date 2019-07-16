@@ -1,0 +1,84 @@
+# This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
+
+import "weighted_jaccard_func.py"
+from Bio import SeqIO
+import sys
+import subprocess
+
+def main():
+
+	# Take inputs
+	# 1) Alignment file
+	# 2) Unique kmers 
+
+	# Set weight schemes?
+	sch_start = 1
+	sch_end = 5
+	read_fasta = ""
+	ref_fasta = ""
+
+	schemes = [(1, w2) for w2 in range(sch_start, sch_end)]
+
+	
+	# Get read sequences
+	read_records = SeqIO.to_dict(SeqIO.parse(read_fasta, "fasta"))
+
+	ref_record = SeqIO.parse(ref_fasta, "fasta")[0] # Should only be one reference
+
+	curr_read = None
+
+	for line in align_file:
+
+		read_name, start, end, ground_truth = parseSam(line.strip())
+
+		alignment = Alignment(start, end, flag, ground_truth)
+
+		# Check which read (current or next) this alignment corresponds to 
+		if (read_name != curr_read_name):
+			if (curr_read_name):
+				# evaluate the curr read performance
+				curr_read.print_alignments()
+			#####
+
+			# Update to next read
+			curr_read = Read(read_name, getKmers(read_records[read_name], k_size))
+		#####
+
+		# Continue adding more alignments
+
+		# Get the alignment region's kmers
+		ref_k_set = getKmers(ref_record.seq[start:end], k_size)
+
+		# score alignments with different weighting schemes
+		for sch in schemes:
+			alignment.add_score(sch, score(curr_read.k_set, ref_k_set, sch, k_size))
+		#####
+
+		curr_read.add_alignment(alignment)
+
+
+		# Once I've seen and scored all of the current read's alignments, pick the best one, evaluate performace, etc.
+	#####
+
+
+	# For each read, pick the one with the highest score to be primary for each weighting scheme
+
+
+	# Evaluate true and false rates
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__": main()
+
+
+
+
