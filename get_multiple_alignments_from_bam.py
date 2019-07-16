@@ -38,8 +38,6 @@ def main():
 		isCorrect = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
 
 		data = "%s\t%s" % (line.strip(), isCorrect)
-		print(data)
-		assert False
 
 		if (read_name == curr_read_name):
 			if (second):
