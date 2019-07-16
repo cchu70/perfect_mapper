@@ -38,7 +38,7 @@ def counts(read_k_set, align_k_set, k_size):
 			#####
 			align_k_set[k] = False
 			read_k_set[k] = False
-			cb += 1
+			ca += 1
 		else:
 			if isUnique(k):
 				non_shared_unique_sum += 1
