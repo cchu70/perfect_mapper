@@ -69,7 +69,7 @@ def parsePaf(paf_string):
 	data = paf_string.split()
 	read_name = data[0]
 	start = int(data[3])
-	cigar = data[-2]
+	cigar = data[-2],split(":")[-1]
 
 	ground_truth = data[-1]
 
