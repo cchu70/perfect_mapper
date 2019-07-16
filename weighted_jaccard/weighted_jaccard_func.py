@@ -155,7 +155,7 @@ class Alignment:
 	#####
 
 	def toString(self):
-		scores_string = "\t".join(["%d:%d=%d" % (sch, score) for w1, w2, score in self.scores])
+		scores_string = "\t".join(["%d:%d=%d" % (w1, w2, score) for w1, w2, score in self.scores])
 		return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
 	#####
 
