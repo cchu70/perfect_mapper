@@ -54,7 +54,7 @@ def counts(read_k_set, align_k_set, k_size):
 		#####
 	#####
 
-	print(shared_non_unique_sum, non_shared_non_unique_sum)
+	print(shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 
 	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
 
