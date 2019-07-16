@@ -3,6 +3,7 @@
 import weighted_jaccard_func
 from Bio import SeqIO
 import sys
+import os
 import subprocess
 
 def main():
@@ -17,10 +18,10 @@ def main():
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
 	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
 
-	if not isfile(read_fasta):
+	if not os.path.isfile(read_fasta):
 		assert False 
 
-	if not isfile(ref_fasta):
+	if not os.path.isfile(ref_fasta):
 		assert False
 
 	#####
