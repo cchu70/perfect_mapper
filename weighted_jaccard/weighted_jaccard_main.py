@@ -36,7 +36,7 @@ def main():
 	ref_record = list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
 
 	curr_read = None
-	alignment = None
+	alignments = []
 
 	for line in open(align_file, "r"):
 
@@ -73,6 +73,7 @@ def main():
 		#####
 		print("%s\t%s" % (read_name, alignment.toString()))
 		# curr_read.alignments.append(alignment)
+		alignments.append(alignment)
 	#####
 
 
