@@ -35,7 +35,7 @@ def main():
 	read_records = SeqIO.to_dict(SeqIO.parse(read_fasta, "fasta"))
 
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
-	ref_record = SeqIO.to_list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
+	ref_record = list(SeqIO.parse(ref_fasta, "fasta"))[0] # Should only be one reference
 
 	curr_read = None
 
