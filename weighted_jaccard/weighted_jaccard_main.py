@@ -51,18 +51,14 @@ def main():
 		if (curr_read):
 			if (read_name != curr_read.read_name):
 				# evaluate the curr read performance
-				curr_read.print_alignments()
-				assert False
+				# curr_read.print_alignments()
+				# assert False
 				curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
 			#####
 		else:
 			# initialize
 			sys.stderr.write("Initialize\nread name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
-		#####
-
-		for i in curr_read.alignments:
-			print(i.toString())
 		#####
 
 		# Continue adding more alignments
@@ -76,7 +72,8 @@ def main():
 			print(x)
 			alignment.scores[sch] = x
 		#####
-		curr_read.alignments.append(alignment)
+		print(alignment)
+		# curr_read.alignments.append(alignment)
 	#####
 
 
