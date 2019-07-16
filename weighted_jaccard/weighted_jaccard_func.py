@@ -1,5 +1,5 @@
 # This Script outlines the major functions used in weighted_jaccard_main.py
-
+import time
 
 # Set up
 unique_table = {}
@@ -47,7 +47,12 @@ def counts(read_k_set, align_k_set, k_size):
 		#####
 	#####
 
+	print("Checking ref")
+	time.sleep(5)
+
 	for k in align_k_set:
+		unique = isUnique(k)
+		print(unique)
 		if align_k_set[k]:
 			if isUnique(k):
 				non_shared_unique_sum += 1
@@ -77,16 +82,11 @@ def getKmers(seq_str, k_size):
 #####
 
 def isUnique(k_str):
-	for i in unique_table:
-		print i
-		try:
-			return unique_table[k_str] 
-		except:
-			pass
-			# return False
-		#####
+	try:
+		return unique_table[k_str] 
+	except:
+		return False
 	#####
-	return False
 
 def score(k_set1, k_set2, sch, k_size):
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(k_set1, k_set2, k_size)
