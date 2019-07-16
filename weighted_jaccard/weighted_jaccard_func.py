@@ -68,6 +68,7 @@ def parsePaf(paf_string):
 	# Based on sam file
 	data = paf_string.split()
 	read_name = data[0]
+	length = int(data[1])
 	start = int(data[3])
 	cigar = data[-2].split(":")[-1]
 
@@ -76,7 +77,7 @@ def parsePaf(paf_string):
 	end = start + parseCigar(cigar)
 	
 
-	return read_name, start, end, ground_truth
+	return read_name, length, start, end, ground_truth
 
 def parseCigar(cigar_string):
 
@@ -117,6 +118,11 @@ class Read:
 	def print_alignments(self):
 		for alignment in self.alignments:
 			print("%s\t%s" % (self.read_name, alignment.toString()))
+
+	def __init__(self, read_name, length, k_set):
+		self.read_name = read_name
+		self.length = length
+		self.k_set = k_set
 
 class Kmer:
 	seq = ""

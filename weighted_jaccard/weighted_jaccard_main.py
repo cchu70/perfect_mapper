@@ -43,20 +43,18 @@ def main():
 
 	for line in open(align_file, "r"):
 
-		read_name, start, end, ground_truth = parsePaf(line.strip())
+		read_name, length, start, end, ground_truth = parsePaf(line.strip())
 
 		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
 
-		alignment = Alignment(start, end, ground_truth)
+		alignment = Alignment(start, end, length, ground_truth)
 
 		# Check which read (current or next) this alignment corresponds to 
 
-		if (curr_read):
-			if (read_name != curr_read.read_name):
-				# evaluate the curr read performance
-				curr_read.print_alignments()
-				assert False
-			#####
+		if (curr_read and read_name != curr_read.read_name):
+			# evaluate the curr read performance
+			curr_read.print_alignments()
+			assert False
 		#####
 		# Update to next read
 		curr_read = Read(read_name, getKmers(read_records[read_name].seq, k_size))
