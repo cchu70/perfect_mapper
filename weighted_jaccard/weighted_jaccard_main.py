@@ -45,7 +45,6 @@ def main():
 		read_name, start, end, ground_truth = parsePaf(line.strip())
 
 		sys.stderr.write("read name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
-		assert False
 
 		alignment = Alignment(start, end, flag, ground_truth)
 
@@ -54,6 +53,7 @@ def main():
 			if (curr_read_name):
 				# evaluate the curr read performance
 				curr_read.print_alignments()
+				assert False
 			#####
 
 			# Update to next read
