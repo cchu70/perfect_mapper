@@ -66,6 +66,8 @@ def main():
 		# Get the alignment region's kmers
 		ref_k_set = getKmers(ref_record.seq[start:end], k_size)
 
+		print(len(curr_read.k_set), len(ref_k_set))
+
 		# score alignments with different weighting schemes
 		for sch in schemes:
 			print(sch)
