@@ -49,16 +49,16 @@ def main():
 		alignment = Alignment(start, end, ground_truth)
 
 		# Check which read (current or next) this alignment corresponds to 
-		if (read_name != curr_read_name):
-			if (curr_read_name):
+
+		if (curr_read):
+			if (read_name != curr_read.read_name):
 				# evaluate the curr read performance
 				curr_read.print_alignments()
 				assert False
 			#####
-
-			# Update to next read
-			curr_read = Read(read_name, getKmers(read_records[read_name], k_size))
 		#####
+		# Update to next read
+		curr_read = Read(read_name, getKmers(read_records[read_name], k_size))
 
 		# Continue adding more alignments
 
