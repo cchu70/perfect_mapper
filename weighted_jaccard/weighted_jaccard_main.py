@@ -74,9 +74,9 @@ def main():
 		for sch in schemes:
 			x = score(curr_read.k_set, ref_k_set, sch, k_size)
 			print(x)
-			alignment.add_score(sch, x)
+			alignment.scores[sch] = x
 		#####
-		curr_read.add_alignment(alignment)
+		curr_read.alignments.append(alignment)
 	#####
 
 
