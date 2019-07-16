@@ -62,7 +62,7 @@ def main():
 		#####
 
 		for i in curr_read.alignments:
-			print(i)
+			print(i.toString())
 		#####
 
 		# Continue adding more alignments
