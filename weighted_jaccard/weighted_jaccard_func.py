@@ -82,9 +82,11 @@ def isUnique(k_str):
 		try:
 			return unique_table[k_str] 
 		except:
-			return False
+			pass
+			# return False
 		#####
 	#####
+	return False
 
 def score(k_set1, k_set2, sch, k_size):
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(k_set1, k_set2, k_size)
