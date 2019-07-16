@@ -70,7 +70,7 @@ def main():
 		# score alignments with different weighting schemes
 		for sch in schemes:
 			x = score(curr_read.k_set, ref_k_set, sch, k_size)
-			alignment.add_score(sch, score)
+			alignment.add_score(sch, x)
 		#####
 		curr_read.add_alignment(alignment)
 
