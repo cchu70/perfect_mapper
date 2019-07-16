@@ -46,7 +46,6 @@ def main():
 		alignment = Alignment(start, end, ground_truth)
 
 		# Check which read (current or next) this alignment corresponds to 
-
 		if (curr_read):
 			if (read_name != curr_read.read_name):
 				# evaluate the curr read performance
@@ -62,20 +61,16 @@ def main():
 
 		# Continue adding more alignments
 
-
-
 		# Get the alignment region's kmers
 		ref_k_set = getKmers(ref_record.seq[start:end], k_size)
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
 			x = score(curr_read.k_set, ref_k_set, sch, k_size)
+			print(x)
 			alignment.add_score(sch, x)
 		#####
 		curr_read.add_alignment(alignment)
-
-
-		# Once I've seen and scored all of the current read's alignments, pick the best one, evaluate performace, etc.
 	#####
 
 
