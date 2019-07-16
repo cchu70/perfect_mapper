@@ -95,12 +95,11 @@ def parsePaf(paf_string):
 	data = paf_string.split()
 	read_name = data[0]
 	length = int(data[1])
-	start = int(data[3])
-	cigar = data[-2].split(":")[-1]
+	start = int(data[7])
+	end = int(data[8])
 
 	ground_truth = data[-1]
 
-	end = start + parseCigar(cigar)
 	
 
 	return read_name, length, start, end, ground_truth
