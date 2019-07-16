@@ -32,10 +32,12 @@ def main():
 	first_data = ""
 
 	for line in paf_file:
+		print(line)
 		read_name = line.split()[0]
 
 		start = int(line.split()[7])
 		print(start)
+		assert False
 		isCorrect = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
 
 		data = "%s\t%s" % (line.strip(), isCorrect)
