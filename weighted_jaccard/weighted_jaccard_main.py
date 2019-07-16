@@ -14,7 +14,7 @@ def main():
 
 	# Set weight schemes?
 	sch_start = 1
-	sch_end = 5
+	sch_end = 10
 	k_size = 21
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
 	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
@@ -73,7 +73,7 @@ def main():
 		#####
 		print("%s\t%s" % (read_name, alignment.toString()))
 		# curr_read.alignments.append(alignment)
-		alignments.append(alignment)
+		# alignments.append(alignment)
 	#####
 
 
