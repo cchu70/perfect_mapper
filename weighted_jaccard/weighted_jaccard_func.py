@@ -26,6 +26,7 @@ def counts(read_k_set, align_k_set, k_size):
 	# Query the read onto the align set. If match, mark true and increment
 	# Sets initialized so the kmers are the keys and all have true as the value
 
+	c = 0
 	for k in read_k_set:
 		if k in align_k_set:
 			if isUnique(k):
@@ -42,8 +43,10 @@ def counts(read_k_set, align_k_set, k_size):
 				non_shared_non_unique_sum += 1
 			#####
 		#####
+		c += 1
 	#####
 
+	d = 0
 	for k in align_k_set:
 		if align_k_set[k]:
 			if isUnique(k):
@@ -52,7 +55,10 @@ def counts(read_k_set, align_k_set, k_size):
 				non_shared_non_unique_sum += 1
 			#####
 		#####
+		d += 1
 	#####
+
+	print(c, d)
 
 	print(shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 
