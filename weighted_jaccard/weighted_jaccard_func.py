@@ -64,15 +64,14 @@ def score(k_set1, k_set2, sch, k_size):
 	score = weightJaccard(sch[0], sch[1], shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 
 
-def parsePaf(sam_string):
+def parsePaf(paf_string):
 	# Based on sam file
-	read_name = sam_string[0]
-	start = int(sam_string[3])
-	cigar = sam_string[-2]
+	data = paf_string.split()
+	read_name = data[0]
+	start = int(data[3])
+	cigar = data[-2]
 
-	print(cigar)
-
-	ground_truth = sam_string[-1]
+	ground_truth = data[-1]
 
 	end = start + parseCigar(cigar)
 	
@@ -81,6 +80,7 @@ def parsePaf(sam_string):
 
 def parseCigar(cigar_string):
 
+	print(cigar_string)
 	length = 0
 	num_string = ""
 
