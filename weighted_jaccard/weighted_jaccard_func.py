@@ -33,7 +33,6 @@ def counts(read_k_set, align_k_set, k_size):
 			else:
 				shared_non_unique_sum += 1
 			#####
-			print(k)
 			align_k_set[k] = False
 			read_k_set[k] = False
 		else:
@@ -45,8 +44,7 @@ def counts(read_k_set, align_k_set, k_size):
 		#####
 	#####
 
-	print("Checking ref")
-	time.sleep(5)
+	print(shared_non_unique_sum)
 
 	for k in align_k_set:
 		if align_k_set[k]:
