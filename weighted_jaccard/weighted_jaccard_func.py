@@ -157,9 +157,6 @@ def parseFasta(fasta_file):
 		#####
 	#####
 	read_record[header] = seq_str
-	if (len(read_record) == 1):
-		return seq_str
-	#####
 	return read_record
 
 

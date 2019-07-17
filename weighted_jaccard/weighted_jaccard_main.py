@@ -31,7 +31,7 @@ def main():
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
 	read_records = parseFasta(read_fasta) # Dictionary of read names and it's corresponding sequence
 
-	sys.stderr.write("Parsing unique file: %s\n" % read_fasta)
+	sys.stderr.write("Parsing unique file: %s\n" % unique_k_file)
 	unique_table = parseUniqueFile(unique_k_file)
 
 
