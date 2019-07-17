@@ -34,7 +34,12 @@ def main():
 	for line in paf_file:
 		read_name = line.split()[0]
 
-		start = int(line.split()[7])
+		# paf file
+		# start = int(line.split()[7])
+
+		#sam file
+		start = int(line.split()[3])
+
 		isCorrect = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
 
 		data = "%s\t%s" % (line.strip(), isCorrect)
