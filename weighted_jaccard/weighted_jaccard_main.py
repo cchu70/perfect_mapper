@@ -1,7 +1,7 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
 from  weighted_jaccard_func import getKmers, score, parsePaf, Read, Alignment, unique_table, parseUniqueFile
-#from Bio import SeqIO
+from Bio import SeqIO
 import sys
 import os
 import subprocess
@@ -18,7 +18,8 @@ def main():
 	k_size = 21
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
 	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
-	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.minimap2_N50_30kb.cigar.multiple_align_only.paf"
+	# align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.minimap2_N50_30kb.cigar.multiple_align_only.paf"
+	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/HEADn3000.chr22.minimap2_N50_30kb.cigar.multiple_align_only.paf"
 	unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
 
 
