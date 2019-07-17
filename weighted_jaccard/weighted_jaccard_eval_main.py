@@ -57,17 +57,17 @@ def main():
 						else:
 							# increment TN
 							sch_test[scheme][1] += 1
-							print("TN")
-							print(curr_read)
-							print(curr_sch_scores[scheme])
+							# print("TN")
+							# print(curr_read)
+							# print(curr_sch_scores[scheme])
 						#####
 					else:
 						if a[1] == "True":
 							# Increment FP
 							sch_test[scheme][2] += 1
-							print("FP")
-							print(curr_read)
-							print(curr_sch_scores[scheme])
+							# print("FP")
+							# print(curr_read)
+							# print(curr_sch_scores[scheme])
 						else:
 							# increment FN
 							sch_test[scheme][3] += 1
