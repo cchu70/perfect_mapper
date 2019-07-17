@@ -39,8 +39,14 @@ def main():
 
 		#sam file
 		start = int(line.split()[3])
+		flag = int(line.split()[1])
 
 		isCorrect = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
+
+		# ASSUMPTION THAT ALL THE ORIGINAL SIMULATED READS ARE FORWARD
+		if flag & 16:
+			isCorrect = False
+		#####
 
 		data = "%s\t%s" % (line.strip(), isCorrect)
 
