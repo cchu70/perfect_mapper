@@ -138,6 +138,31 @@ def parseCigar(cigar_string):
 	return length
 #####
 
+def parseFasta(fasta_file):
+	read_record = {}
+	header = None
+	seq_str = ""
+	for line in open(fasta_file, "r"):
+		if ">" in line:
+
+			if header:
+				read_record[header] = seq_str
+				seq_str = ""
+			#####
+
+			# Start next header
+			header = line.strip().replace(">", "")
+		else:
+			seq_str += line.strip()
+		#####
+	#####
+	read_record[header] = seq_str
+	if (len(read_record) == 1):
+		return seq_str
+	#####
+	return read_record
+
+
 
 ###########################################################################
 # Classes
@@ -162,9 +187,6 @@ class Read:
 		self.length = length
 		self.seq_str = seq_str
 
-class Kmer:
-	seq = ""
-	isUnique = False
 
 class Alignment:
 	start_idx = 0

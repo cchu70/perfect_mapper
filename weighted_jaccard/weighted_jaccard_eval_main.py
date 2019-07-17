@@ -36,10 +36,6 @@ def main():
 			curr_read = read_name
 		elif curr_read != read_name:
 			# get the current's results
-
-
-
-			
 			for scheme in curr_sch_scores:
 
 				try:
@@ -48,6 +44,7 @@ def main():
 					sch_test[scheme] = [0,0,0,0]
 				#####
 
+				# All the scores based on current scheme from all the alignments for the current read
 				align_scores = curr_sch_scores[scheme]
 
 				max_align = max(align_scores)
@@ -60,14 +57,21 @@ def main():
 						else:
 							# increment TN
 							sch_test[scheme][1] += 1
+							print("TN")
+							print(curr_read)
+							print(curr_sch_scores[scheme])
 						#####
 					else:
 						if a[1] == "True":
 							# Increment FP
 							sch_test[scheme][2] += 1
+							print("FP")
+							print(curr_read)
+							print(curr_sch_scores[scheme])
 						else:
 							# increment FN
 							sch_test[scheme][3] += 1
+
 						#####
 					#####
 				#####
