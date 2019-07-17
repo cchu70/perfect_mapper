@@ -87,7 +87,7 @@ def score(read_seq, align_k_set, sch, k_size):
 	return score
 
 def parsePaf(paf_string):
-	# Based on sam file
+	# Based on paf file
 	data = paf_string.split()
 	read_name = data[0]
 	length = int(data[1])
@@ -97,6 +97,25 @@ def parsePaf(paf_string):
 	ground_truth = data[-1]
 
 	return read_name, length, start, end, ground_truth
+
+def parseSam(sam_str):
+	data = sam_str.split()
+
+	read_name = data[0]
+
+	start = int(data[3])
+	cigar = data[5]
+
+
+
+	length = parseCigar(cigar)
+
+	end = start + length
+
+	ground_truth = data[-1]
+
+	return read_name, length, start, end, ground_truth
+
 
 def parseCigar(cigar_string):
 
