@@ -14,7 +14,7 @@ def parseUniqueFile(unique_k_file):
 
 
 # Counts the number in each set
-def counts(read_k_set, align_k_set, k_size):
+def counts(read_seq, align_k_set, k_size):
 
 	shared_unique_sum = 0
 	shared_non_unique_sum = 0
@@ -25,7 +25,10 @@ def counts(read_k_set, align_k_set, k_size):
 	
 	# Query the read onto the align set. If match, mark true and increment
 	# Sets initialized so the kmers are the keys and all have true as the value
-	for k in read_k_set:
+	for i in range(len(read_seq) - k_size):
+		# get read's kmers
+		k = str(seq_str[i: i + k_size])
+
 		if k in align_k_set:
 			if isUnique(k):
 				shared_unique_sum += 1
@@ -78,8 +81,8 @@ def isUnique(k_str):
 		return False
 	#####
 
-def score(k_set1, k_set2, sch, k_size):
-	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(k_set1, k_set2, k_size)
+def score(read_seq, align_k_set, sch, k_size):
+	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size)
 	score = weightJaccard(sch[0], sch[1], shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 	return score
 
