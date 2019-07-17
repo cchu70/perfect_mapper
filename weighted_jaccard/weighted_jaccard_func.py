@@ -27,7 +27,7 @@ def counts(read_seq, align_k_set, k_size):
 	# Sets initialized so the kmers are the keys and all have true as the value
 	for i in range(len(read_seq) - k_size):
 		# get read's kmers
-		k = str(seq_str[i: i + k_size])
+		k = str(read_seq[i: i + k_size])
 
 		if k in align_k_set:
 			if isUnique(k):
