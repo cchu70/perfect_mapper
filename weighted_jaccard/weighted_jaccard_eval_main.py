@@ -24,9 +24,10 @@ def main():
 
 
 	curr_read = None
-	comp_table = {}
-	sch_test_true = {}
-	sch_test_false= {}
+
+	sch_test = {}
+	curr_sch_scores = {}
+
 	for line in open(wj_file, "r"):
 
 		read_name, ground_truth, scores_table = parseWJ(line.strip())
@@ -35,55 +36,66 @@ def main():
 			curr_read = read_name
 		elif curr_read != read_name:
 			# get the current's results
-			for sch in comp_table:
+
+
+
+			
+			for scheme in curr_sch_scores:
 
 				try:
-					x = sch_test_true[sch]
+					x = sch_test[scheme]
 				except KeyError:
-					sch_test_true[sch] = 0
+					sch_test[scheme] = [0,0,0,0]
 				#####
 
-				try:
-					x = sch_test_false[sch]
-				except KeyError:
-					sch_test_false[sch] = 0
-				#####
-		
-				if comp_table[sch][1] == "True":
-					sch_test_true[sch] += 1
-				else:
-					sch_test_false[sch] += 1
+				align_scores = curr_sch_scores[scheme]
+
+				max_align = max(align_scores)
+
+				for a in align_scores:
+					if a == max_align:
+						if a[1] == "True":
+							# increment TP
+							sch_test[scheme][0] += 1
+						else:
+							# increment TN
+							sch_test[scheme][1] += 1
+						#####
+					else:
+						if a[1] == "True":
+							# Increment FP
+							sch_test[scheme][2] += 1
+						else:
+							# increment FN
+							sch_test[scheme][3] += 1
+						#####
+					#####
 				#####
 			#####
 
 			# update 
 			curr_read = read_name
-			comp_table = {}
+			curr_sch_scores = {}
 		#####
 
-
-		# Get each score for each scheme
-		for sch in scores_table:
-			sch_score = (scores_table[sch], ground_truth)
+		for scheme in scores_table:
+			score = scores_table[scheme]
 			try:
-				comp_table[sch] = max(comp_table[sch], sch_score)
-			except KeyError:
-				comp_table[sch] = sch_score
-			#####
+				curr_sch_scores[scheme].append((score, ground_truth))
+			except:
+				curr_sch_scores[scheme] = [(score, ground_truth)]
 		#####
 	#####
 
 
-	# Print results
-	for sch in sch_test_true:
-		correct_count = float(sch_test_true[sch])
-		incorrect_count = float(sch_test_false[sch])
-		total = correct_count + incorrect_count
-
-		tp_rate = correct_count / total
-		fp_rate = incorrect_count / total
-
-		print("%s\t%0.5f\t%0.5f" % (sch, tp_rate, fp_rate))
+	# # Print results
+	for sch in sch_test:
+		rates = sch_test[sch]
+		tp = rates[0]
+		tn = rates[1]
+		fp = rates[2]
+		fn = rates[3]
+		print("%s\t%d\t%d\t%d\t%d" % (sch, tp, tn, fp, fn))
 	#####
 
 
