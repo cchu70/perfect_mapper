@@ -36,7 +36,7 @@ def main():
 
 
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
-	ref_record = list(parseFasta(read_fasta).values)[0] # Should only be one reference
+	ref_record = list(parseFasta(ref_fasta).values)[0] # Should only be one reference
 
 	curr_read = None
 	alignments = []
