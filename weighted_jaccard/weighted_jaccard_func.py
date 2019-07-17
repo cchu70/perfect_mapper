@@ -127,7 +127,7 @@ def parseCigar(cigar_string):
 class Read:
 	read_name = ""
 	length = 0
-	k_set = {}
+	seq_str = ""
 	alignments = []
 
 	def add_alignment(self, alignment):
@@ -138,10 +138,10 @@ class Read:
 		for alignment in self.alignments:
 			print("%s\t%s" % (self.read_name, alignment.toString()))
 
-	def __init__(self, read_name, length, k_set):
+	def __init__(self, read_name, length, seq_str):
 		self.read_name = read_name
 		self.length = length
-		self.k_set = k_set
+		self.seq_str = seq_str
 
 class Kmer:
 	seq = ""

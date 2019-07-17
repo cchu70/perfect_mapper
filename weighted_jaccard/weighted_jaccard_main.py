@@ -55,12 +55,12 @@ def main():
 				# evaluate the curr read performance
 				# curr_read.print_alignments()
 				# assert False
-				curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
+				curr_read = Read(read_name, length, str(read_records[read_name].seq))
 			#####
 		else:
 			# initialize
 			# sys.stderr.write("Initialize\nread name: %s, start: %d, end: %d, truth: %s\n" % (read_name, start, end, ground_truth))
-			curr_read = Read(read_name, length, getKmers(read_records[read_name].seq, k_size))
+			curr_read = Read(read_name, length, str(read_records[read_name].seq))
 		#####
 
 		# Continue adding more alignments
