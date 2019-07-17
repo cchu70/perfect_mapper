@@ -3,6 +3,20 @@
 
 import sys
 
+def parseWJ(wj_str):
+	data = wj_str.split("\t")
+	read_name = data[0]
+	ground_truth = data[3]
+
+	scores = data[4:]
+	scores_table = {}
+	for s in scores:
+		scheme, score = s.split("=")
+		scores_table[scheme] = score
+	#####
+
+	return read_name, ground_truth, scores_table
+
 def main():
 
 
@@ -35,7 +49,7 @@ def main():
 					sch_test_false[sch] = 0
 				#####
 		
-				if comp_table[sch] = "True":
+				if comp_table[sch][1] == "True":
 					sch_test_true[sch] += 1
 				else:
 					sch_test_false[sch] += 1
@@ -81,17 +95,5 @@ if __name__ == "__main__": main()
 
 
 
-def parseWJ(wj_str):
-	data = wj_str.split()
-	read_name = data[0]
-	ground_truth = data[3]
 
-	scores = data[4:]
-	scores_table = {}
-	for s in scores:
-		scheme, score = s.split("=")
-		scores_table[scheme] = score
-	#####
-
-	return read_name, ground_truth, scores_table
 
