@@ -176,7 +176,7 @@ def parseCigar(cigar_string):
 			# A letter
 			d = int(num_string) # Convert the current num_string into a number
 
-			if (c == "M" or c == "D"):
+			if (c == "M" or c == "D" or c = "N"):
 				print(d)
 				# Only add up matches and deletions in the read
 				length += d
