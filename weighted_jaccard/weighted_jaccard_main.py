@@ -8,18 +8,24 @@ import time
 
 def main():
 
-	sch_start = 1
-	sch_end = 16
-	k_size = 21
+
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
 	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
 	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam"
 	unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
 
+	sch_start = 1
+	sch_end = 16
+	k_size = 21
 
 	try:
 		read_fasta = sys.argv[1]
-		align_file = sys.argv[2]
+		ref_fasta = sys.argv[2]
+		align_file = sys.argv[3]
+		unique_k_file = sys.argv[4]
+		sch_start = int(sys.argv[5])
+		sch_end = int(sys.argv[6])
+		k_size = int(sys.argv[7])
 	except:
 		pass
 	#####
@@ -28,7 +34,7 @@ def main():
 	w = 2
 	# schemes = [(1, w ** i) for i in range(sch_start, sch_end)] # power
 
-	schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
+	schemes = [Scheme(1, w ** i) for i in range(sch_start, sch_end)] # Linear
 
 	# Get read sequences
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
@@ -64,14 +70,12 @@ def main():
 			# initialize
 			curr_read_name = read_name
 			curr_read_str = read_records[read_name]
-			# curr_read_k_set = getKmers(curr_read_str, k_size)
 		#####
 
 		# Get the alignment region's kmers
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
-		# shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(curr_read_k_set, ref_k_set, unique_table)
 		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, unique_table)
 		for sch in schemes:
 			x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
