@@ -40,6 +40,8 @@ def counts(read_seq, align_k_set, k_size):
 		k_count += 1
 
 		# sys.stderr.write("%s\n" % isUnique(k))
+		if (not isUnique(k)):
+			print(k)
 
 		if k in align_k_set:
 			if isUnique(k):
@@ -64,7 +66,7 @@ def counts(read_seq, align_k_set, k_size):
 		#####
 	#####
 
-	sys.stderr.write("read k_count: %d" % k_count)
+	sys.stderr.write("read k_count: %d\n" % k_count)
 
 	for k in align_k_set:
 

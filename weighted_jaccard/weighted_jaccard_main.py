@@ -8,7 +8,7 @@ import subprocess
 
 def main():
 
-	sch_start = 0
+	sch_start = 1
 	sch_end = 16
 	k_size = 21
 	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
