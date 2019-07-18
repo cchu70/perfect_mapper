@@ -193,8 +193,6 @@ def parseCigar(cigar_string):
 			num_string = ""
 		#####
 	#####
-
-	sys.stderr.write("Read length: %d\n" % read_length)
 	return length, read_start, read_end
 #####
 
