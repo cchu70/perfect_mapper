@@ -86,10 +86,10 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 
 def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
 
-	sys.stderr.write("Itersection = %d * %d + %d * %d\n" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum))
+	# sys.stderr.write("Itersection = %d * %d + %d * %d\n" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum))
 	intersection = w_unique * shared_unique_sum + w_non_unique * shared_non_unique_sum
 
-	sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
+	# sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
 	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
 
 	return float(intersection)/float(union)
@@ -113,22 +113,18 @@ def getKmers(seq_str, k_size):
 
 def score(read_seq, align_k_set, sch, k_size, unique_table):
 	# Debugging
-	sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
+	# sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
 
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size, unique_table)
 
 	# Debugging
-	sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
+	# sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
 	
 	non_unique_weight = sch[0]
 	unique_weight = sch[1]
 
 
 	similarity_score = weightJaccard(non_unique_weight, unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-	
-	sys.stderr.write("score: %0.5f\n" % (similarity_score))
-
-	assert False
 	return score
 
 def parsePaf(paf_string):
