@@ -4,6 +4,7 @@ from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseU
 import sys
 import os
 import subprocess
+import time
 
 def main():
 
@@ -50,7 +51,7 @@ def main():
 
 
 		# Check which read (current or next) this alignment corresponds to 
-		if (curr_read):
+		if (curr_read_str):
 			if (read_name != curr_read.read_name):
 				# evaluate the curr read performance
 				curr_read_str = read_records[read_name]
