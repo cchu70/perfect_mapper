@@ -17,7 +17,7 @@ def parseUniqueFile(unique_k_file):
 
 
 # Counts the number in each set
-def counts(read_seq, align_k_set, k_size):
+def counts(read_seq, align_k_set, k_size, unique_table):
 
 	shared_unique_sum = 0
 	shared_non_unique_sum = 0
@@ -40,11 +40,11 @@ def counts(read_seq, align_k_set, k_size):
 		k_count += 1
 
 		# sys.stderr.write("%s\n" % isUnique(k))
-		if (not isUnique(k)):
+		if (k not in unique_table):
 			print(k)
 
 		if k in align_k_set:
-			if isUnique(k):
+			if k in unique_table:
 				# Debugging
 				k_uniq_count += 1
 
@@ -54,7 +54,7 @@ def counts(read_seq, align_k_set, k_size):
 			#####
 			align_k_set[k] = False
 		else:
-			if isUnique(k):
+			if k in unique_table:
 
 				# Debugging
 				k_uniq_count += 1
@@ -116,11 +116,11 @@ def isUnique(k_str):
 		return False
 	#####
 
-def score(read_seq, align_k_set, sch, k_size):
+def score(read_seq, align_k_set, sch, k_size, unique_table):
 	# Debugging
 	sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
 
-	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size)
+	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size, unique_table)
 
 	# Debugging
 	sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
