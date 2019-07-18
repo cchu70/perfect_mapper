@@ -116,7 +116,7 @@ def isUnique(k_str):
 
 def score(read_seq, align_k_set, sch, k_size):
 	# Debugging
-	sys.stderr.write("Scheme: %s\n" % sch)
+	sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
 
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size)
 
