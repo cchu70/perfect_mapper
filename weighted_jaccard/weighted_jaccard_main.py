@@ -42,6 +42,7 @@ def main():
 	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
 
 	curr_read_str = None
+	curr_read_name = None
 
 	for line in open(align_file, "r"):
 
@@ -52,13 +53,15 @@ def main():
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read_str):
-			if (read_name != curr_read.read_name):
+			if (read_name != curr_read_name):
 				# evaluate the curr read performance
+				curr_read_name = read_name
 				curr_read_str = read_records[read_name]
 			# else, continue using this read
 			#####
 		else:
 			# initialize
+			curr_read_name = read_name
 			curr_read_str = read_records[read_name]
 		#####
 
