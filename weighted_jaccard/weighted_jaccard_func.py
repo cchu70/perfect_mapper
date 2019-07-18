@@ -163,8 +163,8 @@ def parseCigar(cigar_string):
 	length = 0
 	num_string = ""
 
-	read_start = None
-	read_end = None
+	read_start = 0
+	read_end = -1
 
 	for c in cigar_string:
 		if c.isdigit():
@@ -176,6 +176,7 @@ def parseCigar(cigar_string):
 			if (c == "M" or c == "D" or c == "N"):
 				# Only add up matches and deletions in the read
 				length += d
+
 			elif (c == "S" or c == "H"):
 				# Get the start and end of the read
 				if not read_start:
