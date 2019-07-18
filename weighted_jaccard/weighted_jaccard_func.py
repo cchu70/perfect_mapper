@@ -169,6 +169,8 @@ def parseCigar(cigar_string):
 	length = 0
 	num_string = ""
 
+	anti_length = 0
+
 	for c in cigar_string:
 		if c.isdigit():
 			num_string += c
@@ -180,11 +182,14 @@ def parseCigar(cigar_string):
 				print(d)
 				# Only add up matches and deletions in the read
 				length += d
+			else:
+				anti_length += d
 			#####
 			num_string = ""
 		#####
 	#####
 	print(length)
+	print(anti_length)
 	assert False
 	return length
 #####
