@@ -66,7 +66,7 @@ def main():
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
-		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end]), ref_k_set, unique_table)
+		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, unique_table)
 		for sch in schemes:
 			x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 			alignment.scores[sch] = x
