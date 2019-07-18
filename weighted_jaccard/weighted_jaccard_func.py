@@ -123,7 +123,7 @@ def parseCigar(cigar_string):
 	num_string = ""
 
 	read_start = 0
-	read_end = -1
+	read_end = None
 
 	for c in cigar_string:
 		if c.isdigit():
