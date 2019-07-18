@@ -94,22 +94,6 @@ def getKmers(seq_str, k_size):
 	return k_set
 #####
 
-# def score(read_k_set, align_k_set, sch, unique_table):
-# 	# Debugging
-# 	# sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
-
-# 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_k_set, align_k_set, unique_table)
-
-# 	# Debugging
-# 	# sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
-	
-# 	non_unique_weight = sch[0]
-# 	unique_weight = sch[1]
-
-
-# 	similarity_score = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-# 	return similarity_score
-
 def parsePaf(paf_string):
 	# Based on paf file
 	data = paf_string.split()
