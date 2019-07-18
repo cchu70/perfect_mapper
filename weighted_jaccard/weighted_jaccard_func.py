@@ -2,9 +2,6 @@
 import time
 import sys
 
-# Set up
-unique_table = {}
-
 
 def parseUniqueFile(unique_k_file):
 	table = {}

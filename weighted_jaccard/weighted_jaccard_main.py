@@ -69,7 +69,7 @@ def main():
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
-			x = score(curr_read.seq_str, ref_k_set, sch, k_size)
+			x = score(curr_read.seq_str, ref_k_set, sch, k_size, unique_table)
 			alignment.scores[sch] = x
 		#####
 		print("%s\t%s" % (read_name, alignment.toString()))
