@@ -16,6 +16,8 @@ def parseUniqueFile(unique_k_file):
 # Counts the number in each set
 def counts(read_seq, align_k_set, k_size, unique_table):
 
+	sys.stderr.write("Size of align set: %d\n" % len(align_k_set))
+
 	shared_unique_sum = 0
 	shared_non_unique_sum = 0
 
@@ -36,9 +38,11 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 		# Debugging
 		k_count += 1
 
-		# sys.stderr.write("%s\n" % isUnique(k))
-		if (k not in unique_table):
-			print(k)
+
+
+		# # sys.stderr.write("%s\n" % isUnique(k))
+		# if (k not in unique_table):
+		# 	print(k)
 
 		if k in align_k_set:
 			if k in unique_table:
