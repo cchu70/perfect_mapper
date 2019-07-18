@@ -19,6 +19,7 @@ def main():
 
 	try:
 		read_fasta = sys.argv[1]
+		align_file = sys.argv[2]
 	except:
 		pass
 	#####
@@ -31,20 +32,20 @@ def main():
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
 	read_records = parseFasta(read_fasta) # Dictionary of read names and it's corresponding sequence
 
-	sys.stderr.write("Parsing unique file: %s\n" % unique_k_file)
-	unique_table = parseUniqueFile(unique_k_file)
-
-
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
 	ref_record = list(parseFasta(ref_fasta).values())[0] # Should only be one reference
 
+	sys.stderr.write("Parsing unique file: %s\n" % unique_k_file)
+	unique_table = parseUniqueFile(unique_k_file)
+	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
+
 	curr_read = None
-	alignments = []
 
 	for line in open(align_file, "r"):
 
-		# read_name, length, start, end, ground_truth = parsePaf(line.strip())
 		read_name, length, start, end, ground_truth = parseSam(line.strip())
+
+		sys.stderr.write("Length: %d, start: %d, end: %d, truth: %d" % (length, start, end, ground_truth))
 
 		alignment = Alignment(start, end, ground_truth)
 
@@ -54,11 +55,11 @@ def main():
 			if (read_name != curr_read.read_name):
 				# evaluate the curr read performance
 				read_records.pop(curr_read, None) # remove from the sequence dictionary because I am done with it? will this run faster?
-				curr_read = Read(read_name, length, str(read_records[read_name]))
+				curr_read = Read(read_name, length, read_records[read_name])
 			#####
 		else:
 			# initialize
-			curr_read = Read(read_name, length, str(read_records[read_name]))
+			curr_read = Read(read_name, length, read_records[read_name])
 		#####
 
 		# Continue adding more alignments

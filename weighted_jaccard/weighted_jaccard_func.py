@@ -22,6 +22,10 @@ def counts(read_seq, align_k_set, k_size):
 	non_shared_unique_sum = 0
 	non_shared_non_unique_sum = 0
 	total_sum = 0
+
+	# Debugging
+	k_count = 0
+	k_uniq_count = 0
 	
 	# Query the read onto the align set. If match, mark true and increment
 	# Sets initialized so the kmers are the keys and all have true as the value
@@ -29,8 +33,16 @@ def counts(read_seq, align_k_set, k_size):
 		# get read's kmers
 		k = str(read_seq[i: i + k_size])
 
+		# Debugging
+		k_count += 1
+
+		sys.stderr.write("%s" % isUnique(k))
+
 		if k in align_k_set:
 			if isUnique(k):
+				# Debugging
+				k_uniq_count += 1
+
 				shared_unique_sum += 1
 			else:
 				shared_non_unique_sum += 1
@@ -38,6 +50,10 @@ def counts(read_seq, align_k_set, k_size):
 			align_k_set[k] = False
 		else:
 			if isUnique(k):
+				
+				# Debugging
+				k_uniq_count += 1
+
 				non_shared_unique_sum += 1
 			else:
 				non_shared_non_unique_sum += 1
@@ -45,19 +61,33 @@ def counts(read_seq, align_k_set, k_size):
 		#####
 	#####
 
+	sys.stderr.write("read k_count: %d" % k_count)
+
 	for k in align_k_set:
+
+		# Debugging
+		k_count += 1
 		if align_k_set[k]:
 			if isUnique(k):
 				non_shared_unique_sum += 1
+
+				# Debugging
+				k_uniq_count += 1
+
 			else:
 				non_shared_non_unique_sum += 1
 			#####
 		#####
 	#####
 
+	sys.stderr.write("unique k_count union found: %d" % k_uniq_count)
+
+	sys.stderr.write("union k_count: %d" % k_count)
+
+
 	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
 
-def weightJaccard(w_unique, w_non_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
+def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
 
 	intersection = w_unique * shared_unique_sum + w_non_unique * shared_non_unique_sum
 	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
@@ -82,8 +112,19 @@ def isUnique(k_str):
 	#####
 
 def score(read_seq, align_k_set, sch, k_size):
+	# Debugging
+	sys.stderr.write("Scheme: %s\n" % sch)
+
 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size)
-	score = weightJaccard(sch[0], sch[1], shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+
+	# Debugging
+	sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
+	
+	similarity_score = weightJaccard(sch[0], sch[1], shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+	
+	sys.stderr.write("score: %d" % (similarity_score))
+
+	assert False
 	return score
 
 def parsePaf(paf_string):
