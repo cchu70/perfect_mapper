@@ -106,12 +106,12 @@ def getKmers(seq_str, k_size):
 	return k_set
 #####
 
-def isUnique(k_str):
-	try:
-		return unique_table[k_str] 
-	except KeyError:
-		return False
-	#####
+# def isUnique(k_str):
+# 	try:
+# 		return unique_table[k_str] 
+# 	except KeyError:
+# 		return False
+# 	#####
 
 def score(read_seq, align_k_set, sch, k_size, unique_table):
 	# Debugging
