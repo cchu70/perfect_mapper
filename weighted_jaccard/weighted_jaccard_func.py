@@ -39,7 +39,7 @@ def counts(read_seq, align_k_set, k_size):
 		# Debugging
 		k_count += 1
 
-		sys.stderr.write("%s" % isUnique(k))
+		# sys.stderr.write("%s\n" % isUnique(k))
 
 		if k in align_k_set:
 			if isUnique(k):
