@@ -16,8 +16,6 @@ def parseUniqueFile(unique_k_file):
 # Counts the number in each set
 def counts(read_seq, align_k_set, k_size, unique_table):
 
-	sys.stderr.write("Size of align set: %d\n" % len(align_k_set))
-
 	shared_unique_sum = 0
 	shared_non_unique_sum = 0
 
@@ -67,8 +65,6 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 		#####
 	#####
 
-	sys.stderr.write("read k_count: %d\n" % k_count)
-
 	for k in align_k_set:
 
 		# Debugging
@@ -86,35 +82,25 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 		#####
 	#####
 
-	sys.stderr.write("unique k_count union found: %d\n" % k_uniq_count)
-
-	sys.stderr.write("union k_count: %d\n" % k_count)
-
-
 	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
 
 def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
 
+	sys.stderr.write("Itersection = %d * %d + %d * %d\n" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum))
 	intersection = w_unique * shared_unique_sum + w_non_unique * shared_non_unique_sum
+
+	sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
 	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
 
 	return float(intersection)/float(union)
 
 def getKmers(seq_str, k_size):
-	c = 0
+
 	k_set = {}
 	for i in range(len(seq_str) - k_size):
 		k = str(seq_str[i: i + k_size])
-		# k_set[k] = True
-		try:
-			x = k_set[k]
-			c += 1
-		except KeyError:
-			k_set[k] = True
-		#####
+		k_set[k] = True
 	#####
-
-	sys.stderr.write("Non distict count: %d\n" % c)
 	return k_set
 #####
 
