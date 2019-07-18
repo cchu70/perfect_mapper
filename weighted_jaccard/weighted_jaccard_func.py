@@ -169,6 +169,8 @@ def parseCigar(cigar_string):
 	length = 0
 	num_string = ""
 
+	read_length = 0
+
 	for c in cigar_string:
 		if c.isdigit():
 			num_string += c
@@ -180,9 +182,15 @@ def parseCigar(cigar_string):
 				# Only add up matches and deletions in the read
 				length += d
 			#####
+
+			if (c == "M" or c == "I" or c == "S"):
+				read_length += d
+
 			num_string = ""
 		#####
 	#####
+
+	sys.stderr.write("Read length: %d\n" % read_length)
 	return length
 #####
 
