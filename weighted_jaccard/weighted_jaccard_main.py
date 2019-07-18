@@ -1,6 +1,6 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-from  weighted_jaccard_func import getKmers, parsePaf, Read, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta, counts
+from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta, counts
 import sys
 import os
 import subprocess
@@ -40,6 +40,7 @@ def main():
 	unique_table = parseUniqueFile(unique_k_file)
 	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
 
+	curr_read_str = None
 
 	for line in open(align_file, "r"):
 
@@ -47,11 +48,24 @@ def main():
 
 		alignment = Alignment(ref_start, ref_end, ground_truth)
 
+
+		# Check which read (current or next) this alignment corresponds to 
+		if (curr_read):
+			if (read_name != curr_read.read_name):
+				# evaluate the curr read performance
+				curr_read_str = read_records[read_name]
+			# else, continue using this read
+			#####
+		else:
+			# initialize
+			curr_read_str = read_records[read_name]
+		#####
+
 		# Get the alignment region's kmers
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
-		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read.seq_str[read_start:read_end]), ref_k_set, unique_table)
+		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end]), ref_k_set, unique_table)
 		for sch in schemes:
 			x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 			alignment.scores[sch] = x
