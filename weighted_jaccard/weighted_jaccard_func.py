@@ -228,6 +228,9 @@ class Scheme:
 		self.unique_weight = w1
 		self.non_unique_weight = w2
 	#####
+
+	def __str__(self):
+		return "(%d, %d)" % (non_unique_weight, unique_weight)
 #####
 
 
