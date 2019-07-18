@@ -6,9 +6,11 @@ unique_table = {}
 
 
 def parseUniqueFile(unique_k_file):
+	table = {}
 	for k in open(unique_k_file, "r"):
-		unique_table[k.strip()] = True
+		table[k.strip()] = True
 	#####
+	return table
 #####
 
 
@@ -50,7 +52,7 @@ def counts(read_seq, align_k_set, k_size):
 			align_k_set[k] = False
 		else:
 			if isUnique(k):
-				
+
 				# Debugging
 				k_uniq_count += 1
 
@@ -120,7 +122,11 @@ def score(read_seq, align_k_set, sch, k_size):
 	# Debugging
 	sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
 	
-	similarity_score = weightJaccard(sch[0], sch[1], shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+	non_unique_weight = sch[0]
+	unique_weight = sch[1]
+
+
+	similarity_score = weightJaccard(non_unique_weight, unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 	
 	sys.stderr.write("score: %d" % (similarity_score))
 
@@ -246,6 +252,17 @@ class Alignment:
 		self.end_idx = end
 		self.ground_truth = ground_truth
 #####
+
+class Scheme:
+	unique_weight = 1
+	non_unique_weight = 1
+
+	def __init__(self, w1, w2):
+		self.unique_weight = w1
+		self.non_unique_weight = w2
+	#####
+#####
+
 
 
 
