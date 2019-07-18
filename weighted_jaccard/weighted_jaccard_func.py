@@ -125,7 +125,7 @@ def score(read_seq, align_k_set, sch, k_size, unique_table):
 
 
 	similarity_score = weightJaccard(non_unique_weight, unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-	return score
+	return similarity_score
 
 def parsePaf(paf_string):
 	# Based on paf file
