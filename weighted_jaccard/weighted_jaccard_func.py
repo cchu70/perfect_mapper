@@ -70,7 +70,7 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 		# Debugging
 		k_count += 1
 		if align_k_set[k]:
-			if isUnique(k):
+			if k in unique_table:
 				non_shared_unique_sum += 1
 
 				# Debugging
