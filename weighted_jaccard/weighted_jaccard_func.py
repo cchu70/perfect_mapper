@@ -179,8 +179,6 @@ def parseCigar(cigar_string):
 			if (c == "M" or c == "D" or c == "N"):
 				# Only add up matches and deletions in the read
 				length += d
-			else:
-				anti_length += d
 			#####
 			num_string = ""
 		#####
