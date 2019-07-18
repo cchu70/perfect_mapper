@@ -1,5 +1,6 @@
 # This Script outlines the major functions used in weighted_jaccard_main.py
 import time
+import sys
 
 # Set up
 unique_table = {}
@@ -82,9 +83,9 @@ def counts(read_seq, align_k_set, k_size):
 		#####
 	#####
 
-	sys.stderr.write("unique k_count union found: %d" % k_uniq_count)
+	sys.stderr.write("unique k_count union found: %d\n" % k_uniq_count)
 
-	sys.stderr.write("union k_count: %d" % k_count)
+	sys.stderr.write("union k_count: %d\n" % k_count)
 
 
 	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
@@ -128,7 +129,7 @@ def score(read_seq, align_k_set, sch, k_size):
 
 	similarity_score = weightJaccard(non_unique_weight, unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 	
-	sys.stderr.write("score: %d" % (similarity_score))
+	sys.stderr.write("score: %d\n" % (similarity_score))
 
 	assert False
 	return score

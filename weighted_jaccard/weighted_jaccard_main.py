@@ -45,7 +45,7 @@ def main():
 
 		read_name, length, start, end, ground_truth = parseSam(line.strip())
 
-		sys.stderr.write("Length: %d, start: %d, end: %d, truth: %s" % (length, start, end, ground_truth))
+		sys.stderr.write("Length: %d, start: %d, end: %d, truth: %s\n" % (length, start, end, ground_truth))
 
 		alignment = Alignment(start, end, ground_truth)
 
