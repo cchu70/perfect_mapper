@@ -175,13 +175,17 @@ def parseCigar(cigar_string):
 		else:
 			# A letter
 			d = int(num_string) # Convert the current num_string into a number
+
 			if (c == "M" or c == "D"):
+				print(d)
 				# Only add up matches and deletions in the read
 				length += d
 			#####
 			num_string = ""
 		#####
 	#####
+	print(length)
+	assert False
 	return length
 #####
 
