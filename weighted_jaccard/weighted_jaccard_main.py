@@ -43,11 +43,11 @@ def main():
 
 	for line in open(align_file, "r"):
 
-		read_name, length, start, end, ground_truth = parseSam(line.strip())
+		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parseSam(line.strip())
 
-		sys.stderr.write("Length: %d, start: %d, end: %d, truth: %s\n" % (length, start, end, ground_truth))
+		sys.stderr.write("Length: %d, ref_start: %d, ref_end: %d, truth: %s, read_start: %d, read_end: %d\n" % (length, start, end, ground_truth, read_start, read_end))
 
-		alignment = Alignment(start, end, ground_truth)
+		alignment = Alignment(ref_start, ref_end, ground_truth)
 
 
 		# Check which read (current or next) this alignment corresponds to 
@@ -65,11 +65,11 @@ def main():
 		# Continue adding more alignments
 
 		# Get the alignment region's kmers
-		ref_k_set = getKmers(ref_record[start:end], k_size)
+		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
-			x = score(curr_read.seq_str, ref_k_set, sch, k_size, unique_table)
+			x = score(curr_read.seq_str[read_start:read_end], ref_k_set, sch, k_size, unique_table)
 			alignment.scores[sch] = x
 		#####
 		print("%s\t%s" % (read_name, alignment.toString()))

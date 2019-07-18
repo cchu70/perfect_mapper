@@ -148,18 +148,18 @@ def parseSam(sam_str):
 
 	read_name = data[0]
 
-	start = int(data[3])
+	ref_start = int(data[3])
 	cigar = data[5]
 
 
 
-	length = parseCigar(cigar)
+	length, read_start, read_end = parseCigar(cigar)
 
-	end = start + length
+	ref_end = ref_start + length
 
 	ground_truth = data[-1]
 
-	return read_name, length, start, end, ground_truth
+	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end
 
 
 def parseCigar(cigar_string):
@@ -167,7 +167,8 @@ def parseCigar(cigar_string):
 	length = 0
 	num_string = ""
 
-	read_length = 0
+	read_start = None
+	read_end = None
 
 	for c in cigar_string:
 		if c.isdigit():
@@ -179,17 +180,22 @@ def parseCigar(cigar_string):
 			if (c == "M" or c == "D" or c == "N"):
 				# Only add up matches and deletions in the read
 				length += d
+			elif (c == "S" or c == "H"):
+				# Get the start and end of the read
+				if not read_start:
+					read_start = d
+				else:
+					read_end = -d # Get the index from the back of the read
+				#####
 			#####
 
-			if (c == "M" or c == "I" or c == "S"):
-				read_length += d
 
 			num_string = ""
 		#####
 	#####
 
 	sys.stderr.write("Read length: %d\n" % read_length)
-	return length
+	return length, read_start, read_end
 #####
 
 def parseFasta(fasta_file):
