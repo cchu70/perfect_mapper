@@ -40,27 +40,12 @@ def main():
 	unique_table = parseUniqueFile(unique_k_file)
 	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
 
-	curr_read = None
 
 	for line in open(align_file, "r"):
 
 		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parseSam(line.strip())
 
 		alignment = Alignment(ref_start, ref_end, ground_truth)
-
-
-		# Check which read (current or next) this alignment corresponds to 
-		if (curr_read):
-			if (read_name != curr_read.read_name):
-				# evaluate the curr read performance
-				curr_read = Read(read_name, length, read_records[read_name])
-			#####
-		else:
-			# initialize
-			curr_read = Read(read_name, length, read_records[read_name])
-		#####
-
-		# Continue adding more alignments
 
 		# Get the alignment region's kmers
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
