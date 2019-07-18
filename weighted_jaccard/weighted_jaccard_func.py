@@ -33,8 +33,6 @@ def counts(read_k_set, align_k_set, unique_table):
 
 		if k in align_k_set:
 			if k in unique_table:
-				# Debugging
-				k_uniq_count += 1
 
 				shared_unique_sum += 1
 			else:
@@ -45,9 +43,6 @@ def counts(read_k_set, align_k_set, unique_table):
 			align_k_set[k] = False
 		else:
 			if k in unique_table:
-
-				# Debugging
-				k_uniq_count += 1
 
 				non_shared_unique_sum += 1
 			else:
@@ -62,9 +57,6 @@ def counts(read_k_set, align_k_set, unique_table):
 		if align_k_set[k]:
 			if k in unique_table:
 				non_shared_unique_sum += 1
-
-				# Debugging
-				k_uniq_count += 1
 
 			else:
 				non_shared_non_unique_sum += 1
