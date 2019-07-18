@@ -1,6 +1,6 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-from  weighted_jaccard_func import getKmers, score, parsePaf, Read, Alignment, unique_table, parseUniqueFile, parseSam, parseFasta
+from  weighted_jaccard_func import getKmers, score, parsePaf, Read, Alignment, parseUniqueFile, parseSam, parseFasta
 #from Bio import SeqIO
 import sys
 import os
