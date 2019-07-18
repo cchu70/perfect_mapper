@@ -1,7 +1,6 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-from  weighted_jaccard_func import getKmers, score, parsePaf, Read, Alignment, parseUniqueFile, parseSam, parseFasta
-#from Bio import SeqIO
+from  weighted_jaccard_func import getKmers, parsePaf, Read, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta
 import sys
 import os
 import subprocess
@@ -26,7 +25,9 @@ def main():
 
 	# Set up schemes
 	w = 2
-	schemes = [(1, w ** i) for i in range(sch_start, sch_end)]
+	# schemes = [(1, w ** i) for i in range(sch_start, sch_end)] # power
+
+	schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
 
 	# Get read sequences
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
@@ -45,8 +46,6 @@ def main():
 
 		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parseSam(line.strip())
 
-		sys.stderr.write("Length: %d, ref_start: %d, ref_end: %d, truth: %s, read_start: %d, read_end: %d\n" % (length, ref_start, ref_end, ground_truth, read_start, read_end))
-
 		alignment = Alignment(ref_start, ref_end, ground_truth)
 
 
@@ -54,7 +53,6 @@ def main():
 		if (curr_read):
 			if (read_name != curr_read.read_name):
 				# evaluate the curr read performance
-				read_records.pop(curr_read, None) # remove from the sequence dictionary because I am done with it? will this run faster?
 				curr_read = Read(read_name, length, read_records[read_name])
 			#####
 		else:
@@ -68,8 +66,9 @@ def main():
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
+		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read.seq_str[read_start:read_end]), ref_k_set, unique_table)
 		for sch in schemes:
-			x = score(curr_read.seq_str[read_start:read_end], ref_k_set, sch, k_size, unique_table)
+			x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
 			alignment.scores[sch] = x
 		#####
 		print("%s\t%s" % (read_name, alignment.toString()))

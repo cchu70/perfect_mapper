@@ -14,7 +14,7 @@ def parseUniqueFile(unique_k_file):
 
 
 # Counts the number in each set
-def counts(read_seq, align_k_set, k_size, unique_table):
+def counts(read_k_set, align_k_set, unique_table):
 
 	shared_unique_sum = 0
 	shared_non_unique_sum = 0
@@ -22,21 +22,10 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 	non_shared_unique_sum = 0
 	non_shared_non_unique_sum = 0
 	total_sum = 0
-
-	# Debugging
-	k_count = 0
-	k_uniq_count = 0
 	
 	# Query the read onto the align set. If match, mark true and increment
 	# Sets initialized so the kmers are the keys and all have true as the value
-	for i in range(len(read_seq) - k_size):
-		# get read's kmers
-		k = str(read_seq[i: i + k_size])
-
-		# Debugging
-		k_count += 1
-
-
+	for k in read_k_set:
 
 		# # sys.stderr.write("%s\n" % isUnique(k))
 		# if (k not in unique_table):
@@ -51,6 +40,8 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 			else:
 				shared_non_unique_sum += 1
 			#####
+
+			# Don't consider this kmer again
 			align_k_set[k] = False
 		else:
 			if k in unique_table:
@@ -65,10 +56,9 @@ def counts(read_seq, align_k_set, k_size, unique_table):
 		#####
 	#####
 
-	for k in align_k_set:
 
-		# Debugging
-		k_count += 1
+	# Remaining kmers in the alignment
+	for k in align_k_set:
 		if align_k_set[k]:
 			if k in unique_table:
 				non_shared_unique_sum += 1
@@ -104,28 +94,21 @@ def getKmers(seq_str, k_size):
 	return k_set
 #####
 
-# def isUnique(k_str):
-# 	try:
-# 		return unique_table[k_str] 
-# 	except KeyError:
-# 		return False
-# 	#####
+# def score(read_k_set, align_k_set, sch, unique_table):
+# 	# Debugging
+# 	# sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
 
-def score(read_seq, align_k_set, sch, k_size, unique_table):
-	# Debugging
-	# sys.stderr.write("Non unique weight: %s, unique weight: %s\n" % (sch[0], sch[1]))
+# 	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_k_set, align_k_set, unique_table)
 
-	shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(read_seq, align_k_set, k_size, unique_table)
-
-	# Debugging
-	# sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
+# 	# Debugging
+# 	# sys.stderr.write("Shared unique: %d, shared non-unique: %d, non-shared unique: %d, non shared non unique: %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
 	
-	non_unique_weight = sch[0]
-	unique_weight = sch[1]
+# 	non_unique_weight = sch[0]
+# 	unique_weight = sch[1]
 
 
-	similarity_score = weightJaccard(non_unique_weight, unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-	return similarity_score
+# 	similarity_score = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+# 	return similarity_score
 
 def parsePaf(paf_string):
 	# Based on paf file
