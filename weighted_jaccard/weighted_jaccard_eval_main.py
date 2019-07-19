@@ -107,7 +107,12 @@ def main():
 		print("%s\t%d\t%d\t%d\t%d" % (sch, tp, tn, fp, fn))
 	#####
 
-
+# chr22_part05_37850_40445
+# chr22_part05_10344_11445
+# chr22_part05_34922_36159
+# chr22_part22_182338_187995
+# chr22_part24_20962_22189
+# chr22_part25_2787121_2789117
 
 
 

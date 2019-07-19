@@ -17,7 +17,7 @@ def main():
 	align_file_type = "sam"
 
 	sch_start = 1
-	sch_end = 16
+	sch_end = 10
 	k_size = 21
 
 	try:
@@ -34,10 +34,11 @@ def main():
 	#####
 
 	# Set up schemes
-	w = 2
+	w = 1
 	# schemes = [(1, w ** i) for i in range(sch_start, sch_end)] # power
 
-	schemes = [Scheme(1, w ** i) for i in range(sch_start, sch_end)] # Linear
+	# Decimals
+	schemes = [Scheme(1, w + i/10.0) for i in range(sch_start, sch_end)] # Linear
 
 	# Get read sequences
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
