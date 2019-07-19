@@ -218,6 +218,9 @@ class Alignment:
 		self.start_idx = start
 		self.end_idx = end
 		self.ground_truth = ground_truth
+
+	def __str__(self):
+		return "%d\t%d\t%s" % (self.start_idx, self.end_idx, self.ground_truth)
 #####
 
 class Scheme:
