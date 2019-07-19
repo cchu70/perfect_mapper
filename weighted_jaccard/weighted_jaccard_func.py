@@ -120,11 +120,11 @@ def parseSam(sam_str):
 def parseMashMap(mashmap_str):
 	data = mashmap_str.split()
 	read_name = data[0]
-	length = data[1]
-	read_start = data[2]
-	read_end = data[3]
-	ref_start = data[7]
-	ref_end = data[8]
+	length = int(data[1])
+	read_start = int(data[2])
+	read_end = int(data[3])
+	ref_start = int(data[7])
+	ref_end = int(data[8])
 	ground_truth = data[-1]
 	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end
 
