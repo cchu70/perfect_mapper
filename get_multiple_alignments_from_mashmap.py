@@ -13,8 +13,8 @@ def isTrue(align_start, true_start, true_end):
 
 def main():
 
-	mashmap_out = sys.argv[0] # plain mashmap output
-	true_origin_bedfile = sys.argv[1] # bed file of the original locations of the reads
+	mashmap_out = sys.argv[1] # plain mashmap output
+	true_origin_bedfile = sys.argv[2] # bed file of the original locations of the reads
 
 	true_origin_table = {}
 	for line in open(true_origin_bedfile, "r"):
