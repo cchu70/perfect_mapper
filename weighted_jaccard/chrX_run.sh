@@ -15,7 +15,7 @@ module load canu
 
 samtools view -F 2048 -F 16 -F 4
 
-# Get the true positioins of the reads
+# Get the true positions of the reads
 
 awk -f script that got the origin stuff > chrX-a02-s10.org_pos.bed
 

@@ -225,7 +225,7 @@ class Alignment:
 	#####
 
 	def toString(self):
-		scores_string = "\t".join(["(%d, %d)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
+		scores_string = "\t".join(["(%0.3f, %0.3f)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
 		return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
 	#####
 
@@ -248,7 +248,7 @@ class Scheme:
 	#####
 
 	def __str__(self):
-		return "(%d, %d)" % (self.non_unique_weight, self.unique_weight)
+		return "(%0.5f, %0.5f)" % (self.non_unique_weight, self.unique_weight)
 #####
 
 
