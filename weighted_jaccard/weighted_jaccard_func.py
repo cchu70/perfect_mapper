@@ -74,7 +74,9 @@ def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_s
 	# sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
 	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
 
-	return float(intersection)/float(union)
+	equation = "(%d*%d+%d*%d)/(%d*%d+%d*%d+%d)" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum, w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection)
+
+	return (float(intersection)/float(union), equation)
 
 def getKmers(seq_str, k_size):
 
@@ -210,7 +212,7 @@ class Alignment:
 	#####
 
 	def toString(self):
-		scores_string = "\t".join(["(%d, %d)=%0.5f" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch]) for sch in self.scores])
+		scores_string = "\t".join(["(%d, %d)=%0.5f= %s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
 		return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
 	#####
 
