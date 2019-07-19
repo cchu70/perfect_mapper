@@ -2,10 +2,13 @@
 
 
 import sys
+from  weighted_jaccard_func import Alignment
 
 def parseWJ(wj_str):
 	data = wj_str.split("\t")
 	read_name = data[0]
+	start = int(data[1])
+	end = int(data[2])
 	ground_truth = data[3]
 
 	scores = data[4:]
@@ -15,7 +18,7 @@ def parseWJ(wj_str):
 		scores_table[scheme] = score
 	#####
 
-	return read_name, ground_truth, scores_table
+	return read_name, start, end, ground_truth, scores_table
 
 def main():
 
@@ -30,7 +33,8 @@ def main():
 
 	for line in open(wj_file, "r"):
 
-		read_name, ground_truth, scores_table = parseWJ(line.strip())
+		read_name, start, end, ground_truth, scores_table = parseWJ(line.strip())
+		alignment = Alignment(start, end, ground_truth)
 
 		if not curr_read:
 			curr_read = read_name
@@ -51,7 +55,7 @@ def main():
 
 				for a in align_scores:
 					if a == max_align:
-						if a[1] == "True":
+						if a[1].ground_truth == "True":
 							# increment TP
 							sch_test[scheme][0] += 1
 						else:
@@ -63,7 +67,7 @@ def main():
 							assert False
 						#####
 					else:
-						if a[1] == "True":
+						if a[1].ground_truth == "True":
 							# Increment FP
 							sch_test[scheme][2] += 1
 							# print("FP")
@@ -86,9 +90,9 @@ def main():
 		for scheme in scores_table:
 			score = scores_table[scheme]
 			try:
-				curr_sch_scores[scheme].append((score, ground_truth))
+				curr_sch_scores[scheme].append((score, alignment))
 			except:
-				curr_sch_scores[scheme] = [(score, ground_truth)]
+				curr_sch_scores[scheme] = [(score, alignment)]
 		#####
 	#####
 
