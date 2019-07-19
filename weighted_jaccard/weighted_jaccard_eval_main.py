@@ -62,11 +62,11 @@ def main():
 							# increment TN
 							sch_test[scheme][1] += 1
 							# print("TN")
-							print(curr_read)
-							print(scheme)
-							print(a[0])
-							print(a[1])
-							assert False
+							# print(curr_read)
+							# print(scheme)
+							# print(a[0])
+							# print(a[1])
+							# assert False
 						#####
 					else:
 						if a[1].ground_truth == "True":
