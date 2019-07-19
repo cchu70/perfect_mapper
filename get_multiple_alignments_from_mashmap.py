@@ -31,7 +31,6 @@ def main():
 		data = line.split()
 
 		read_name = data[0]
-		print(line)
 		start = int(data[7])
 		pid = float(data[-1])
 		ground_truth = isTrue(start, true_origin_table[read][0], true_origin_table[read][1])
@@ -45,15 +44,19 @@ def main():
 		if (data[4] == "+"):
 			if curr_read != read_name:
 				# Print out current read
-				max_align = max(curr_read_pid)
 
-				for align in curr_read_pid:
-					mash_best = "S"
-					if align == max_align:
-						mash_best = "P"
+				if len(curr_read_pid) > 1:
+					max_align = max(curr_read_pid)
+
+					for align in curr_read_pid:
+						mash_best = "S"
+						if align == max_align:
+							mash_best = "P"
+						#####
+
+						print("%s\t%s\t%s" % (align[2], mash_best, align[1]))
 					#####
-
-					print("%s\t%s\t%s" % (align[2], mash_best, align[1]))
+				######
 
 				# reset to new read
 				curr_read = read_name
