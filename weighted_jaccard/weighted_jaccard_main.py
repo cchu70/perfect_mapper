@@ -1,6 +1,6 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta, counts, weightJaccard
+from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta, counts, weightJaccard, align_file_parser
 import sys
 import os
 import subprocess
@@ -24,10 +24,11 @@ def main():
 		read_fasta = sys.argv[1]
 		ref_fasta = sys.argv[2]
 		align_file = sys.argv[3]
-		unique_k_file = sys.argv[4]
-		sch_start = int(sys.argv[5])
-		sch_end = int(sys.argv[6])
-		k_size = int(sys.argv[7])
+		align_file_type = sys.argv[4]
+		unique_k_file = sys.argv[5]
+		sch_start = int(sys.argv[6])
+		sch_end = int(sys.argv[7])
+		k_size = int(sys.argv[8])
 	except:
 		pass
 	#####
@@ -53,9 +54,11 @@ def main():
 	curr_read_name = None
 	# curr_read_k_set = {}
 
+	parse_align_file = align_file_parser[align_file_type]
+
 	for line in open(align_file, "r"):
 
-		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parseSam(line.strip())
+		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parse_align_file(line.strip())
 
 		alignment = Alignment(ref_start, ref_end, ground_truth)
 
