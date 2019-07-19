@@ -14,7 +14,7 @@ def parseWJ(wj_str):
 	scores = data[4:]
 	scores_table = {}
 	for s in scores:
-		scheme, score, equation = s.split("=")
+		scheme, score = s.split("=")
 		scores_table[scheme] = int(score)
 	#####
 
