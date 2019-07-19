@@ -3,11 +3,6 @@ import time
 import sys
 
 
-align_file_parser = {"sam": parseSam, 
-					"mashmap": parseMashMap
-					"paf": parsePaf}
-
-
 def parseUniqueFile(unique_k_file):
 	table = {}
 	for k in open(unique_k_file, "r"):
@@ -190,6 +185,11 @@ def parseFasta(fasta_file):
 	return read_record
 
 
+# Constants
+
+align_file_parser = {"sam": parseSam, 
+					"mashmap": parseMashMap,
+					"paf": parsePaf}
 
 ###########################################################################
 # Classes
