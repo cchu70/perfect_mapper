@@ -64,6 +64,7 @@ def main():
 							# print("TN")
 							print(curr_read)
 							print(scheme)
+							print(max_align)
 							# print(a[0])
 							# print(a[1])
 							assert False
