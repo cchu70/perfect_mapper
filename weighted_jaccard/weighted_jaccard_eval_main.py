@@ -63,6 +63,7 @@ def main():
 							sch_test[scheme][1] += 1
 							# print("TN")
 							print(curr_read)
+							print(scheme)
 							print(curr_sch_scores[scheme][0])
 							print(curr_sch_scores[scheme][1])
 							assert False
