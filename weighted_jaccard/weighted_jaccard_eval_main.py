@@ -61,10 +61,7 @@ def main():
 						else:
 							# increment TN
 							sch_test[scheme][1] += 1
-							print("TN")
-							print(curr_read)
-							print(scheme)
-							print(max_align)
+							print("%s\t%s\t%s\t%s\tTN" % (curr_read, scheme, max_align[0], max_align[1]))
 							# print(a[0])
 							# print(a[1])
 						#####
@@ -72,10 +69,7 @@ def main():
 						if a[1].ground_truth == "True":
 							# Increment FP
 							sch_test[scheme][2] += 1
-							print("FP")
-							print(curr_read)
-							print(scheme)
-							print(max_align)
+							print("%s\t%s\t%s\t%s\tFP" % (curr_read, scheme, max_align[0], max_align[1]))
 							# print(curr_read)
 							# print(curr_sch_scores[scheme])
 						else:
@@ -102,6 +96,7 @@ def main():
 	#####
 
 
+	assert False
 	# # Print results
 	for sch in sch_test:
 		rates = sch_test[sch]
