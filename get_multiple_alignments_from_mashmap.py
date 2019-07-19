@@ -33,6 +33,8 @@ def main():
 		read_name = data[0]
 		start = int(data[7])
 		pid = float(data[-1])
+
+		print(start, true_origin_table[read][0], true_origin_table[read][1])
 		ground_truth = isTrue(start, true_origin_table[read][0], true_origin_table[read][1])
 
 		is_forward = False
