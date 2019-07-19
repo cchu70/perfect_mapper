@@ -3,7 +3,7 @@ import time
 import sys
 
 
-align_file_parser = {"sam": parseSam, /
+align_file_parser = {"sam": parseSam, 
 					"mashmap": parseMashMap
 					"paf": parsePaf}
 
