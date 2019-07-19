@@ -51,11 +51,16 @@ def main():
 		data = "%s\t%s" % (line.strip(), isCorrect)
 
 		if (read_name == curr_read_name):
-			if (second):
-				print(first_data)
-				second = False
+
+			if (not flag & 2048):
+					# NOT SUPPLEMENTARY
+				if (second):
+					print(first_data)
+					second = False
+				#####
+				print(data)
 			#####
-			print(data)
+			# else, skip
 		else:
 			curr_read_name = read_name
 			first_data = data
