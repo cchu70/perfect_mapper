@@ -76,6 +76,9 @@ def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_s
 
 	equation = "(%d*%d+%d*%d)/(%d*%d+%d*%d+%d)" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum, w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection)
 
+	print(equation)
+	assert False
+
 	return (float(intersection)/float(union), equation)
 
 def getKmers(seq_str, k_size):
@@ -180,7 +183,6 @@ def parseFasta(fasta_file):
 ###########################################################################
 # Classes
 ###########################################################################
-
 class Read:
 	read_name = ""
 	length = 0

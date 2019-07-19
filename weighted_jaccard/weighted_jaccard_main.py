@@ -56,7 +56,7 @@ def main():
 		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parseSam(line.strip())
 
 		alignment = Alignment(ref_start, ref_end, ground_truth)
-
+		alignment.toString()
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read_str):
