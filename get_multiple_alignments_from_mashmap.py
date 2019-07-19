@@ -35,8 +35,8 @@ def main():
 		pid = float(data[-1])
 
 		print(line.strip())
-		print(start, true_origin_table[read][0], true_origin_table[read][1])
-		ground_truth = isTrue(start, true_origin_table[read][0], true_origin_table[read][1])
+		print(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
+		ground_truth = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
 
 		is_forward = False
 		if data[4] == "+": 
