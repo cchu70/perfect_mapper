@@ -31,7 +31,7 @@ def main():
 		data = line.split()
 
 		read_name = data[0]
-		print(start)
+		print(line)
 		start = int(data[7])
 		pid = float(data[-1])
 		ground_truth = isTrue(start, true_origin_table[read][0], true_origin_table[read][1])
