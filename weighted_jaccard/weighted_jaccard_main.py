@@ -14,6 +14,8 @@ def main():
 	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam"
 	unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
 
+	align_file_type = "sam"
+
 	sch_start = 1
 	sch_end = 16
 	k_size = 21

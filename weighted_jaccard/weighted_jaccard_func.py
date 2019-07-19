@@ -3,6 +3,11 @@ import time
 import sys
 
 
+align_file_parser = {"sam": parseSam, /
+					"mashmap": parseMashMap
+					"paf": parsePaf}
+
+
 def parseUniqueFile(unique_k_file):
 	table = {}
 	for k in open(unique_k_file, "r"):
@@ -108,8 +113,6 @@ def parseSam(sam_str):
 	ref_start = int(data[3])
 	cigar = data[5]
 
-
-
 	length, read_start, read_end = parseCigar(cigar)
 
 	ref_end = ref_start + length
@@ -118,6 +121,17 @@ def parseSam(sam_str):
 
 	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end
 
+
+def parseMashMap(mashmap_str):
+	data = mashmap_str.split()
+	read_name = data[0]
+	length = data[1]
+	read_start = data[2]
+	read_end = data[3]
+	ref_start = data[6]
+	ref_end = data[7]
+	ground_truth = data[-1]
+	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end
 
 def parseCigar(cigar_string):
 
