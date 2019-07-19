@@ -58,8 +58,9 @@ def main():
 							# increment TN
 							sch_test[scheme][1] += 1
 							# print("TN")
-							# print(curr_read)
-							# print(curr_sch_scores[scheme])
+							print(curr_read)
+							print(curr_sch_scores[scheme])
+							assert False
 						#####
 					else:
 						if a[1] == "True":
