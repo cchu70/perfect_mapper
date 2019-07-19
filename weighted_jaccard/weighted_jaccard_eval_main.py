@@ -61,19 +61,21 @@ def main():
 						else:
 							# increment TN
 							sch_test[scheme][1] += 1
-							# print("TN")
+							print("TN")
 							print(curr_read)
 							print(scheme)
 							print(max_align)
 							# print(a[0])
 							# print(a[1])
-							assert False
 						#####
 					else:
 						if a[1].ground_truth == "True":
 							# Increment FP
 							sch_test[scheme][2] += 1
-							# print("FP")
+							print("FP")
+							print(curr_read)
+							print(scheme)
+							print(max_align)
 							# print(curr_read)
 							# print(curr_sch_scores[scheme])
 						else:
