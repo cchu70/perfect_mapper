@@ -14,8 +14,8 @@ def parseWJ(wj_str):
 	scores = data[4:]
 	scores_table = {}
 	for s in scores:
-		scheme, score = s.split("=")
-		scores_table[scheme] = float(score)
+		scheme, score, equation = s.split("=")
+		scores_table[scheme] = (float(score), equation)
 	#####
 
 	return read_name, start, end, ground_truth, scores_table
@@ -62,11 +62,11 @@ def main():
 							# increment TN
 							sch_test[scheme][1] += 1
 							# print("TN")
-							# print(curr_read)
-							# print(scheme)
+							print(curr_read)
+							print(scheme)
 							# print(a[0])
 							# print(a[1])
-							# assert False
+							assert False
 						#####
 					else:
 						if a[1].ground_truth == "True":
