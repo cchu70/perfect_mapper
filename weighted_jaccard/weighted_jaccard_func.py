@@ -212,8 +212,6 @@ class Alignment:
 
 	def toString(self):
 		scores_string = "\t".join(["(%d, %d)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
-		print(scores_string)
-		assert False
 		return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
 	#####
 
