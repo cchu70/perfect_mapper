@@ -64,8 +64,8 @@ def main():
 							# print("TN")
 							print(curr_read)
 							print(scheme)
-							print(curr_sch_scores[scheme][0])
-							print(curr_sch_scores[scheme][1])
+							print(a[0])
+							print(a[1])
 							assert False
 						#####
 					else:
