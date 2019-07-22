@@ -65,7 +65,7 @@ def main():
 
 		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parse_align_file(line.strip())
 
-		alignment = Alignment(ref_start, ref_end, ground_truth)
+		alignment = Alignment(ref_start, ref_end, ground_truth, line.strip())
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read_str):
@@ -87,10 +87,11 @@ def main():
 		# score alignments with different weighting schemes
 		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, unique_table)
 		for sch in schemes:
-			x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-			alignment.scores[sch] = x
+			#x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+			# alignment.scores[sch] = x
+			alignment.scores[sch] = [shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum]
 		#####
-		print("%s\t%s" % (read_name, alignment.toString()))
+		print(alignment.toString())
 	#####
 
 

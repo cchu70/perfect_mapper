@@ -219,14 +219,17 @@ class Alignment:
 	end_idx = 0
 	scores = {}
 	ground_truth = False
+	data = "" # original string
 
 	def add_score(self, scheme, score):
 		self.scores[scheme] = score
 	#####
 
 	def toString(self):
-		scores_string = "\t".join(["(%0.3f, %0.3f)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
-		return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
+		# scores_string = "\t".join(["(%0.3f, %0.3f)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
+		# return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
+		scores_string = "\t".join(["(%0.3f, %0.3f)=%s" % (sch.non_unique_weight, sch.unique_weight, ",".join(self.scores[sch])) for sch in self.scores])
+		return "%s\t%s"% (self.data, scores_string)
 	#####
 
 	def __init__(self, start, end, ground_truth):
