@@ -18,7 +18,7 @@ def parseWJ(wj_str):
 	for s in scores:
 		# scheme, score, equation = s.split("=")
 		# scores_table[scheme] = (float(score), equation)
-		scores_table[s.split("=")[0]] = s.split("=")[1]
+		scores_table[s.split("=")[0]] = float(s.split("=")[1])
 
 	return read_name, map_truth, start, end, ground_truth, scores_table
 
