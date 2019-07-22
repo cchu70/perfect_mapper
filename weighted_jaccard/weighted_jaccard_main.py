@@ -63,9 +63,9 @@ def main():
 
 	for line in open(align_file, "r"):
 
-		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, align_truth = parse_align_file(line.strip())
+		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth = parse_align_file(line.strip())
 
-		alignment = Alignment(ref_start, ref_end, ground_truth, line.strip())
+		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth, line.strip())
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read_str):

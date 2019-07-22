@@ -219,6 +219,7 @@ class Read:
 
 class Alignment:
 	read_name = ""
+	map_truth = "S"
 	start_idx = 0
 	end_idx = 0
 	scores = {}
@@ -237,8 +238,9 @@ class Alignment:
 		return "%s\t%s\t%d\t%d\t%s\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, scores_string)
 	#####
 
-	def __init__(self, read_name, start, end, ground_truth, data):
+	def __init__(self, read_name, map_truth, start, end, ground_truth, data):
 		self.read_name = read_name
+		self.map_truth = map_truth
 		self.start_idx = start
 		self.end_idx = end
 		self.ground_truth = ground_truth
