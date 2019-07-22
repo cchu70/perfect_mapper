@@ -30,8 +30,6 @@ def main():
 	curr_read_name = None
 	# curr_read_k_set = {}
 
-	parse_align_file = align_file_parser[align_file_type]
-
 	for line in open(k_count_file, "r"):
 
 		read_name, map_truth, ref_start, ref_end, ground_truth, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = parse_align_file(line.strip())
