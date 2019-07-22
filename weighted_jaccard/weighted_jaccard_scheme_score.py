@@ -59,7 +59,7 @@ def main():
 			alignment.scores[sch] = x
 			# alignment.scores[sch] = [shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum]
 		#####
-		print("%s\t%s" % (alignment, [shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum]))
+		print("%s\t%s" % (alignment.toString()))
 	#####
 
 
