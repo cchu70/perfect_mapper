@@ -12,33 +12,19 @@ import numpy
 
 def main():
 
-	try:
-		k_count_file = sys.argv[1]
-		sch_start = int(sys.argv[2])
-		sch_end = int(sys.argv[3])
-		step = float(sys.argv[4])
-	except:
-		pass
-	#####
 
-	# Set up schemes
-	# w = 0
-	# schemes = [Scheme(1, w ** i) for i in range(sch_start, sch_end)] # power
+	k_count_file = sys.argv[1]
+	sch_start = int(sys.argv[2])
+	sch_end = int(sys.argv[3])
+	step = float(sys.argv[4])
+	op = sys.arange[5]
+
+
 
 	# Decimals
 	schemes = [Scheme(1, i) for i in numpy.arange(sch_start, sch_end, step)] # Linear
 	# schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
 
-	# Get read sequences
-	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
-	read_records = parseFasta(read_fasta) # Dictionary of read names and it's corresponding sequence
-
-	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
-	ref_record = list(parseFasta(ref_fasta).values())[0] # Should only be one reference
-
-	sys.stderr.write("Parsing unique file: %s\n" % unique_k_file)
-	unique_table = parseUniqueFile(unique_k_file)
-	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
 
 	curr_read_str = None
 	curr_read_name = None

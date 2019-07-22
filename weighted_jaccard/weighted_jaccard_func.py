@@ -248,7 +248,7 @@ class Alignment:
 		self.ground_truth = ground_truth
 
 	def __str__(self):
-		return "%d\t%d\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth)
+		return "%s\t%s\t%d\t%d\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth)
 #####
 
 class Scheme:
