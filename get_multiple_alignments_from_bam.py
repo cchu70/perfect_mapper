@@ -24,6 +24,8 @@ def main():
 
 	true_origin_table = {}
 	for line in open(true_origin_bedfile, "r"):
+		print(line.split())
+		assert False
 		read = line.split()[-1]
 		start = int(line.split()[1])
 		end = int(line.split()[2])
