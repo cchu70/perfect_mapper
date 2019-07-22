@@ -44,6 +44,11 @@ def main():
 		start = int(line.split()[3])
 		flag = int(line.split()[1])
 
+		try:
+			index = true_origin_table[read_name]
+		except:
+		continue 
+
 		isCorrect = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
 
 		# ASSUMPTION THAT ALL THE ORIGINAL SIMULATED READS ARE FORWARD
