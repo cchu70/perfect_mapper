@@ -28,8 +28,8 @@ def main():
 	wj_file = sys.argv[1]
 	prefix = sys.argv[2]
 
-	fh = open("%s.wrong_aligned_reads.txt" % prefix)
-	gh = open("%s.performance.txt" % prefix)
+	fh = open("%s.wrong_aligned_reads.txt" % prefix, "w")
+	gh = open("%s.performance.txt" % prefix, "w")
 
 
 	curr_read = None
