@@ -40,7 +40,6 @@ def main():
 	for line in open(wj_file, "r"):
 
 		read_name, map_truth, ref_start, ref_end, ground_truth, scores_table = parseWJ(line.strip())
-		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
 
 		if not curr_read:
 			curr_read = read_name
@@ -48,38 +47,28 @@ def main():
 			# get the current's results
 			wrong = False
 			for scheme in curr_sch_scores:
-
 				try:
 					x = sch_test[scheme]
 				except KeyError:
 					sch_test[scheme] = [0,0,0,0]
 				#####
-
 				# All the scores based on current scheme from all the alignments for the current read
 				align_scores = curr_sch_scores[scheme]
-
 				max_align = max(align_scores)
-
 				for a in align_scores:
 					if a == max_align:
-						if a[1].ground_truth == "True":
+						if a[1]= == "True":
 							# increment TP
 							sch_test[scheme][0] += 1
 						else:
 							# increment FP
 							sch_test[scheme][1] += 1
-							#print("%s\t%s\t%s\t%s\tTN" % (curr_read, scheme, a[0], a[1]))
-							# print(a[0])
-							# print(a[1])
 							wrong = True
 						#####
 					else:
-						if a[1].ground_truth == "True":
+						if a[1]= == "True":
 							# Increment FN
 							sch_test[scheme][2] += 1
-							#print("%s\t%s\t%s\t%s\tFP" % (curr_read, scheme, a[0], a[1]))
-							# print(curr_read)
-							# print(curr_sch_scores[scheme])
 						else:
 							# increment TN
 							sch_test[scheme][3] += 1
@@ -99,10 +88,51 @@ def main():
 		for scheme in scores_table:
 			score = scores_table[scheme]
 			try:
-				curr_sch_scores[scheme].append((score, alignment))
+				curr_sch_scores[scheme].append((score, ground_truth))
 			except:
-				curr_sch_scores[scheme] = [(score, alignment)]
+				curr_sch_scores[scheme] = [(score, ground_truth)]
 		#####
+	#####
+
+
+
+
+
+	# Last one
+	wrong = False
+	for scheme in curr_sch_scores:
+		try:
+			x = sch_test[scheme]
+		except KeyError:
+			sch_test[scheme] = [0,0,0,0]
+		#####
+		# All the scores based on current scheme from all the alignments for the current read
+		align_scores = curr_sch_scores[scheme]
+		max_align = max(align_scores)
+		for a in align_scores:
+			if a == max_align:
+				if a[1]= == "True":
+					# increment TP
+					sch_test[scheme][0] += 1
+				else:
+					# increment FP
+					sch_test[scheme][1] += 1
+					wrong = True
+				#####
+			else:
+				if a[1]= == "True":
+					# Increment FN
+					sch_test[scheme][2] += 1
+				else:
+					# increment TN
+					sch_test[scheme][3] += 1
+
+				#####
+			#####
+		#####
+	#####
+	if(wrong):
+		fh.write("%s\n" % curr_read)
 	#####
 
 
