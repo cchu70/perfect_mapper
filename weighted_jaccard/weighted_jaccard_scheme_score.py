@@ -16,10 +16,10 @@ def parse_k_count_file(k_count_line):
 	ref_start = int(data[2])
 	ref_end = int(data[3])
 	ground_truth = data[4]
-	shared_unique_sum = data[5]
-	shared_non_unique_sum = data[6]
-	non_shared_unique_sum = data[7]
-	non_shared_non_unique_sum = data[8]
+	shared_unique_sum = int(data[5])
+	shared_non_unique_sum = int(data[6])
+	non_shared_unique_sum = int(data[7])
+	non_shared_non_unique_sum = int(data[8])
 	return read_name, map_truth, ref_start, ref_end, ground_truth, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
 
 def main():
@@ -38,7 +38,7 @@ def main():
 
 	start = sch_start
 
-	while start < sch_end:
+	while start <= sch_end:
 		schemes.append(Scheme(1, start))
 		start += step
 	#####
