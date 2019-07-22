@@ -89,7 +89,7 @@ def main():
 				#####
 			#####
 			if(wrong):
-				fh.write("%s" % curr_read)
+				fh.write("%s\n" % curr_read)
 			#####
 			# update 
 			curr_read = read_name
