@@ -111,7 +111,7 @@ def main():
 		max_align = max(align_scores)
 		for a in align_scores:
 			if a == max_align:
-				if a[1]= == "True":
+				if a[1] == "True":
 					# increment TP
 					sch_test[scheme][0] += 1
 				else:
@@ -120,7 +120,7 @@ def main():
 					wrong = True
 				#####
 			else:
-				if a[1]= == "True":
+				if a[1] == "True":
 					# Increment FN
 					sch_test[scheme][2] += 1
 				else:
