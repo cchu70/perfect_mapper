@@ -6,7 +6,6 @@ import os
 import subprocess
 import time
 import threading
-import numpy
 
 
 
@@ -35,8 +34,14 @@ def main():
 
 
 	# Decimals
-	schemes = [Scheme(1, i) for i in numpy.arange(sch_start, sch_end, step)] # Linear
-	# schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
+	schemes = [] 
+
+	start = sch_start
+
+	while start < sch_end:
+		schemes.append(Scheme(1, start))
+		start += step
+	#####
 
 
 	curr_read_str = None
