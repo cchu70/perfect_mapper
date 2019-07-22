@@ -20,7 +20,7 @@ def parseWJ(wj_str):
 		# scores_table[scheme] = (float(score), equation)
 		scores_table[s.split("=")[0]] = s.split("=")[1]
 
-	return read_name, start, end, ground_truth, scores_table
+	return read_name, map_truth, start, end, ground_truth, scores_table
 
 def main():
 
