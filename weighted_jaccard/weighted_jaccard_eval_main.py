@@ -42,6 +42,7 @@ def main():
 			curr_read = read_name
 		elif curr_read != read_name:
 			# get the current's results
+			wrong = False
 			for scheme in curr_sch_scores:
 
 				try:
@@ -66,6 +67,7 @@ def main():
 							#print("%s\t%s\t%s\t%s\tTN" % (curr_read, scheme, a[0], a[1]))
 							# print(a[0])
 							# print(a[1])
+							wrong = True
 						#####
 					else:
 						if a[1].ground_truth == "True":
@@ -74,6 +76,7 @@ def main():
 							#print("%s\t%s\t%s\t%s\tFP" % (curr_read, scheme, a[0], a[1]))
 							# print(curr_read)
 							# print(curr_sch_scores[scheme])
+							wrong = True
 						else:
 							# increment TN
 							sch_test[scheme][3] += 1
@@ -81,6 +84,8 @@ def main():
 						#####
 					#####
 				#####
+				if(wrong):
+					sys.stderr.write("%s\n" % curr_read)
 			#####
 
 			# update 
