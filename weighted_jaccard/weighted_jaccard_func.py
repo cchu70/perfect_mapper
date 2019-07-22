@@ -232,10 +232,11 @@ class Alignment:
 		return "%s\t%s"% (self.data, scores_string)
 	#####
 
-	def __init__(self, start, end, ground_truth):
+	def __init__(self, start, end, ground_truth, data):
 		self.start_idx = start
 		self.end_idx = end
 		self.ground_truth = ground_truth
+		self.data = data
 
 	def __str__(self):
 		return "%d\t%d\t%s" % (self.start_idx, self.end_idx, self.ground_truth)
