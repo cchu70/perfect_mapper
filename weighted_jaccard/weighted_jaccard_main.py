@@ -7,6 +7,7 @@ import os
 import subprocess
 import time
 import threading
+import numpy
 
 
 
@@ -44,7 +45,7 @@ def main():
 	# schemes = [Scheme(1, w ** i) for i in range(sch_start, sch_end)] # power
 
 	# Decimals
-	schemes = [Scheme(1, i) for i in range(sch_start, sch_end, step)] # Linear
+	schemes = [Scheme(1, i) for i in numpy.arange(sch_start, sch_end, step)] # Linear
 	# schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
 
 	# Get read sequences
