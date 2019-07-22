@@ -113,7 +113,8 @@ def parseSam(sam_str):
 	ref_end = ref_start + length
 
 	ground_truth = data[-1]
-	map_truth = data[-2]
+
+	map_truth = "P" if int(data[1]) & 256 == 0 else "S"
 
 	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth
 
@@ -127,8 +128,8 @@ def parseMashMap(mashmap_str):
 	ref_start = int(data[7])
 	ref_end = int(data[8])
 	ground_truth = data[-1]
-
-	map_truth = "P" if int(data[1]) & 256 == 0 else "S"
+	map_truth = data[-2]
+	
 	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth
 
 def parseCigar(cigar_string):
