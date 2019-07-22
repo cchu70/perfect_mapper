@@ -47,7 +47,8 @@ def main():
 		try:
 			index = true_origin_table[read_name]
 		except:
-		continue 
+			continue 
+		#####
 
 		isCorrect = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
 
