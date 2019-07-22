@@ -113,8 +113,9 @@ def parseSam(sam_str):
 	ref_end = ref_start + length
 
 	ground_truth = data[-1]
+	map_truth = data[-2]
 
-	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end
+	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth
 
 
 def parseMashMap(mashmap_str):
@@ -126,7 +127,9 @@ def parseMashMap(mashmap_str):
 	ref_start = int(data[7])
 	ref_end = int(data[8])
 	ground_truth = data[-1]
-	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end
+
+	map_truth = "P" if int(data[1]) & 256 == 0 else "S"
+	return read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth
 
 def parseCigar(cigar_string):
 
@@ -215,6 +218,7 @@ class Read:
 
 
 class Alignment:
+	read_name = ""
 	start_idx = 0
 	end_idx = 0
 	scores = {}
@@ -227,20 +231,21 @@ class Alignment:
 
 	def toString(self):
 		# scores_string = "\t".join(["(%0.3f, %0.3f)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
-		# return "%d\t%d\t%s\t%s" % (self.start_idx, self.end_idx, self.ground_truth, scores_string)
+		# return "%s\t%s\t%d\t%d\t%s\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, scores_string)
 		# counts_str = ",".join(self.scores[sch])
 		scores_string = "\t".join(["(%0.3f, %0.3f)=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch]) for sch in self.scores])
-		return "%s\t%s"% (self.data, scores_string)
+		return "%s\t%s\t%d\t%d\t%s\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, scores_string)
 	#####
 
-	def __init__(self, start, end, ground_truth, data):
+	def __init__(self, read_name, start, end, ground_truth, data):
+		self.read_name = read_name
 		self.start_idx = start
 		self.end_idx = end
 		self.ground_truth = ground_truth
 		self.data = data
 
 	def __str__(self):
-		return "%d\t%d\t%s" % (self.start_idx, self.end_idx, self.ground_truth)
+		return "%d\t%d\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth)
 #####
 
 class Scheme:

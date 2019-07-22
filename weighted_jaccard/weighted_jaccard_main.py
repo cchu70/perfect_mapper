@@ -63,7 +63,7 @@ def main():
 
 	for line in open(align_file, "r"):
 
-		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end = parse_align_file(line.strip())
+		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, align_truth = parse_align_file(line.strip())
 
 		alignment = Alignment(ref_start, ref_end, ground_truth, line.strip())
 
