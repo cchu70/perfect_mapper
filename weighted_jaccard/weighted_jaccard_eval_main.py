@@ -87,7 +87,8 @@ def main():
 			#####
 			if(wrong):
 				print("%s\n" % curr_read)
-
+			#####
+			wrong = False
 			# update 
 			curr_read = read_name
 			curr_sch_scores = {}
@@ -111,7 +112,7 @@ def main():
 		fp = rates[1]
 		fn = rates[2]
 		tn = rates[3]
-		sys.stderr.write("%s\t%d\t%d\t%d\t%d" % (sch, tp, fp, fn, tn))
+		sys.stderr.write("%s\t%d\t%d\t%d\t%d\n" % (sch, tp, fp, fn, tn))
 	#####
 
 # chr22_part05_37850_40445
