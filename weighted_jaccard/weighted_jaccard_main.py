@@ -20,7 +20,7 @@ def main():
 
 	align_file_type = "sam"
 
-	sch_start = 1
+	sch_start = 0
 	sch_end = 10
 	k_size = 21
 
@@ -66,7 +66,7 @@ def main():
 		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth = parse_align_file(line.strip())
 
 		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
-		
+
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read_str):

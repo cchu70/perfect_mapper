@@ -13,7 +13,7 @@ def parseWJ(wj_str):
 	end = int(data[3])
 	ground_truth = data[4]
 
-	scores = data[5:-1] # do not include the weights?
+	scores = data[5:-1] # do not include the weights
 	scores_table = {}
 	for s in scores:
 		# scheme, score, equation = s.split("=")
@@ -61,7 +61,7 @@ def main():
 							# increment TP
 							sch_test[scheme][0] += 1
 						else:
-							# increment TN
+							# increment FP
 							sch_test[scheme][1] += 1
 							#print("%s\t%s\t%s\t%s\tTN" % (curr_read, scheme, a[0], a[1]))
 							# print(a[0])
@@ -69,13 +69,13 @@ def main():
 						#####
 					else:
 						if a[1].ground_truth == "True":
-							# Increment FP
+							# Increment FN
 							sch_test[scheme][2] += 1
 							#print("%s\t%s\t%s\t%s\tFP" % (curr_read, scheme, a[0], a[1]))
 							# print(curr_read)
 							# print(curr_sch_scores[scheme])
 						else:
-							# increment FN
+							# increment TN
 							sch_test[scheme][3] += 1
 
 						#####
@@ -103,10 +103,10 @@ def main():
 	for sch in sch_test:
 		rates = sch_test[sch]
 		tp = rates[0]
-		tn = rates[1]
-		fp = rates[2]
-		fn = rates[3]
-		print("%s\t%d\t%d\t%d\t%d" % (sch, tp, tn, fp, fn))
+		fp = rates[1]
+		fn = rates[2]
+		tn = rates[3]
+		print("%s\t%d\t%d\t%d\t%d" % (sch, tp, fp, fn, tn))
 	#####
 
 # chr22_part05_37850_40445
