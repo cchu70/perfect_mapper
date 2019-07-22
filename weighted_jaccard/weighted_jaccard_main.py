@@ -23,6 +23,7 @@ def main():
 	sch_start = 0
 	sch_end = 10
 	k_size = 21
+	step = 1
 
 	try:
 		read_fasta = sys.argv[1]
@@ -33,17 +34,18 @@ def main():
 		sch_start = int(sys.argv[6])
 		sch_end = int(sys.argv[7])
 		k_size = int(sys.argv[8])
+		step = float(sys.argv[9])
 	except:
 		pass
 	#####
 
 	# Set up schemes
-	w = 2
+	# w = 0
 	# schemes = [Scheme(1, w ** i) for i in range(sch_start, sch_end)] # power
 
 	# Decimals
-	# schemes = [Scheme(1, w + i/10.0) for i in range(sch_start, sch_end)] # Linear
-	schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
+	schemes = [Scheme(1, i) for i in range(sch_start, sch_end, step)] # Linear
+	# schemes = [Scheme(1, i) for i in range(sch_start, sch_end)] # Linear
 
 	# Get read sequences
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
