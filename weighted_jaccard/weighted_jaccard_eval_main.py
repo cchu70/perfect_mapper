@@ -76,7 +76,6 @@ def main():
 							#print("%s\t%s\t%s\t%s\tFP" % (curr_read, scheme, a[0], a[1]))
 							# print(curr_read)
 							# print(curr_sch_scores[scheme])
-							wrong = True
 						else:
 							# increment TN
 							sch_test[scheme][3] += 1
@@ -88,7 +87,6 @@ def main():
 			if(wrong):
 				print("%s" % curr_read)
 			#####
-			wrong = False
 			# update 
 			curr_read = read_name
 			curr_sch_scores = {}
