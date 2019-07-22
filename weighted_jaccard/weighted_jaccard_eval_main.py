@@ -12,7 +12,7 @@ def parseWJ(wj_str):
 	end = int(data[2])
 	ground_truth = data[3]
 
-	scores = data[4:]
+	scores = data[4:-1] # do not include the weights?
 	scores_table = {}
 	for s in scores:
 		scheme, score, equation = s.split("=")
