@@ -86,7 +86,7 @@ def main():
 				#####
 			#####
 			if(wrong):
-				print("%s\n" % curr_read)
+				print("%s" % curr_read)
 			#####
 			wrong = False
 			# update 
