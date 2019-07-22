@@ -66,3 +66,8 @@ def main():
 	#####
 
 if __name__ == "__main__": main()
+
+
+# meryl-lookup -dump -threads 16 -memory 24G -sequence chrX.unpolished.fasta -mers chrX.unpolished.unique.meryl | awk '{if($3 == "T"){if($5 > 0){print $4"\t"$2}}}' > chrX.unpolished.asm_dump.txt ^C
+# meryl count k=21 chrX.unpolished.fasta output chrX.unpolished.meryl -memory 24G -threads 16
+# meryl equal-to 1 chrX.unpolished.meryl output chrX.unpolished.unique.meryl
