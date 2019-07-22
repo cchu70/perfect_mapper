@@ -8,6 +8,7 @@ from  weighted_jaccard_func import Alignment
 def parseWJ(wj_str):
 	data = wj_str.split("\t")
 	read_name = data[0]
+	map_truth = data[1]
 	start = int(data[2])
 	end = int(data[3])
 	ground_truth = data[4]
@@ -34,8 +35,8 @@ def main():
 
 	for line in open(wj_file, "r"):
 
-		read_name, start, end, ground_truth, scores_table = parseWJ(line.strip())
-		alignment = Alignment(start, end, ground_truth)
+		read_name, map_truth, ref_start, ref_end, ground_truth, scores_table = parseWJ(line.strip())
+		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
 
 		if not curr_read:
 			curr_read = read_name
