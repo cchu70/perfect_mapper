@@ -248,8 +248,8 @@ class Scheme:
 	non_unique_weight = 1
 
 	def __init__(self, w1, w2):
-		self.unique_weight = w1
-		self.non_unique_weight = w2
+		self.non_unique_weight = w1
+		self.unique_weight = w2
 	#####
 
 	def __str__(self):
