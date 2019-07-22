@@ -74,7 +74,7 @@ def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_s
 	# sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
 	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
 
-	equation = "(%d*%d+%d*%d)/(%d*%d+%d*%d+%d)" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum, w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection)
+	equation = "(%0.3f*%d+%0.3f*%d)/(%0.3f*%d+%0.3f*%d+%d)" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum, w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection)
 
 	return (float(intersection)/float(union), equation)
 

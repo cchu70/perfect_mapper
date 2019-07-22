@@ -1,5 +1,6 @@
 # Script to evaulate the performance of the output from different weights used to calculate a jaccard similarity score
 
+# python this.script.py weighted_jaccard.scheme_scores.txt
 
 import sys
 from  weighted_jaccard_func import Alignment

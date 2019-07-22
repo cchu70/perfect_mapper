@@ -1,4 +1,5 @@
 # This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
+# python this.script read_fasta ref_fasta align_file align_file_type list_of_unique_kmers scheme_start scheme_end k_size
 
 from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta, counts, weightJaccard, align_file_parser
 import sys
@@ -37,7 +38,7 @@ def main():
 	#####
 
 	# Set up schemes
-	w = 1
+	w = 2
 	# schemes = [(1, w ** i) for i in range(sch_start, sch_end)] # power
 
 	# Decimals

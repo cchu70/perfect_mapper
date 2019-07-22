@@ -1,5 +1,7 @@
 # Script to extract reads with multiple alignments from a bam file and output an abbreviated 
 
+# samtools view bam_file | python this.script.py true_read.coordinates.bed
+	# read ID in the 4th column
 
 import sys
 
