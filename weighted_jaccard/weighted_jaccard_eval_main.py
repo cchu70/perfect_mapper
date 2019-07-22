@@ -86,7 +86,7 @@ def main():
 				#####
 			#####
 			if(wrong):
-				print("%s\n" % curr_read)
+				sys.stderr.write("%s\n" % curr_read)
 
 			# update 
 			curr_read = read_name
