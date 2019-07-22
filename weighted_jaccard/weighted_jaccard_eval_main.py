@@ -26,6 +26,10 @@ def main():
 
 
 	wj_file = sys.argv[1]
+	prefix = sys.argv[2]
+
+	fh = open("%s.wrong_aligned_reads.txt" % prefix)
+	gh = open("%s.performance.txt" % prefix)
 
 
 	curr_read = None
@@ -85,7 +89,7 @@ def main():
 				#####
 			#####
 			if(wrong):
-				print("%s" % curr_read)
+				fh.write("%s" % curr_read)
 			#####
 			# update 
 			curr_read = read_name
@@ -110,9 +114,11 @@ def main():
 		fp = rates[1]
 		fn = rates[2]
 		tn = rates[3]
-		sys.stderr.write("%s\t%d\t%d\t%d\t%d\n" % (sch, tp, fp, fn, tn))
+		gh.write("%s\t%d\t%d\t%d\t%d\n" % (sch, tp, fp, fn, tn))
 	#####
 
+	fh.close()
+	gh.close()
 # chr22_part05_37850_40445
 # chr22_part05_10344_11445
 # chr22_part05_34922_36159
