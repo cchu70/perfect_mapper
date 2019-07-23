@@ -26,8 +26,8 @@ def main():
 
 
 	k_count_file = sys.argv[1]
-	sch_start = int(sys.argv[2])
-	sch_end = int(sys.argv[3])
+	sch_start = float(sys.argv[2])
+	sch_end = float(sys.argv[3])
 	step = float(sys.argv[4])
 	# op = sys.argv[5]
 

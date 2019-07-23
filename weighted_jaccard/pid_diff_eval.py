@@ -38,6 +38,7 @@ def main():
 						diff = curr_prim_pid - curr_sec_pid
 						print("correct\t%0.8f" % diff)
 					else:
+						# sec must be true
 						diff = curr_sec_pid - curr_prim_pid
 						print("incorrect\t%0.8f" % diff)
 				#####
