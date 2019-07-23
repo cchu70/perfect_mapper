@@ -13,6 +13,16 @@ def main():
 
 	curr_read = None
 
+	curr_best = None
+	curr_best_score = -1
+
+
+	curr_second_best = None
+
+	curr_second_best_score = -1
+	
+	curr_true = None
+
 	scores = []
 
 
@@ -22,25 +32,23 @@ def main():
 
 		score = float(score.split("=")[-1])
 
-		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth, pid)
+		# alignment = Alignment(read_name, "S", ref_start, ref_end, ground_truth, pid)
 
 		if not curr_read:
 			curr_read = read_name
 		else:
 			if (read_name != curr_read):
 				# get the max
-
 				scores.sort()
 
-				best = scores[0]
-				second_best = scores[1]
+				best_align = scores[0]
+				second_best_align = scores[1]
 
-				if best[1].ground_truth == "True":
-						diff = best[0] - second_best[0]
-						print("correct\t%0.8f" % diff)
+				if best_align[5] == "True":
+					diff = best_align[6] - second_best_align[6]
+					print("correct\t%0.8f" % diff)
 				else:
-					# sec must be true
-					diff = second_best[0] - best[0]
+					diff = second_best_align[6] - best_align[6]
 					print("incorrect\t%0.8f" % diff)
 				#####
 
@@ -48,9 +56,9 @@ def main():
 				curr_read = read_name
 				scores = []
 			#####
-
-
-			scores.append((score, alignment))
+			
+			
+			scores.append((score, read_name, map_truth, ref_start, ref_end, ground_truth, pid))
 		#####
 	#####
 
