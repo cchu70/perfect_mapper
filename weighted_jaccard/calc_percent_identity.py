@@ -28,6 +28,8 @@ def calcPID(cigar_str):
 			num_string = ""
 		#####
 	#####
+	print(cigar_str)
+	print("%d/%d" % (num_matches, align_length))
 	return float(num_matches)/float(align_length)
 
 
