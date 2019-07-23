@@ -2,6 +2,7 @@
 
 
 import sys
+from weighted_jaccard_func import parseSam, Alignment
 
 
 def main():
