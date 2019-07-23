@@ -47,7 +47,6 @@ def main():
 		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
 
 		print("%s\t%0.5f" % (alignment, pid))
-		assert False
 
 
 
