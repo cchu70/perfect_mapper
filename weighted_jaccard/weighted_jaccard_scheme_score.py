@@ -16,11 +16,12 @@ def parse_k_count_file(k_count_line):
 	ref_start = int(data[2])
 	ref_end = int(data[3])
 	ground_truth = data[4]
-	shared_unique_sum = int(data[5])
-	shared_non_unique_sum = int(data[6])
-	non_shared_unique_sum = int(data[7])
-	non_shared_non_unique_sum = int(data[8])
-	return read_name, map_truth, ref_start, ref_end, ground_truth, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
+	pid = float(data[5])
+	shared_unique_sum = int(data[6])
+	shared_non_unique_sum = int(data[7])
+	non_shared_unique_sum = int(data[8])
+	non_shared_non_unique_sum = int(data[9])
+	return read_name, map_truth, ref_start, ref_end, ground_truth, pid, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
 
 def main():
 
@@ -50,8 +51,8 @@ def main():
 
 	for line in open(k_count_file, "r"):
 
-		read_name, map_truth, ref_start, ref_end, ground_truth, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = parse_k_count_file(line.strip())
-		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
+		read_name, map_truth, ref_start, ref_end, ground_truth, pid, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = parse_k_count_file(line.strip())
+		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth, pid)
 
 		# score alignments with different weighting schemes
 		for sch in schemes:
