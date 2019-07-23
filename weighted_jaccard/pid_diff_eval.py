@@ -36,10 +36,10 @@ def main():
 					# Subtract the difference in pid between the True and False alignment (not necessary the primary and secondary)
 					if curr_prim_is_true:
 						diff = curr_prim_pid - curr_sec_pid
-						print("correct\t%d" % diff)
+						print("correct\t%0.8f" % diff)
 					else:
 						diff = curr_sec_pid - curr_prim_pid
-						print("incorrect\t%d" % diff)
+						print("incorrect\t%0.8f" % diff)
 				#####
 
 				# else continue
