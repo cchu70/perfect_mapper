@@ -59,7 +59,7 @@ def main():
 		#####
 
 		if map_truth == "P":
-			curr_prim_pid = pid
+			curr_prim_pid = float(pid)
 			if(ground_truth == "True"):
 				# Just take the second alignment
 				curr_prim_is_true = True
