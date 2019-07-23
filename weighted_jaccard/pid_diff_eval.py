@@ -24,8 +24,6 @@ def main():
 		# calculate the difference
 		# If minimap is wrong, put it into the incorrect file, else in the correct file. 
 
-		print(line)
-
 		read_name, map_truth, ref_start, ref_end, ground_truth, pid = line.split()
 
 		if curr_read_name:
@@ -54,8 +52,6 @@ def main():
 
 				curr_prim_is_true = False
 				got_second = False
-
-				assert False
 			#####
 		else:
 			# initialize read name
