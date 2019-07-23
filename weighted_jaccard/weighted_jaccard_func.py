@@ -240,7 +240,7 @@ class Alignment:
 		# return "%s\t%s\t%d\t%d\t%s\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, scores_string)
 		# counts_str = ",".join(self.scores[sch])
 		scores_string = "\t".join(["(%0.3f, %0.3f)=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch]) for sch in self.scores])
-		return "%s\t%s\t%d\t%d\t%s\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, scores_string)
+		return "%s\t%s\t%d\t%d\t%s\t%0.8f\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth,  self.pid, scores_string)
 	#####
 
 	def __init__(self, read_name, map_truth, start, end, ground_truth, pid):
@@ -252,7 +252,7 @@ class Alignment:
 		self.pid = pid
 
 	def __str__(self):
-		return "%s\t%s\t%d\t%d\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, self.pid)
+		return "%s\t%s\t%d\t%d\t%s\t%0.8f" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, self.pid)
 #####
 
 class Scheme:
