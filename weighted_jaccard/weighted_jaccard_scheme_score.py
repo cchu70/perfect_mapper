@@ -43,8 +43,6 @@ def main():
 		start += step
 	#####
 
-	print(schemes)
-
 
 	curr_read_str = None
 	curr_read_name = None
