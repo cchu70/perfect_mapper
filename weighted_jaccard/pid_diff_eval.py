@@ -16,7 +16,7 @@ def main():
 	curr_prim_is_true = False
 	got_second = False
 
-	for line in pid_file:
+	for line in open(pid_file, "r"):
 
 		# Get if it is primary 
 		# get it's ground truth
