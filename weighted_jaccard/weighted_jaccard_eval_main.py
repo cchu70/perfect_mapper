@@ -3,24 +3,7 @@
 # python this.script.py weighted_jaccard.scheme_scores.txt
 
 import sys
-from  weighted_jaccard_func import Alignment
-
-def parseWJ(wj_str):
-	data = wj_str.split("\t")
-	read_name = data[0]
-	map_truth = data[1]
-	start = int(data[2])
-	end = int(data[3])
-	ground_truth = data[4]
-
-	scores = data[5:]
-	scores_table = {}
-	for s in scores:
-		# scheme, score, equation = s.split("=")
-		# scores_table[scheme] = (float(score), equation)
-		scores_table[s.split("=")[0]] = float(s.split("=")[1])
-
-	return read_name, map_truth, start, end, ground_truth, scores_table
+from  weighted_jaccard_func import Alignment, parseWJ
 
 def main():
 
@@ -39,7 +22,7 @@ def main():
 
 	for line in open(wj_file, "r"):
 
-		read_name, map_truth, ref_start, ref_end, ground_truth, scores_table = parseWJ(line.strip())
+		read_name, map_truth, ref_start, ref_end, ground_truth, pid, scores_table = parseWJ(line.strip())
 
 		if not curr_read:
 			curr_read = read_name
