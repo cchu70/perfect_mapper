@@ -6,7 +6,7 @@ import sys
 def main():
 	# Get the pid file with the alignment information
 	pid_file = sys.argv[1]
-	
+
 	# track current read
 
 	curr_read_name = None
@@ -23,6 +23,8 @@ def main():
 		# get it's second best alignment OR if primary is false and this one is false, keep looking until you get to the true alignment, otherwise skip the whole read
 		# calculate the difference
 		# If minimap is wrong, put it into the incorrect file, else in the correct file. 
+
+		print(line)
 
 		read_name, map_truth, ref_start, ref_end, ground_truth, pid = line.split()
 
