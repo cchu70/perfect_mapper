@@ -29,7 +29,7 @@ def main():
 	sch_start = int(sys.argv[2])
 	sch_end = int(sys.argv[3])
 	step = float(sys.argv[4])
-	op = sys.argv[5]
+	# op = sys.argv[5]
 
 
 

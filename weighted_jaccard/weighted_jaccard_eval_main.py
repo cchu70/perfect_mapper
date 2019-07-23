@@ -144,7 +144,9 @@ def main():
 		fp = rates[1]
 		fn = rates[2]
 		tn = rates[3]
-		gh.write("%s\t%d\t%d\t%d\t%d\n" % (sch, tp, fp, fn, tn))
+		tpr = float(tp)/(float(tp) + float(fn))
+		fpr = float(fp)/(float(fp) + float(tn))
+		gh.write("%s\t%d\t%d\t%d\t%d\t%0.8f\t%0.8f\n" % (sch, tp, fp, fn, tn, tpr, fpr))
 	#####
 
 	fh.close()
