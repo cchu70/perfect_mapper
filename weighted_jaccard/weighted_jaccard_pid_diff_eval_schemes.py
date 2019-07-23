@@ -58,7 +58,7 @@ def main():
 			#####
 			
 			
-			scores.append((score, read_name, map_truth, ref_start, ref_end, ground_truth, pid))
+			scores.append((score, read_name, map_truth, ref_start, ref_end, ground_truth, float(pid)))
 		#####
 	#####
 
