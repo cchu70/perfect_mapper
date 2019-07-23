@@ -146,7 +146,8 @@ def main():
 		tn = rates[3]
 		tpr = float(tp)/(float(tp) + float(fn))
 		fpr = float(fp)/(float(fp) + float(tn))
-		gh.write("%s\t%d\t%d\t%d\t%d\t%0.8f\t%0.8f\n" % (sch, tp, fp, fn, tn, tpr, fpr))
+		precision = float(tp)/(float(tp) + float(fp))
+		gh.write("%s\t%d\t%d\t%d\t%d\t%0.8f\t%0.8f\t%0.8f\n" % (sch, tp, fp, fn, tn, tpr, fpr, precision))
 	#####
 
 	fh.close()
