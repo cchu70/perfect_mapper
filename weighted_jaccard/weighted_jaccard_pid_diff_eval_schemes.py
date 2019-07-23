@@ -16,7 +16,7 @@ def main():
 
 
 	for line in open(sch_score_file, "r"):
-		read_name, ref_start, ref_end, ground_truth, pid, score = line.split() # awk out the columns
+		read_name, map_truth, ref_start, ref_end, ground_truth, pid, score = line.split() # awk out the columns
 
 
 		score = float(score.split("=")[-1])
