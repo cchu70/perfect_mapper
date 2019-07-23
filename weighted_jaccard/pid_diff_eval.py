@@ -70,12 +70,12 @@ def main():
 
 			if not got_second:
 				if(curr_prim_is_true):
-					curr_sec_pid = pid
+					curr_sec_pid = float(pid)
 					got_second = True
 				else:
 					# prim is not true. check if this one is true
 					if ground_truth == "True":
-						curr_sec_pid = pid
+						curr_sec_pid = float(pid)
 						got_second = True
 					#####
 				#####
