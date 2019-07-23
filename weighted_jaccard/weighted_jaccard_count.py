@@ -57,7 +57,7 @@ def main():
 		num_mis_matches = float(line.split()[11].split(":")[-1])
 		pid = 1 - float(num_mis_matches)/float(length)
 
-		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
+		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth, pid)
 
 
 		# Check which read (current or next) this alignment corresponds to 
@@ -79,7 +79,7 @@ def main():
 
 		# score alignments with different weighting schemes
 		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, unique_table)
-		print("%s\t%0.8f\t%d\t%d\t%d\t%d" % (alignment, pid, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
+		print("%s\t%0.8f\t%d\t%d\t%d\t%d" % (alignment, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
 		
 	#####
 
