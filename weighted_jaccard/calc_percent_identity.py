@@ -6,7 +6,7 @@
 import sys
 from weighted_jaccard_func import parseSam, Alignment
 
-def calcPID(cigar_str):
+def calc_align_length(cigar_str):
 	num_matches = 0
 	align_length = 0
 	num_string = ""
@@ -21,16 +21,12 @@ def calcPID(cigar_str):
 			if (c == "M" or c == "D" or c == "N"):
 				# Only add up matches and deletions in the read
 				align_length += d
-				if (c == "M"):
-					num_matches += 1
-				#####
 			#####
 			num_string = ""
 		#####
 	#####
-	print(cigar_str)
-	print("%d/%d" % (num_matches, align_length))
-	return float(num_matches)/float(align_length)
+
+	return align_length
 
 
 def main():
@@ -39,13 +35,19 @@ def main():
 
 	for line in sam_file:
 		cigar_str = line.split()[5]
-		pid = calcPID(cigar_str)
+		num_mis_matches = line.split()[11]
+
+		num_mis_matches = float(line.split()[11].split(":")[-1])
+		align_length = calc_align_length(cigar_str)
+
+		pid = 1 - float(num_mis_matches)/float(align_length)
 
 		read_name, length, ref_start, ref_end, ground_truth, read_start, read_end, map_truth = parseSam(line.strip())
 
 		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth)
 
 		print("%s\t%0.5f" % (alignment, pid))
+		assert False
 
 
 

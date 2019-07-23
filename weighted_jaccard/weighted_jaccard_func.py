@@ -97,6 +97,8 @@ def parsePaf(paf_string):
 	start = int(data[7])
 	end = int(data[8])
 
+	align_length = int(data[10])
+
 	ground_truth = data[-1]
 
 	return read_name, length, start, end, ground_truth
