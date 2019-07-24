@@ -31,6 +31,8 @@ def main():
 
 
 		score = float(score.split("=")[-1])
+		print(score)
+		assert False
 
 		# alignment = Alignment(read_name, "S", ref_start, ref_end, ground_truth, pid)
 
@@ -40,6 +42,7 @@ def main():
 			if (read_name != curr_read):
 				# get the max
 				scores.sort()
+				print(scores)
 
 				best_align = scores[0]
 				second_best_align = scores[1]
