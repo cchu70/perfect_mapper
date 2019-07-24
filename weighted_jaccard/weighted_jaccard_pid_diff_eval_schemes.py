@@ -45,12 +45,25 @@ def main():
 				best_align = scores[-1]
 				second_best_align = scores[-2]
 
-				if best_align[5] == "True":
-					diff = best_align[6] - second_best_align[6]
-					print("correct\t%0.8f" % diff)
-				else:
-					diff = second_best_align[6] - best_align[6]
-					print("incorrect\t%0.8f" % diff)
+				if best_align[5] == "False":
+					for a in scores:
+						if a[5] == "True":
+							second_best_align = a
+							break
+						#####
+					#####
+				#####
+
+
+				if best_align[5] == "True" or second_best_align[5] == "True":
+
+					if best_align[5] == "True":
+						diff = best_align[6] - second_best_align[6]
+						print("correct\t%0.8f" % diff)
+					else:
+						diff = second_best_align[6] - best_align[6]
+						print("incorrect\t%0.8f" % diff)
+					#####
 				#####
 
 				#reset
