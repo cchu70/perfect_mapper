@@ -40,8 +40,7 @@ def main():
 		else:
 			if (read_name != curr_read):
 				# get the max
-				scores.sort()
-				print(scores)
+				scores.sort() # in ascending order
 
 				best_align = scores[-1]
 				second_best_align = scores[-2]
