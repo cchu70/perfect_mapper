@@ -41,7 +41,15 @@ def main():
 
 		# print(line.strip())
 		# print(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
-		ground_truth = isTrue(start, true_origin_table[read_name][0], true_origin_table[read_name][1])
+		align_indices = (0,0)
+		try:
+			align_indices = true_origin_table[read_name]
+		except:
+			# skip read alignments with no liftover
+			continue
+		#####
+		
+		ground_truth = isTrue(start, align_indices[0], align_indices[1])
 
 		is_forward = False
 		if data[4] == "+": 
