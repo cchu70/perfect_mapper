@@ -26,8 +26,7 @@ def main():
 			end = int(data[2])
 			true_origin_table[read] = (start, end)
 		except:
-			print(data)
-			assert False
+			continue
 	#####
 
 
