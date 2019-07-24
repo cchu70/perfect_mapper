@@ -31,8 +31,7 @@ def main():
 
 
 		score = float(score.split("=")[-1])
-		print(score)
-		assert False
+
 
 		# alignment = Alignment(read_name, "S", ref_start, ref_end, ground_truth, pid)
 
