@@ -19,12 +19,10 @@ def main():
 	true_origin_table = {}
 	for line in open(true_origin_bedfile, "r"):
 		data = line.strip().split("\t")
-		print(data)
 		read = data[0]
 		start = int(data[1])
 		end = int(data[2])
 		true_origin_table[read] = (start, end)
-		assert False
 	#####
 
 
