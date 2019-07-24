@@ -43,8 +43,8 @@ def main():
 				scores.sort()
 				print(scores)
 
-				best_align = scores[0]
-				second_best_align = scores[1]
+				best_align = scores[-1]
+				second_best_align = scores[-2]
 
 				if best_align[5] == "True":
 					diff = best_align[6] - second_best_align[6]
