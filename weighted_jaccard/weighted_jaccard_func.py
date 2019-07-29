@@ -68,15 +68,24 @@ def counts(read_k_set, align_k_set, unique_table):
 
 def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
 
-	# sys.stderr.write("Itersection = %d * %d + %d * %d\n" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum))
+	
 	intersection = w_unique * shared_unique_sum + w_non_unique * shared_non_unique_sum
 
-	# sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
+	
 	union = w_unique * non_shared_unique_sum + w_non_unique * non_shared_non_unique_sum + intersection
 
 	# equation = "(%0.3f*%d+%0.3f*%d)/(%0.3f*%d+%0.3f*%d+%d)" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum, w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection)
 
 	# return (float(intersection)/float(union), equation)
+	try:
+		x = float(intersection)/float(union)
+	except ZeroDivisionError:
+		sys.stderr.write("Itersection = %d * %d + %d * %d\n" % (w_unique, shared_unique_sum, w_non_unique, shared_non_unique_sum))
+		sys.stderr.write("Union = %d * %d + %d * %d + %d" % (w_unique, non_shared_unique_sum, w_non_unique, non_shared_non_unique_sum, intersection))
+		sys.stderr.write("%d\t%d\n" % (intersection, union))
+		return -1.0
+	#####
+
 	return float(intersection)/float(union)
 
 def getKmers(seq_str, k_size):
@@ -253,9 +262,6 @@ class Alignment:
 	#####
 
 	def scoreString(self):
-		# scores_string = "\t".join(["(%0.3f, %0.3f)=%0.5f=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch][0],  self.scores[sch][1]) for sch in self.scores])
-		# return "%s\t%s\t%d\t%d\t%s\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth, scores_string)
-		# counts_str = ",".join(self.scores[sch])
 		scores_string = "\t".join(["(%0.3f, %0.3f)=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch]) for sch in self.scores])
 		return "%s\t%s\t%d\t%d\t%s\t%0.8f\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth,  self.pid, scores_string)
 	#####
@@ -282,7 +288,7 @@ class Scheme:
 	#####
 
 	def __str__(self):
-		return "(%0.5f, %0.5f)" % (self.non_unique_weight, self.unique_weight)
+		return "(%0.5f,%0.5f)" % (self.non_unique_weight, self.unique_weight)
 #####
 
 

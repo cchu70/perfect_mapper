@@ -9,28 +9,24 @@ import threading
 import numpy
 
 
+read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
+ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
+align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam"
+unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
+
+align_file_type = "sam"
+k_size = 21
+
 
 def main():
 
+	read_fasta = sys.argv[1]
+	ref_fasta = sys.argv[2]
+	align_file = sys.argv[3]
+	align_file_type = sys.argv[4]
+	unique_k_file = sys.argv[5]
+	k_size = int(sys.argv[6])
 
-	read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
-	ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
-	align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam"
-	unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
-
-	align_file_type = "sam"
-	k_size = 21
-
-	try:
-		read_fasta = sys.argv[1]
-		ref_fasta = sys.argv[2]
-		align_file = sys.argv[3]
-		align_file_type = sys.argv[4]
-		unique_k_file = sys.argv[5]
-		k_size = int(sys.argv[6])
-	except:
-		pass
-	#####
 
 	# Get read sequences
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
@@ -43,10 +39,12 @@ def main():
 	unique_table = parseUniqueFile(unique_k_file)
 	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
 
+
+	# Initialize Loop
 	curr_read_str = None
 	curr_read_name = None
-	# curr_read_k_set = {}
 
+	# Pick which aligner to use
 	parse_align_file = align_file_parser[align_file_type]
 
 	for line in open(align_file, "r"):
@@ -58,7 +56,6 @@ def main():
 		pid = 1 - float(num_mis_matches)/float(length)
 
 		alignment = Alignment(read_name, map_truth, ref_start, ref_end, ground_truth, pid)
-
 
 		# Check which read (current or next) this alignment corresponds to 
 		if (curr_read_str):

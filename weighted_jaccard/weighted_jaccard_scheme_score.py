@@ -40,9 +40,13 @@ def main():
 	start = sch_start
 
 	while start <= sch_end:
-		schemes.append(Scheme(1, start))
+		j = sch_start
+		while j <= sch_end:
+			schemes.append(Scheme(j, start))
+			j += step
 		start += step
 	#####
+
 
 
 	curr_read_str = None
@@ -57,6 +61,11 @@ def main():
 		# score alignments with different weighting schemes
 		for sch in schemes:
 			x = weightJaccard(sch.non_unique_weight, sch.unique_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+
+			if (x < 0):
+				sys.stderr.write("%s\n" % alignment)
+				sys.stderr.write("%d\t%d\t%d\t%d\n"% (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
+				assert False
 			alignment.scores[sch] = x
 			# alignment.scores[sch] = [shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum]
 		#####
