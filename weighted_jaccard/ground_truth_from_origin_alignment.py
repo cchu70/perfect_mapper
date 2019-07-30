@@ -24,7 +24,7 @@ def main():
 	#####
 
 
-	for line in open(align_file, "r"):
+	for line in align_file:
 		read_name = line.split()[0]
 
 		chrm, read_start, read_end, fwd = read_name.split("_")
