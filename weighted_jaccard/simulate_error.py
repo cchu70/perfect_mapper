@@ -35,7 +35,7 @@ def sim_err(error_rate, seq):
 			base = alphabet[i]
 
 			# pick an error type
-			x = andom.randint(0,101)
+			x = random.randint(0,101)
 			i = x % 4
 			err_type = err_types[i]
 
