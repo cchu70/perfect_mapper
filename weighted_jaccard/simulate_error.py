@@ -70,8 +70,11 @@ def main():
 
 
 	for i in range(iterations):
-		new_fasta_file = "%s.%0.2f.v_%d.fa" % (prefix, error_rate, i)
+		new_fasta_file = "%s.err_%0.2f.v_%d.fa" % (prefix, error_rate, i)
 		fh = open(new_fasta_file, "w")
+
+		sys.stderr.write("Writing to %s\n" % new_fasta_file)
+		
 		curr_read = ""
 		seq = ""
 		for line in open(fasta_file, "r"):
