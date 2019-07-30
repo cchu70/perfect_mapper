@@ -6,15 +6,24 @@ import random
 
 def sim_err(error_rate, seq):
 
+	new_seq = ""
+
 	threshold = 100 * error_rate
 
-	x = random.randint(0,101)
 
-	if x <=threshold :
-		# Do edit base
+	error_count = 0
 
-	else:
-		continue
+	for c in seq:
+		x = random.randint(0,101)
+
+		if x <= threshold :
+			# Do edit base
+
+			# Pick a base
+
+			# pick an error type
+		else:
+			new_seq += c
 
 
 def main():

@@ -23,7 +23,7 @@ def init_parser():
 # 	return table
 # #####
 
-def parseUniqueFile(unique_k_file):
+def parseKmerFile(unique_k_file):
 	table = {}
 	for line in open(unique_k_file, "r"):
 		k, value = line.strip().split()
@@ -85,7 +85,7 @@ def counts(read_k_set, align_k_set, kmer_table):
 	for k in align_k_set:
 		if align_k_set[k]:
 			if k in kmer_table:
-				
+
 				if (kmer_table[k] == 1):
 					non_shared_unique_sum += 1
 				else:
