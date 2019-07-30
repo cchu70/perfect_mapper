@@ -12,7 +12,7 @@ def main():
 	curr_read_name = ""
 	first_data = ""
 
-	for line in map_file:
+	for line in open(map_file, "r"):
 		read_name = line.split()[0]
 		print(read_name)
 
