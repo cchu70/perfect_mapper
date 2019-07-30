@@ -14,14 +14,13 @@ def main():
 
 	for line in open(map_file, "r"):
 		read_name = line.split()[0]
-		print(read_name)
 
 		if (read_name == curr_read_name):
 			if (second):
 				print(first_data)
 				second = False
 			#####
-			print(data)
+			print(line.strip())
 		else:
 			curr_read_name = read_name
 			first_data = line.strip()
