@@ -68,7 +68,7 @@ def main():
 	prefix = sys.argv[4]
 
 
-	for i in range(iteratios):
+	for i in range(iterations):
 		new_fasta_file = "%s.%0.2f.v_%d.fa" % (prefix, error_rate, i)
 		fh = open(new_fasta_filem, "w")
 		curr_read = ""
