@@ -15,8 +15,6 @@ def main():
 	for line in paf_file:
 		read_name = line.split()[0]
 
-		data = "%s\t%s" % (line.strip(), isCorrect)
-
 		if (read_name == curr_read_name):
 			if (second):
 				print(first_data)
@@ -25,7 +23,7 @@ def main():
 			print(data)
 		else:
 			curr_read_name = read_name
-			first_data = data
+			first_data = line.strip()
 			second = True
 		#####
 	#####
