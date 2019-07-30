@@ -36,7 +36,7 @@ def main():
 	ref_record = list(parseFasta(ref_fasta).values())[0] # Should only be one reference
 
 	sys.stderr.write("Parsing unique file: %s\n" % unique_k_file)
-	unique_table = parseUniqueFile(unique_k_file)
+	kmer_table = parseUniqueFile(unique_k_file)
 	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
 
 
@@ -75,8 +75,8 @@ def main():
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
-		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, unique_table)
-		print("%s\t%d\t%d\t%d\t%d" % (alignment, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum))
+		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error, non_shared_error = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
+		print("%s\t%d\t%d\t%d\t%d\t%d\t%d" % (alignment, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error, non_shared_error))
 		
 	#####
 

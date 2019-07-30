@@ -18,7 +18,7 @@ def main():
 
 		next_stage = 'alignment'
 
-	elif stage == 'alignments':
+	elif stage == 'align_sim':
 		# align the reads to the ref with chosen alignment (minimap2 or mashmap)
 
 

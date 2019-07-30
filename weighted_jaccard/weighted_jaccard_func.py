@@ -15,24 +15,35 @@ def init_parser():
 	return parser
 
 
+# def parseUniqueFile(unique_k_file):
+# 	table = {}
+# 	for k in open(unique_k_file, "r"):
+# 		table[k.strip()] = True
+# 	#####
+# 	return table
+# #####
+
 def parseUniqueFile(unique_k_file):
 	table = {}
-	for k in open(unique_k_file, "r"):
-		table[k.strip()] = True
+	for line in open(unique_k_file, "r"):
+		k, value = line.strip().split()
+		table[k] = int(value)
 	#####
 	return table
 #####
 
 
-
 # Counts the number in each set
-def counts(read_k_set, align_k_set, unique_table):
+def counts(read_k_set, align_k_set, kmer_table):
 
 	shared_unique_sum = 0
 	shared_non_unique_sum = 0
+	shared_error_sum = 0
 
 	non_shared_unique_sum = 0
 	non_shared_non_unique_sum = 0
+	non_shared_error_sum = 0
+
 	total_sum = 0
 	
 	# Query the read onto the align set. If match, mark true and increment
@@ -44,21 +55,27 @@ def counts(read_k_set, align_k_set, unique_table):
 		# 	print(k)
 
 		if k in align_k_set:
-			if k in unique_table:
-
-				shared_unique_sum += 1
+			if k in kmer_table:
+				if (kmer_table[k] == 1):
+					shared_unique_sum += 1
+				else:
+					shared_non_unique_sum += 1
 			else:
-				shared_non_unique_sum += 1
+				shared_error_sum += 1
 			#####
-
 			# Don't consider this kmer again
 			align_k_set[k] = False
 		else:
-			if k in unique_table:
+			if k in kmer_table:
 
-				non_shared_unique_sum += 1
+				if (kmer_table[k] == 1):
+					non_shared_unique_sum += 1
+				else:
+					non_shared_non_unique_sum += 1
+				#####
+
 			else:
-				non_shared_non_unique_sum += 1
+				non_shared_error_sum += 1
 			#####
 		#####
 	#####
@@ -67,16 +84,21 @@ def counts(read_k_set, align_k_set, unique_table):
 	# Remaining kmers in the alignment
 	for k in align_k_set:
 		if align_k_set[k]:
-			if k in unique_table:
-				non_shared_unique_sum += 1
+			if k in kmer_table:
+				
+				if (kmer_table[k] == 1):
+					non_shared_unique_sum += 1
+				else:
+					non_shared_non_unique_sum += 1
+				#####
 
 			else:
-				non_shared_non_unique_sum += 1
+				non_shared_error_sum += 1
 			#####
 		#####
 	#####
 
-	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum
+	return shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error, non_shared_error
 
 def weightJaccard(w_non_unique, w_unique, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum):
 
