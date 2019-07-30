@@ -12,7 +12,7 @@ def main():
 	curr_read_name = ""
 	first_data = ""
 
-	for line in paf_file:
+	for line in map_file:
 		read_name = line.split()[0]
 
 		if (read_name == curr_read_name):
