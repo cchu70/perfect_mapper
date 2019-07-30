@@ -14,7 +14,7 @@ def is_true(length, origin_start, align_start):
 def main():
 
 	ground_truth_file = sys.argv[1]
-	align_file = sys.argv[2]
+	align_file = sys.stdin
 
 
 	ground_truth = {}
