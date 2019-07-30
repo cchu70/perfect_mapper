@@ -14,6 +14,7 @@ def main():
 
 	for line in map_file:
 		read_name = line.split()[0]
+		print(read_name)
 
 		if (read_name == curr_read_name):
 			if (second):
