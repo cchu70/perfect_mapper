@@ -20,13 +20,13 @@ def sim_err(error_rate, seq):
 
 	new_seq = ""
 
-	threshold = int(100 * error_rate)
+	threshold = 100 * error_rate
 	error_count = 0
 
 	for c in seq:
 		x = random.randint(0,101)
 
-		if x % threshold == 0 :
+		if x <= threshold :
 			# Do edit base
 			error_count += 1
 
