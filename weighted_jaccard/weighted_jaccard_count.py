@@ -75,8 +75,8 @@ def main():
 		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
 		# score alignments with different weighting schemes
-		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error, non_shared_error = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
-		print("%s\t%d\t%d\t%d\t%d\t%d\t%d" % (alignment, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error, non_shared_error))
+		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
+		print("%s\t%d\t%d\t%d\t%d\t%d\t%d" % (alignment, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum))
 		
 	#####
 
