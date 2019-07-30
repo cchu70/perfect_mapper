@@ -1,6 +1,6 @@
 # Script to count the shared and unique kmers between two sequences# This is the main script to test different weighting schemes to compute a weighted jaccard score on shared kmers between a read and it's alignment region
 
-from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseUniqueFile, parseSam, parseFasta, counts, weightJaccard, align_file_parser
+from  weighted_jaccard_func import getKmers, parsePaf, Alignment, Scheme, parseKmerFile, parseSam, parseFasta, counts, weightJaccard, align_file_parser
 import sys
 import os
 import subprocess
@@ -24,7 +24,7 @@ def main():
 	ref_fasta = sys.argv[2]
 	align_file = sys.argv[3]
 	align_file_type = sys.argv[4]
-	unique_k_file = sys.argv[5]
+	k_file = sys.argv[5]
 	k_size = int(sys.argv[6])
 
 
@@ -35,9 +35,9 @@ def main():
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
 	ref_record = list(parseFasta(ref_fasta).values())[0] # Should only be one reference
 
-	sys.stderr.write("Parsing unique file: %s\n" % unique_k_file)
-	kmer_table = parseUniqueFile(unique_k_file)
-	sys.stderr.write("Number of unique kmers: %d\n" % len(unique_table))
+	sys.stderr.write("Parsing kmer file: %s\n" % k_file)
+	kmer_table = parseKmerFile(k_file)
+	sys.stderr.write("Number of true kmers: %d\n" % len(kmer_table))
 
 
 	# Initialize Loop

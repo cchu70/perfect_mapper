@@ -1,10 +1,20 @@
 # Script to create error
 
 import sys
-import rad
+import random
 
 
 def sim_err(error_rate, seq):
+
+	threshold = 100 * error_rate
+
+	x = random.randint(0,101)
+
+	if x <=threshold :
+		# Do edit base
+
+	else:
+		continue
 
 
 def main():
