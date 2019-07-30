@@ -4,6 +4,12 @@ import sys
 import random
 
 
+alphabet = {0 : 'A',
+			1 : 'T', 
+			2 : 'C', 
+			2 : 'G'}
+
+
 def sim_err(error_rate, seq):
 
 	new_seq = ""
@@ -20,6 +26,9 @@ def sim_err(error_rate, seq):
 			# Do edit base
 
 			# Pick a base
+			x = random.randint(0,101)
+			i = x % 4
+			base = alphabet[i]
 
 			# pick an error type
 		else:
