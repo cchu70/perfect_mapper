@@ -70,7 +70,7 @@ def main():
 
 	for i in range(iterations):
 		new_fasta_file = "%s.%0.2f.v_%d.fa" % (prefix, error_rate, i)
-		fh = open(new_fasta_filem, "w")
+		fh = open(new_fasta_file, "w")
 		curr_read = ""
 		seq = ""
 		for line in open(fasta_file, "r"):
