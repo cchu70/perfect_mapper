@@ -65,13 +65,12 @@ def main():
 	# Get params
 	fasta_file = sys.argv[1]
 	error_rate = float(sys.argv[2])
-	iterations = int(sys.argv[3])
-	prefix = sys.argv[4]
+	outfile = sys.argv[3]
 
 
 	for i in range(iterations):
-		new_fasta_file = "%s.err_%0.2f.v_%d.fa" % (prefix, error_rate, i)
-		fh = open(new_fasta_file, "w")
+		
+		fh = open(outfile, "w")
 
 		sys.stderr.write("Writing to %s\n" % new_fasta_file)
 		
