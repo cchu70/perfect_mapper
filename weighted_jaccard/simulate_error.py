@@ -8,11 +8,12 @@ alphabet = {0 : 'A',
 			1 : 'T', 
 			2 : 'C', 
 			3 : 'G'}
-
+num_alphabet = 4
 
 err_types = { 0 : 'mismatch',
 			  1 : 'insertion', 
 			  2 : 'deletion'}
+num_err_types = 3
 
 
 def sim_err(error_rate, seq):
@@ -31,12 +32,12 @@ def sim_err(error_rate, seq):
 
 			# Pick a base
 			x = random.randint(0,101)
-			i = x % 4
+			i = x % num_alphabet
 			base = alphabet[i]
 
 			# pick an error type
 			x = random.randint(0,101)
-			i = x % 4
+			i = x % num_err_types
 			err_type = err_types[i]
 
 
