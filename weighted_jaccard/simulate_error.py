@@ -80,7 +80,7 @@ def main():
 					# already started
 
 					new_seq = sim_err(error_rate, seq)
-					fh.write("%s\n%s\n" % (curr_read, seq))
+					fh.write("%s\n%s\n" % (curr_read, new_seq))
 
 				#####
 				curr_read = line.strip() # header
@@ -92,7 +92,7 @@ def main():
 
 		# last one
 		new_seq = sim_err(error_rate, seq)
-		fh.write("%s\n%s\n" % (curr_read, seq))
+		fh.write("%s\n%s\n" % (curr_read, new_seq))
 		fh.close()
 	#####
 
