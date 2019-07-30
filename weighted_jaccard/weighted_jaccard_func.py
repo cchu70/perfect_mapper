@@ -1,6 +1,18 @@
 # This Script outlines the major functions used in weighted_jaccard_main.py
 import time
 import sys
+from optparse import OptionParser
+
+stages_list = ['start', 'end']
+
+
+def init_parser():
+	parser = OptionParser(usage="usage: %prog [options] filename",
+                          version="%prog 1.0")
+
+	parser.add_option("-s", "--stage", default="start", help="Indicate which stage you want to start at in the pipeline", choices=stages_list, dest="start_stage")
+	parser.add_option("-c", "--config", help="Input path to configuration file", dest="config_file")
+	return parser
 
 
 def parseUniqueFile(unique_k_file):
