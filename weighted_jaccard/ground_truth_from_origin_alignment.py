@@ -20,7 +20,7 @@ def main():
 	ground_truth = {}
 	for line in open(ground_truth_file, "r"):
 		read_name, start = line.strip().split()
-		ground_truth[read_name] = start
+		ground_truth[read_name] = int(start)
 	#####
 
 
@@ -40,7 +40,7 @@ def main():
 			continue 
 		#####
 
-		gt = is_true(length, ground[read_name], align_start)
+		gt = is_true(length, ground_truth[read_name], int(align_start))
 
 		print("%s\t%s" % (line.strip(), gt))
 
