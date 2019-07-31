@@ -32,12 +32,12 @@ def main():
 
 		# Error on A
 		pA = subprocess.Popen(["/bin/bash", script, GAGE_A, GAGE_B, 'A', 'B', str(e), str(iterations), GAGE_A_reads, GAGE_B_reads, prefix])
-		pA.close()
+		pA.kill()
 
 		# Error on B
 		pB = subprocess.Popen(["/bin/bash", script, GAGE_A, GAGE_B, 'B', 'A', str(e), str(iterations), GAGE_A_reads, GAGE_B_reads, prefix])
-		pB.close()
-		
+		pB.kill()
+
 		e += error_rate_step
 	#####
 
