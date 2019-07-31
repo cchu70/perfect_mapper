@@ -15,19 +15,16 @@ def main():
 	GAGE_A_reads= sys.argv[3]
 	GAGE_B_reads= sys.argv[4]
 
-	which_to_error= sys.argv[5]
-	which_not_to_error= sys.argv[6]
+	error_rate_start = flaot(sys.argv[5])
+	error_rate_end = float(sys.argv[6])
+	error_rate_step = float(sys.argv[7])
 
-	error_rate_start = flaot(sys.argv[7])
-	error_rate_end = float(sys.argv[8])
-	error_rate_step = float(sys.argv[9])
-
-	iterations= int(sys.argv[10])
+	iterations= int(sys.argv[8])
 	
-	prefix= sys.argv[11]
+	prefix= sys.argv[9]
 
 
-	script = sys.argv[12]
+	script = sys.argv[10]
 
 
 	e = error_rate_start
