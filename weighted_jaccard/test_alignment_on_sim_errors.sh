@@ -10,7 +10,7 @@ GAGE_A_reads=$7
 GAGE_B_reads=$8
 prefix=$9 # GAGE
 
-out=${prefix}_${which_to_error}.err_${error_rate}.out
+out=${prefix}.err_${error_rate}_${which_to_error}.out
 
 
 module load samtools
@@ -41,7 +41,7 @@ counter=1
 while  [ $counter -le $iterations ] 
 do
 
-	err_fasta_name="${prefix}_${which_to_error}.err_${error_rate}.v_${counter}.fasta"
+	err_fasta_name="${prefix}.err_${error_rate}_{which_to_error}.v_${counter}.fasta"
 
 	echo ">>>>>>>>>>>>>>>> "New fasta with error rate $error_rate : $new_fasta_name
 
@@ -89,12 +89,11 @@ do
 	from_A_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_B" {print $0}' | wc -l)
 	from_B_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)
 	from_B_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_A" {print $0}' | wc -l)
-	echo ">>>>>>>>>>>>>>>>"
-	echo from_A_aligned_A : $from_A_aligned_A
-	echo from_A_aligned_B : $from_A_aligned_B
-	echo from_B_aligned_B : $from_B_aligned_B
-	echo from_B_aligned_A : $from_B_aligned_A
-	echo ">>>>>>>>>>>>>>>>"
+
+	echo ">>>>>>>>>>>>>>>> "from_A_aligned_A : $from_A_aligned_A
+	echo ">>>>>>>>>>>>>>>> "from_A_aligned_B : $from_A_aligned_B
+	echo ">>>>>>>>>>>>>>>> "from_B_aligned_B : $from_B_aligned_B
+	echo ">>>>>>>>>>>>>>>> "from_B_aligned_A : $from_B_aligned_A
 
 
 	# output
