@@ -8,22 +8,33 @@ import subprocess
 def main():
 
 	# Input files
-	read_fasta_A = sys.argv[1] # labeled by which part it comes from
-	read_fasta_B = sys.argv[2] # labeled by which part it comes from
-	split_ref = sys.argv[3]
 
 
-	# Generate files
+	GAGE_A = sys.argv[1]
+	GAGE_B= sys.argv[2]
+	GAGE_A_reads= sys.argv[3]
+	GAGE_B_reads= sys.argv[4]
+
+	which_to_error= sys.argv[5]
+	which_not_to_error= sys.argv[6]
+
+	error_rate_start = flaot(sys.argv[7])
+	error_rate_end = float(sys.argv[8])
+	error_rate_step = float(sys.argv[9])
+
+	iterations= int(sys.argv[10])
+	
+	prefix= sys.argv[11]
 
 
-	# map to the files
+	script = sys.argv[12]
 
 
-
-# 48620702 to 49029569 middle is 48825135.5
-# chrX-a02-s10.simulated.fw.fasta
-
-# to evaluate the resulting bam file
+	e = error_rate_start
+	while e < error_rate_end:
+		subprocess.Popen(["/bin/bash", script, GAGE_A, GAGE_B, which_to_error, which_not_to_error, e, iterations, GAGE_A_reads, GAGE_B_reads, prefix])
+		e += error_rate_step
+	#####
 
 
 
