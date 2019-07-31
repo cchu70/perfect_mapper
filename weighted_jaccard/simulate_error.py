@@ -68,35 +68,34 @@ def main():
 	outfile = sys.argv[3]
 
 
-	for i in range(iterations):
 		
-		fh = open(outfile, "w")
+	fh = open(outfile, "w")
 
-		sys.stderr.write("Writing to %s\n" % new_fasta_file)
-		
-		curr_read = ""
-		seq = ""
-		for line in open(fasta_file, "r"):
-			if ">" in line:
-				if seq:
-					# already started
+	sys.stderr.write("Writing to %s\n" % new_fasta_file)
+	
+	curr_read = ""
+	seq = ""
+	for line in open(fasta_file, "r"):
+		if ">" in line:
+			if seq:
+				# already started
 
-					new_seq = sim_err(error_rate, seq)
-					fh.write("%s\n%s\n" % (curr_read, new_seq))
+				new_seq = sim_err(error_rate, seq)
+				fh.write("%s\n%s\n" % (curr_read, new_seq))
 
-				#####
-				curr_read = line.strip() # header
-				seq = ""
-			else:
-				seq += line.strip()
 			#####
+			curr_read = line.strip() # header
+			seq = ""
+		else:
+			seq += line.strip()
 		#####
-
-		# last one
-		new_seq = sim_err(error_rate, seq)
-		fh.write("%s\n%s\n" % (curr_read, new_seq))
-		fh.close()
 	#####
+
+	# last one
+	new_seq = sim_err(error_rate, seq)
+	fh.write("%s\n%s\n" % (curr_read, new_seq))
+	fh.close()
+
 
 
 
