@@ -1,5 +1,6 @@
 # script to take in all the out files from testing the turnover rate when introducing certain levels of error
 
+import sys
 
 
 def main():
