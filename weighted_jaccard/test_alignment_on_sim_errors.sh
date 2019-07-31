@@ -10,7 +10,7 @@ GAGE_A_reads=$7
 GAGE_B_reads=$8
 prefix=$9 # GAGE
 
-out=$prefix_${which_to_error}.err_${error_rate}.out
+out=${prefix}_${which_to_error}.err_${error_rate}.out
 
 
 module load samtools
