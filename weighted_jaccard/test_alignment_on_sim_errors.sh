@@ -88,7 +88,7 @@ do
 
 	# output
 	echo ">>>>>>>>>>>>>>>>"
-	echo $error_rate"\t"$which_to_error"\t"$from_A_aligned_A"\t"$from_A_aligned_B"\t"$from_B_aligned_B"\t"$from_B_aligned_A"\t"$sam_A"\t"$sam_B
+	echo -e $error_rate"\t"$which_to_error"\t"$from_A_aligned_A"\t"$from_A_aligned_B"\t"$from_B_aligned_B"\t"$from_B_aligned_A"\t"$sam_A"\t"$sam_B
 	echo ">>>>>>>>>>>>>>>>"
 	((counter++))
 done
