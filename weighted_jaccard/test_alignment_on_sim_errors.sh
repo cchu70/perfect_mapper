@@ -63,9 +63,6 @@ do
 	echo Mapping $GAGE_A_reads to $new_split_fasta_name
 	sam_A="minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_A.sam"
 
-	echo =============
-	echo "minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_A_reads -o $sam_A"
-	echo =============
 	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_A_reads -o $sam_A
 
 	echo Wrote bam file to $sam_A
@@ -81,8 +78,8 @@ do
 	echo samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l
 	from_A_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l)
 	from_A_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_B" {print $0}' | wc -l)
-	from_B_aligned_B=$(samtools view -F 16 -F 256 -F $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)
-	from_B_aligned_A=$(samtools view -F 16 -F 256 -F $sam_B | awk '$3 == "GAGE_A" {print $0}' | wc -l)
+	from_B_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)
+	from_B_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_A" {print $0}' | wc -l)
 	echo from_A_aligned_A : $from_A_aligned_A
 	echo from_A_aligned_B : $from_A_aligned_B
 	echo from_B_aligned_B : $from_B_aligned_B
