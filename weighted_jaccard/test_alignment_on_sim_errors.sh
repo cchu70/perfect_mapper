@@ -32,7 +32,8 @@ while  [ $counter -le $iterations ] do
 	echo Write new split fasta : $new_split_fasta_name
 
 	# produce error version of A or B
-	if [ $which_to_error = "B" ] then
+	if [ $which_to_error = "B" ] 
+	then
 		which_to_error_fasta=$GAGE_B
 		which_not_to_error_fasta=$GAGE_A
 	else
