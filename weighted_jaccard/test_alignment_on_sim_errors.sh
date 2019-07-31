@@ -41,7 +41,7 @@ counter=1
 while  [ $counter -le $iterations ] 
 do
 
-	err_fasta_name="${prefix}.err_${error_rate}_{which_to_error}.v_${counter}.fasta"
+	err_fasta_name="${prefix}.err_${error_rate}_${which_to_error}.v_${counter}.fasta"
 
 	echo ">>>>>>>>>>>>>>>> "New fasta with error rate $error_rate : $new_fasta_name
 
