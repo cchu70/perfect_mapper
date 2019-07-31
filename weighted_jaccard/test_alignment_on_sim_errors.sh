@@ -6,8 +6,9 @@ which_to_error=$3
 which_not_to_error=$4
 error_rate=$5
 iterations=$6
-reads=$7
-prefix=$8 # GAGE
+GAGE_A_reads=$7
+GAGE_B_reads=$8
+prefix=$9 # GAGE
 
 
 
@@ -59,15 +60,19 @@ do
 	echo Finished writing new split fasta : $new_split_fasta_name
 
 	# Align the reads onto this new file
-	echo Mapping $GAGE_A to $new_split_fasta_name
+	echo Mapping $GAGE_A_reads to $new_split_fasta_name
 	sam_A="minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_A.sam"
-	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_A -o $sam_A
+
+	echo =============
+	echo "minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_A_reads -o $sam_A"
+	echo =============
+	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_A_reads -o $sam_A
 
 	echo Wrote bam file to $sam_A
 
-	echo Mapping $GAGE_B to $new_split_fasta_name
+	echo Mapping $GAGE_B_reads to $new_split_fasta_name
 	sam_B="minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_B.sam"
-	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_B -o $sam_B
+	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_B_reads -o $sam_B
 
 	echo Wrote bam file to $sam_B
 
