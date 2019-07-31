@@ -41,7 +41,7 @@ counter=1
 while  [ $counter -le $iterations ] 
 do
 
-	new_fasta_name="${prefix}_${which_to_error}.err_${error_rate}.v_${counter}.fasta"
+	err_fasta_name="${prefix}_${which_to_error}.err_${error_rate}.v_${counter}.fasta"
 
 	echo ">>>>>>>>>>>>>>>> "New fasta with error rate $error_rate : $new_fasta_name
 
@@ -61,11 +61,11 @@ do
 
 	echo ">>>>>>>>>>>>>>>> "Introducing error to $which_to_error
 
-	python /data/Phillippy/projects/perfect-polish/scripts/mashmap_postfilter/weighted_jaccard/simulate_error.py $which_to_error_fasta $error_rate $prefix_$which_to_error.err_${error_rate}.v_${iterations}.fasta
+	python /data/Phillippy/projects/perfect-polish/scripts/mashmap_postfilter/weighted_jaccard/simulate_error.py $which_to_error_fasta $error_rate $err_fasta_name
 
 	# combine files to create new fasta file
 	cat $which_not_to_error_fasta > $new_split_fasta_name
-	cat $new_fasta_name >> $new_split_fasta_name
+	cat $err_fasta_name >> $new_split_fasta_name
 
 	echo ">>>>>>>>>>>>>>>> "Finished writing new split fasta : $new_split_fasta_name
 
