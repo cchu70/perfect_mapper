@@ -15,7 +15,7 @@ def main():
 	GAGE_A_reads= sys.argv[3]
 	GAGE_B_reads= sys.argv[4]
 
-	error_rate_start = flaot(sys.argv[5])
+	error_rate_start = float(sys.argv[5])
 	error_rate_end = float(sys.argv[6])
 	error_rate_step = float(sys.argv[7])
 
