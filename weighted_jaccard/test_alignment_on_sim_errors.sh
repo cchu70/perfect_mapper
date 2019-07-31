@@ -10,6 +10,8 @@ GAGE_A_reads=$7
 GAGE_B_reads=$8
 prefix=$9 # GAGE
 
+out=$prefix_${which_to_error}.err_${error_rate}.out
+
 
 
 
@@ -31,7 +33,7 @@ counter=1
 while  [ $counter -le $iterations ] 
 do
 
-	new_fasta_name="$prefix_$which_to_error.err_${error_rate}.v_${iterations}.fasta"
+	new_fasta_name="${prefix}_${which_to_error}.err_${error_rate}.v_${iterations}.fasta"
 
 	echo New fasta with error rate $error_rate : $new_fasta_name
 
@@ -88,7 +90,7 @@ do
 
 	# output
 	echo ">>>>>>>>>>>>>>>>"
-	echo -e $error_rate"\t"$which_to_error"\t"$from_A_aligned_A"\t"$from_A_aligned_B"\t"$from_B_aligned_B"\t"$from_B_aligned_A"\t"$sam_A"\t"$sam_B
+	echo -e $error_rate"\t"$which_to_error"\t"$from_A_aligned_A"\t"$from_A_aligned_B"\t"$from_B_aligned_B"\t"$from_B_aligned_A"\t"$sam_A"\t"$sam_B >> $out
 	echo ">>>>>>>>>>>>>>>>"
 	((counter++))
 done
