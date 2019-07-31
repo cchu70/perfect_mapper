@@ -10,6 +10,11 @@ reads=$7
 prefix=$8 # GAGE
 
 
+
+
+module load samtools
+module load minimap2
+
 # Make new directory and cd into it
 error_directory="error_"$error_rate
 
@@ -84,3 +89,9 @@ do
 	echo ">>>>>>>>>>>>>>>>"
 	((counter++))
 done
+
+echo Finished
+
+
+
+
