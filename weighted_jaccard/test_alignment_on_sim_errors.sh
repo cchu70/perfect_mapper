@@ -13,8 +13,6 @@ prefix=$9 # GAGE
 out=$prefix_${which_to_error}.err_${error_rate}.out
 
 
-
-
 module load samtools
 module load minimap2
 
@@ -28,6 +26,16 @@ cd $error_directory
 echo ">>>>>>>>>>>>>>>> "In directory $error_directory
 
 
+
+if [ ! -f $out ] 
+then
+	echo Making new file : $out
+else
+	echo Deleting old file $out
+	rm $out
+fi
+
+
 counter=1
 
 while  [ $counter -le $iterations ] 
@@ -37,7 +45,7 @@ do
 
 	echo ">>>>>>>>>>>>>>>> "New fasta with error rate $error_rate : $new_fasta_name
 
-	new_split_fasta_name="split.err_${error_rate}_${which_to_error}.fasta"
+	new_split_fasta_name="${prefix}_split.err_${error_rate}_${which_to_error}.fasta"
 
 	echo ">>>>>>>>>>>>>>>> "Write new split fasta : $new_split_fasta_name
 
@@ -51,7 +59,7 @@ do
 		which_not_to_error_fasta=$GAGE_B
 	fi
 
-	echo Introducing error to $which_to_error
+	echo ">>>>>>>>>>>>>>>> "Introducing error to $which_to_error
 
 	python /data/Phillippy/projects/perfect-polish/scripts/mashmap_postfilter/weighted_jaccard/simulate_error.py $which_to_error_fasta $error_rate $prefix_$which_to_error.err_${error_rate}.v_${iterations}.fasta
 
