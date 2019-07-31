@@ -22,7 +22,8 @@ echo In directory $error_directory
 
 counter=1
 
-while  [ $counter -le $iterations ] do
+while  [ $counter -le $iterations ] 
+do
 
 	new_fasta_name="$prefix_$which_to_error.err_${error_rate}.v_${iterations}.fasta"
 
