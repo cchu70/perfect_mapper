@@ -13,10 +13,11 @@ prefix=$8 # GAGE
 # Make new directory and cd into it
 error_directory="error_"$error_rate
 
-echo Making $error_directory
+mkdir $error_directory
+echo Made $error_directory
 
 cd $error_directory
- echo In directory $error_directory
+echo In directory $error_directory
 
 
 counter=1
