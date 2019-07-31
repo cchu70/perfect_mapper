@@ -41,7 +41,7 @@ counter=1
 while  [ $counter -le $iterations ] 
 do
 
-	new_fasta_name="${prefix}_${which_to_error}.err_${error_rate}.v_${iterations}.fasta"
+	new_fasta_name="${prefix}_${which_to_error}.err_${error_rate}.v_${counter}.fasta"
 
 	echo ">>>>>>>>>>>>>>>> "New fasta with error rate $error_rate : $new_fasta_name
 
@@ -85,7 +85,6 @@ do
 
 
 	# parse through the sam file
-	echo samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l
 	from_A_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l)
 	from_A_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_B" {print $0}' | wc -l)
 	from_B_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)
