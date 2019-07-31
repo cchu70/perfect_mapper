@@ -23,35 +23,39 @@ def sim_err(error_rate, seq):
 	threshold = 100 * error_rate
 	error_count = 0
 
-	for c in seq:
-		x = random.randint(0,101)
-
-		if x <= threshold :
-			# Do edit base
-			error_count += 1
-
-			# Pick a base
+	if error_rate == 0:
+		new_seq = seq
+	else:
+		for c in seq:
 			x = random.randint(0,101)
-			i = x % num_alphabet
-			base = alphabet[i]
 
-			# pick an error type
-			x = random.randint(0,101)
-			i = x % num_err_types
-			err_type = err_types[i]
+			if x <= threshold :
+				# Do edit base
+				error_count += 1
+
+				# Pick a base
+				x = random.randint(0,101)
+				i = x % num_alphabet
+				base = alphabet[i]
+
+				# pick an error type
+				x = random.randint(0,101)
+				i = x % num_err_types
+				err_type = err_types[i]
 
 
-			if err_type == 'mismatch':
-				new_seq += base
-			elif err_type == "insertion":
-				new_seq += base
+				if err_type == 'mismatch':
+					new_seq += base
+				elif err_type == "insertion":
+					new_seq += base
+					new_seq += c
+				elif err_type == 'deletion':
+					pass
+				#####
+
+			else:
 				new_seq += c
-			elif err_type == 'deletion':
-				pass
 			#####
-
-		else:
-			new_seq += c
 		#####
 	#####
 
