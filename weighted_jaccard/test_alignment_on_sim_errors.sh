@@ -73,6 +73,7 @@ do
 
 
 	# parse through the sam file
+	echo samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l
 	from_A_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l)
 	from_A_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_B" {print $0}' | wc -l)
 	from_B_aligned_B=$(samtools view -F 16 -F 256 -F $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)

@@ -71,7 +71,7 @@ def main():
 		
 	fh = open(outfile, "w")
 
-	sys.stderr.write("Writing to %s\n" % new_fasta_file)
+	sys.stderr.write("Writing to %s\n" % outfile)
 	
 	curr_read = ""
 	seq = ""
