@@ -71,14 +71,14 @@ do
 
 	# Align the reads onto this new file
 	echo ">>>>>>>>>>>>>>>> "Mapping $GAGE_A_reads to $new_split_fasta_name
-	sam_A="minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_A.sam"
+	sam_A="${prefix}_minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_A.sam"
 
 	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_A_reads -o $sam_A
 
 	echo ">>>>>>>>>>>>>>>> "Wrote bam file to $sam_A
 
 	echo ">>>>>>>>>>>>>>>> "Mapping $GAGE_B_reads to $new_split_fasta_name
-	sam_B="minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_B.sam"
+	sam_B="${prefix}_minimap2.N50_r3k.split.err_${error_rate}_${which_to_error}.aligned_B.sam"
 	minimap2 -t12 -a -N50 -r3000 $new_split_fasta_name $GAGE_B_reads -o $sam_B
 
 	echo ">>>>>>>>>>>>>>>> "Wrote bam file to $sam_B
