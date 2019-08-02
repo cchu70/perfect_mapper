@@ -10,9 +10,9 @@ import time
 import sys
 
 
-def run_count(err_str, prefix):
+def run_count(err_str, prefix, ver):
 
-	cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_A.sim_reads.fasta error_%s/%s.err_%s_A.v_1.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_A.v_1.aligned_A.sam GAGE.kmerlist.txt 21 GAGE_A GAGE_A %s" % (err_str, prefix, err_str, err_str, prefix, err_str, err_str)
+	cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_A.sim_reads.fasta error_%s/%s.err_%s_A.v_%d.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_A.v_%s.aligned_A.sam GAGE.kmerlist.txt 21 GAGE_A GAGE_A %s" % (err_str, prefix, err_str, ver, err_str, prefix, err_str, ver, err_str)
 	print(cmd)
 
 def main():
@@ -25,7 +25,7 @@ def main():
 	for e in errors:
 		i = 1
 		while i <= v:	
-			x = threading.Thread(target=run_count, args=(e, prefix))
+			x = threading.Thread(target=run_count, args=(e, prefix, i))
 			x.start()
 			i += 1
 		#####
