@@ -123,7 +123,7 @@ def main():
 	p_turnover = float(incorrect_count) / float(incorrect_count + correct_count)
 	p_remaining = float(correct_count) / float(incorrect_count + correct_count)
 
-	print("%0.2f\t%0.2f\t%0.2f\t%s" % (err_rate, p_turnover, p_remaining, which_error))
+	print("%0.88f\t%0.8f\t%0.8f\t%s" % (err_rate, p_turnover, p_remaining, which_error))
 
 
 
