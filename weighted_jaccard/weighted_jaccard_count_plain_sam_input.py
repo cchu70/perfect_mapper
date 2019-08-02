@@ -9,6 +9,7 @@ import time
 import threading
 import numpy
 
+# python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_A.sim_reads.fasta error_0.0/AAF.err_0.0_A.v_1.fasta error_0.0/AAF_minimap2.N50_r3k.split.err_0.0_A.v_1.aligned_A.sam k_file 21 GAGE_A GAGE_A 0.0
 
 
 def parseSam(sam_str):
@@ -85,7 +86,7 @@ def main():
 				# evaluate the curr read performance
 				# print("%s" % max_score[1])
 
-				if max_score[1] = which_error # GAGE_B
+				if max_score[1] == which_error: # GAGE_B
 					correct_count += 1
 				else:
 					incorrect_count += 1 # GAGE_A
