@@ -35,7 +35,7 @@ def main():
 				p_remaining = float(from_B_align_B) / float(from_B_align_B + from_B_align_A)
 			#####
 
-			print("%0.2f\t%0.2f\t%0.2f\t%s" % (err, p_turnover, p_remaining, which_err))
+			print("%0.8f\t%0.2f\t%0.2f\t%s" % (err, p_turnover, p_remaining, which_err))
 
 
 		#####
