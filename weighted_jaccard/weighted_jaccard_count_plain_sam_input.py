@@ -78,38 +78,40 @@ def main():
 
 	for line in open(sam_file, "r"):
 
-		read_name, length, ref_name, ref_start, ref_end, read_start, read_end =  parseSam(line.strip())
+		if "@" not in line:
 
-		# Check which read (current or next) this alignment corresponds to 
-		if (curr_read_str):
-			if (read_name != curr_read_name):
-				# evaluate the curr read performance
-				# print("%s" % max_score[1])
+			read_name, length, ref_name, ref_start, ref_end, read_start, read_end =  parseSam(line.strip())
 
-				if max_score[1] == which_error: # GAGE_B
-					correct_count += 1
-				else:
-					incorrect_count += 1 # GAGE_A
+			# Check which read (current or next) this alignment corresponds to 
+			if (curr_read_str):
+				if (read_name != curr_read_name):
+					# evaluate the curr read performance
+					# print("%s" % max_score[1])
 
+					if max_score[1] == which_error: # GAGE_B
+						correct_count += 1
+					else:
+						incorrect_count += 1 # GAGE_A
+
+					curr_read_name = read_name
+					curr_read_str = read_records[read_name]
+				# else, continue using this read
+				#####
+			else:
+				# initialize
 				curr_read_name = read_name
 				curr_read_str = read_records[read_name]
-			# else, continue using this read
 			#####
-		else:
-			# initialize
-			curr_read_name = read_name
-			curr_read_str = read_records[read_name]
-		#####
 
-		# Get the alignment region's kmers
-		ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
+			# Get the alignment region's kmers
+			ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
 
-		# score alignments with different weighting schemes
-		shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
+			# score alignments with different weighting schemes
+			shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
 
-		score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
-		if score > max_score[0]:
-			max_score = (score, ref_name)
+			score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+			if score > max_score[0]:
+				max_score = (score, ref_name)
 
 
 		
