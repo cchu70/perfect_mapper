@@ -25,7 +25,7 @@ def run_count(err_str, prefix, ver):
 def main():
 
 	errors = ['0.0', '0.0001', '0.0002', '0.0003', '0.0004', '0.0005', '0.0006', '0.0007', '0.0008', '0.0009', '0.001']
-	prefix = 'AAF'
+	prefix = 'AAG'
 	v = 10
 
 	threads = list()
