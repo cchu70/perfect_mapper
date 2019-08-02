@@ -10,6 +10,7 @@ def main():
 
 
 	for file in open(fofn, "r"):
+		sys.stderr.write("%s" % file)
 
 		for line in open(file.strip(), "r"):
 
