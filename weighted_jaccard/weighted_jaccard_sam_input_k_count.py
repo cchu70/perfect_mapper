@@ -19,11 +19,17 @@ def main():
 
 	errors = ['0.0', '0.001', '0.002', '0.003', '0.004', '0.005', '0.006', '0.007', '0.008', '0.009', '0.01']
 	prefix = 'AAF'
+	v = 10
 
 
 	for e in errors:
-		x = threading.Thread(target=run_count, args=(e, prefix))
-		x.start()
+		i = 1
+		while i <= v:	
+			x = threading.Thread(target=run_count, args=(e, prefix))
+			x.start()
+			i += 1
+		#####
+	#####
 
 
 
