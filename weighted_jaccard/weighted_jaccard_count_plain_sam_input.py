@@ -63,7 +63,7 @@ def main():
 
 	sys.stderr.write("Parsing kmer file: %s\n" % k_file)
 	kmer_table = parseKmerFile(k_file)
-	sys.stderr.write("Finished counts kmers")
+	sys.stderr.write("Finished counts kmers\n")
 
 
 	# Initialize Loop
