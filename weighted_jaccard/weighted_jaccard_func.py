@@ -197,25 +197,22 @@ def parseCigar(cigar_string):
 			num_string += c
 		else:
 			# A letter
-			try:
-				d = int(num_string) # Convert the current num_string into a number
+	
+			d = int(num_string) # Convert the current num_string into a number
 
-				if (c == "M" or c == "D" or c == "N"):
-					# Only add up matches and deletions in the read
-					length += d
+			if (c == "M" or c == "D" or c == "N"):
+				# Only add up matches and deletions in the read
+				length += d
 
-				elif (c == "S" or c == "H"):
-					# Get the start and end of the read
-					if not read_start:
-						read_start = d
-					else:
-						read_end = -d # Get the index from the back of the read
-					#####
+			elif (c == "S" or c == "H"):
+				# Get the start and end of the read
+				if not read_start:
+					read_start = d
+				else:
+					read_end = -d # Get the index from the back of the read
 				#####
-			except:
-				sys.stderr.write("Error parsing cigar string : %s\n" % cigar_string)
-				assert False
 			#####
+		
 
 
 			num_string = ""
