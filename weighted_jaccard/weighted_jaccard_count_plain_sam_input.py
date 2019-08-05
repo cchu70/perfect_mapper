@@ -90,43 +90,50 @@ def main():
 
 			if length < 0:
 				sys.stderr.write("Original sam file was: \n%s\n" % (sam_file))
-				assert False
+			else:
 
-			# Check which read (current or next) this alignment corresponds to 
-			if (curr_read_str):
-				if (read_name != curr_read_name):
-					# evaluate the curr read performance
-					# print("%s" % max_score[1])
+				# Check which read (current or next) this alignment corresponds to 
+				if (curr_read_str):
+					if (read_name != curr_read_name):
+						# evaluate the curr read performance
+						# print("%s" % max_score[1])
 
-					if max_score[1] == which_reads_aligned: # GAGE_B
-						correct_count += 1
-					else:
-						incorrect_count += 1 # GAGE_A
+						if max_score[1]:
+							# the current read actually had an alignment
 
+							if max_score[1] == which_reads_aligned: # GAGE_B
+								correct_count += 1
+							else:
+								incorrect_count += 1 # GAGE_A
+							#####
+						#####
+
+						curr_read_name = read_name
+						curr_read_str = read_records[read_name]
+					# else, continue using this read
+					#####
+				else:
+					# initialize
 					curr_read_name = read_name
 					curr_read_str = read_records[read_name]
-				# else, continue using this read
 				#####
-			else:
-				# initialize
-				curr_read_name = read_name
-				curr_read_str = read_records[read_name]
+
+				# Get the alignment region's kmers
+				ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
+
+				# score alignments with different weighting schemes
+				shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
+
+				score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
+
+				if score < 0:
+					# Error occured
+					sys.stderr.write("No kmers found in sequences.\nRef_start = %d, Ref_end = %d\nRead start = %d, Read_end = %d\nRead_seq: %s" % (ref_start, ref_end, read_start, read_end, curr_read_str))
+					assert False
+				if score > max_score[0]:
+					max_score = (score, ref_name)
+				#####
 			#####
-
-			# Get the alignment region's kmers
-			ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
-
-			# score alignments with different weighting schemes
-			shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
-
-			score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
-
-			if score < 0:
-				# Error occured
-				sys.stderr.write("No kmers found in sequences.\nRef_start = %d, Ref_end = %d\nRead start = %d, Read_end = %d\nRead_seq: %s" % (ref_start, ref_end, read_start, read_end, curr_read_str))
-				assert False
-			if score > max_score[0]:
-				max_score = (score, ref_name)
 
 
 		

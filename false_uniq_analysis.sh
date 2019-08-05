@@ -45,3 +45,21 @@ bedtools getfasta $origin_pos_bedfile
 
 meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$3=="T"{print $1"\t"$5}' > chr22.origin_reads.asm.sck_pos.dump.txt
 cat chr22.origin_reads.asm.sck_pos.dump.txt | awk 'BEGIN { read = ""; count = 0 } { if !read { read = $1 }; if ( $1 != read ) { print read"\t"count; read = $1; count = 1} else { count = count + 1 } }' > origin_reads.true_uniqmer_count.txt
+
+
+
+# Compile information
+
+awk ' if ( NR == FNR ){ true_count[$1] = $2 } else { print $0"\t"true_count[$1]} ' origin_reads.true_uniqmer_count.txt chr22.sim_reads.asm.sck_pos.correct_kmer_count.txt > out
+
+############################################
+# Plots
+############################################
+
+# uniqmer loss plot: the number of the uniqmers (true and false) in the simulated read versus the number that is supposed to be there
+cat out | awk '{print $1"\t"($2 + $3)"\t"$4}' > uniqmer_loss.to_plot.txt
+
+Rscript plot
+
+# uniqmer false uniqmer rate
+cat out	| awk '{ print $1"\t"( $NF / ( $NF + $(NF - 1) ) ) }' > false_uniqmer_rate.to_plot.txt
