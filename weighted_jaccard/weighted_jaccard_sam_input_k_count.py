@@ -19,7 +19,7 @@ def run_count(err_str, prefix, ver, which_part):
 	p1 = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
 	output = p1.communicate()[0]
-	#print(output)
+	print(output)
 	return output
 
 
@@ -32,10 +32,10 @@ def main():
 
 	prefix = sys.argv[2]
 
-	errors = ['0.0', '0.0001', '0.0002', '0.0003', '0.0004', '0.0005', '0.0006', '0.0007', '0.0008', '0.0009']
+	# errors = ['0.0', '0.0001', '0.0002', '0.0003', '0.0004', '0.0005', '0.0006', '0.0007', '0.0008', '0.0009']
 	# errors = ['0.0', '0.0001']
-	prefix = 'AAG'
-	v = 1
+	# prefix = 'AAG'
+	v = 10
 
 	threads = list()
 
