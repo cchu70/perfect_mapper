@@ -87,19 +87,24 @@ do
 
 
 	# parse through the sam file
-	from_A_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l)
-	from_A_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_A | awk '$3 == "GAGE_B" {print $0}' | wc -l)
-	from_B_aligned_B=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)
-	from_B_aligned_A=$(samtools view -F 16 -F 256 -F 2048 $sam_B | awk '$3 == "GAGE_A" {print $0}' | wc -l)
+	from_A_aligned_A=$(samtools view -F 16 -F 256 -F 2048 -F 4 $sam_A | awk '$3 == "GAGE_A" {print $0}' | wc -l)
+	from_A_aligned_B=$(samtools view -F 16 -F 256 -F 2048 -F 4 $sam_A | awk '$3 == "GAGE_B" {print $0}' | wc -l)
+	from_B_aligned_B=$(samtools view -F 16 -F 256 -F 2048 -F 4 $sam_B | awk '$3 == "GAGE_B" {print $0}' | wc -l)
+	from_B_aligned_A=$(samtools view -F 16 -F 256 -F 2048 -F 4 $sam_B | awk '$3 == "GAGE_A" {print $0}' | wc -l)
+
+	from_A_unaligned=$(samtools view -f 4 $sam_A | wc -l)
+	from_B_unaligned=$(samtools view -f 4 $sam_B | wc -l)
 
 	echo ">>>>>>>>>>>>>>>> "from_A_aligned_A : $from_A_aligned_A
 	echo ">>>>>>>>>>>>>>>> "from_A_aligned_B : $from_A_aligned_B
 	echo ">>>>>>>>>>>>>>>> "from_B_aligned_B : $from_B_aligned_B
 	echo ">>>>>>>>>>>>>>>> "from_B_aligned_A : $from_B_aligned_A
+	echo ">>>>>>>>>>>>>>>> "from_A_unaligned : $from_A_unaligned
+	echo ">>>>>>>>>>>>>>>> "from_B_unaligned : $from_B_unaligned
 
 
 	# output
-	echo -e $error_rate"\t"$which_to_error"\t"$from_A_aligned_A"\t"$from_A_aligned_B"\t"$from_B_aligned_B"\t"$from_B_aligned_A"\t"$sam_A"\t"$sam_B >> $out
+	echo -e $error_rate"\t"$which_to_error"\t"$from_A_aligned_A"\t"$from_A_aligned_B"\t"$from_B_aligned_B"\t"$from_B_aligned_A"\t"$from_A_unaligned"\t"$from_B_unaligned"\t"$sam_A"\t"$sam_B >> $out
 	((counter++))
 done
 
