@@ -33,7 +33,7 @@ origin_pos_bedfile=$4
 
 
 # Get all the positions of the unique kmers that exist in each read
-meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$3=="T"{print $0}' > chr22.sim_reads.asm.sck_pos.dump.txt
+meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$3=="T"{print $1"\t"$5}' > chr22.sim_reads.asm.sck_pos.dump.txt
 
 # Count the number of true and false uniqmers 
 awk 'BEGIN{read="read"; true="true"; false="false"}{if(NR==FNR){start[$4]=$2;end[$4]=$3}else{if ($1 != read){print read"\t"true"\t"false; read = $1; true=0; false=0;} if (start[$1] < $2 && $2 < end[$1]){true=true + 1}else{false=false + 1}}}END{print read"\t"true"\t"false}' chr22.reads.org_pos.bed chr22.sim_reads.asm.sck_pos.dump.txt > chr22.sim_reads.asm.sck_pos.correct_kmer_count.txt
@@ -42,3 +42,6 @@ awk 'BEGIN{read="read"; true="true"; false="false"}{if(NR==FNR){start[$4]=$2;end
 
 # Count the number fo true and false uniqmers each non-errored version of the simulated reads
 bedtools getfasta $origin_pos_bedfile
+
+meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$3=="T"{print $1"\t"$5}' > chr22.origin_reads.asm.sck_pos.dump.txt
+cat chr22.origin_reads.asm.sck_pos.dump.txt | awk 'BEGIN { read = ""; count = 0 } { if !read { read = $1 }; if ( $1 != read ) { print read"\t"count; read = $1; count = 1} }'

@@ -88,6 +88,10 @@ def main():
 
 			read_name, length, ref_name, ref_start, ref_end, read_start, read_end =  parseSam(line.strip())
 
+			if length < 0:
+				sys.stderr.write("Original sam file was: \n%s\n" % (sam_file))
+				assert False
+
 			# Check which read (current or next) this alignment corresponds to 
 			if (curr_read_str):
 				if (read_name != curr_read_name):
