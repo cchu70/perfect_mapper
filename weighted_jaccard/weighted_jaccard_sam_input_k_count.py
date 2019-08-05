@@ -46,10 +46,10 @@ def main():
 	for e in errors:
 
 		while v <= v_end:	
-			xA = threading.Thread(target=run_count, args=(e, prefix, i, 'A', kmer_list))
+			xA = threading.Thread(target=run_count, args=(e, prefix, v, 'A', kmer_list))
 			threads.append(xA)
 
-			xB = threading.Thread(target=run_count, args=(e, prefix, i, 'B', kmer_list))
+			xB = threading.Thread(target=run_count, args=(e, prefix, v, 'B', kmer_list))
 			threads.append(xB)
 
 			xA.start()
