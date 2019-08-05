@@ -88,7 +88,7 @@ def main():
 					# evaluate the curr read performance
 					# print("%s" % max_score[1])
 
-					if max_score[1] == which_error: # GAGE_B
+					if max_score[1] == which_reads_aligned: # GAGE_B
 						correct_count += 1
 					else:
 						incorrect_count += 1 # GAGE_A
