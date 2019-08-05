@@ -44,4 +44,4 @@ awk 'BEGIN{read="read"; true="true"; false="false"}{if(NR==FNR){start[$4]=$2;end
 bedtools getfasta $origin_pos_bedfile
 
 meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$3=="T"{print $1"\t"$5}' > chr22.origin_reads.asm.sck_pos.dump.txt
-cat chr22.origin_reads.asm.sck_pos.dump.txt | awk 'BEGIN { read = ""; count = 0 } { if !read { read = $1 }; if ( $1 != read ) { print read"\t"count; read = $1; count = 1} }'
+cat chr22.origin_reads.asm.sck_pos.dump.txt | awk 'BEGIN { read = ""; count = 0 } { if !read { read = $1 }; if ( $1 != read ) { print read"\t"count; read = $1; count = 1} else { count = count + 1 } }' > origin_reads.true_uniqmer_count.txt
