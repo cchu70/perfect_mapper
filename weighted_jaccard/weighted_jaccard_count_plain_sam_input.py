@@ -24,6 +24,10 @@ def parseSam(sam_str):
 
 	length, read_start, read_end = parseCigar(cigar)
 
+	if length < 0:
+		sys.stderr.write("Unable to parse cigar string %s. Original string was: \n%s\n" % (cigar, sam_str))	
+		assert False
+
 	ref_end = ref_start + length
 
 	return read_name, length, ref_name, ref_start, ref_end, read_start, read_end
