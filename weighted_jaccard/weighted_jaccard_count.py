@@ -9,21 +9,22 @@ import threading
 import numpy
 
 
-read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
-ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
-align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam"
-unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
+# Example files
+# read_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta"
+# ref_fasta = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta"
+# align_file = "/data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam"
+# unique_k_file = "/data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt"
 
-align_file_type = "sam"
-k_size = 21
+# align_file_type = "sam"
+# k_size = 21
 
 
 def main():
 
-	read_fasta = sys.argv[1]
-	ref_fasta = sys.argv[2]
-	align_file = sys.argv[3]
-	align_file_type = sys.argv[4]
+	read_fasta = sys.argv[1]			# Read fasta file
+	ref_fasta = sys.argv[2]				# Target sequence fasta file
+	align_file = sys.argv[3]			# sam (no header) or mashmap out file
+	align_file_type = sys.argv[4]		# sam or mashmap
 	k_file = sys.argv[5]
 	k_size = int(sys.argv[6])
 

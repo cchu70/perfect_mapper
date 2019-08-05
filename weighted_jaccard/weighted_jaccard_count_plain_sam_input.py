@@ -34,22 +34,24 @@ k_size = 21
 
 def main():
 
-	read_fasta = sys.argv[1]
-	ref_fasta = sys.argv[2]
-	sam_file = sys.argv[3]
-	k_file = sys.argv[4]
-	k_size = int(sys.argv[5])
+	read_fasta = sys.argv[1]				# Reads used to align to the ref fasta file, producing the sam file
+	ref_fasta = sys.argv[2]					# Ref fasta file that the reads above mapped to, producing the sam file. This particular ref fasta introduced some err_rate to one of the partitions (which_error)
+	sam_file = sys.argv[3]					# The aformentioned sam files
+	k_file = sys.argv[4]					# the kmer list of exisiting kmers, formatted kmer_seq<tab>frequency, and all frequencies must be > 0 
+	k_size = int(sys.argv[5])				# The size of the kmers used
 
-	which_reads_aligned = sys.argv[6]
-	which_error = sys.argv[7]
-	err_rate = float(sys.argv[8])
+	which_reads_aligned = sys.argv[6]		# Name of the reads used to align (ex. "GAGE_A")
+	which_error = sys.argv[7]				# Name of the partition in the reference that we simualted error (ex. "GAGE_A")
+	err_rate = float(sys.argv[8])			# The error rate introduced for book keeping purposes
+	
 	# only care if these are the same
-
 	if which_reads_aligned != which_error:
 		# Only consider the events where the reads we are mapping originates from the region we introduced error
 		return
 	#####
 
+
+	# TO-DO: User input of uniqmer weight
 	unique_kmer_weight = 10 ###########################
 	non_unique_kmer_weight = 1
 
@@ -118,8 +120,8 @@ def main():
 	#####
 
 
-	# end
-	# print("%s" % max_score[1])
+	# Calculate Performance
+	
 	p_turnover = float(incorrect_count) / float(incorrect_count + correct_count)
 	p_remaining = float(correct_count) / float(incorrect_count + correct_count)
 
