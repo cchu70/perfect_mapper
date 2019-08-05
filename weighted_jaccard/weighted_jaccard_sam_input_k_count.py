@@ -42,7 +42,6 @@ def main():
 	for e in errors:
 		i = 1
 		while i <= v:	
-			print("Starting thread xA") 
 			xA = threading.Thread(target=run_count, args=(e, prefix, i, 'A'))
 			threads.append(xA)
 

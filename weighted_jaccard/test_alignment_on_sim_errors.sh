@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Script to simulate errors
+
 GAGE_A=$1
 GAGE_B=$2
 which_to_error=$3

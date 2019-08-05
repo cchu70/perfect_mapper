@@ -80,7 +80,7 @@ def main():
 
 	for line in open(sam_file, "r"):
 
-		if "@" not in line:
+		if "@" not in line:		# skipping header
 
 			read_name, length, ref_name, ref_start, ref_end, read_start, read_end =  parseSam(line.strip())
 
@@ -112,6 +112,11 @@ def main():
 			shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
 
 			score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum)
+
+			if score < 0:
+				# Error occured
+				sys.stderr.write("No kmers found in sequences.\nRef_start = %d, Ref_end = %d\nRead start = %d, Read_end = %d\nRead_seq: %s" % (ref_start, ref_end, read_start, read_end, curr_read_str))
+				assert False
 			if score > max_score[0]:
 				max_score = (score, ref_name)
 
