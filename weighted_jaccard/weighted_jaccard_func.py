@@ -154,13 +154,11 @@ def parseSam(sam_str):
 	ref_start = int(data[3])
 	cigar = data[5]
 
-	try:
-		length, read_start, read_end = parseCigar(cigar)
-	except:
-		sys.stderr.write("Unable to parse cigar string %s. Original string was: \n%s\n" % (cigar, sam_str))	
-		assert False	
-
 	length, read_start, read_end = parseCigar(cigar)
+
+	if length < 0:
+		sys.stderr.write("Unable to parse cigar string %s. Original string was: \n%s\n" % (cigar, sam_str))	
+		assert False
 
 	ref_end = ref_start + length
 
@@ -214,7 +212,7 @@ def parseCigar(cigar_string):
 				#####
 			except:
 				sys.stderr.write("Error parsing cigar string : %s\n" % cigar_string)
-				return -1
+				return -1, 0, 0
 			#####
 
 
