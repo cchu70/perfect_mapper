@@ -1,10 +1,8 @@
+
+
 #!/usr/bin/env python
 
-
-
-
-
-# Sript to run through a bunch of files to weighted_jaccard_count_plain_sam_input.py
+# SCript to run through a bunch of files to weighted_jaccard_count_plain_sam_input.py
 
 import threading
 import time
@@ -13,11 +11,10 @@ import subprocess
 import sys
 
 
-def run_count(err_str, prefix, ver, which_part, kmer_list):
+def run_count(err_str, prefix, ver, which_part):
 
 	line = ""
-
-	cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_%s.sim_reads.fasta error_%s/%s.err_%s_%s.v_%d.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_%s.v_%s.aligned_%s.sam %s 21 GAGE_%s GAGE_%s %s" % (which_part, err_str, prefix, err_str, which_part, ver, err_str, prefix, err_str, which_part, ver, which_part, kmer_list, which_part, which_part, err_str)
+	cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_%s.sim_reads.fasta error_%s/%s.err_%s_%s.v_%d.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_%s.v_%s.aligned_%s.sam GAGE.kmerlist.txt 21 GAGE_%s GAGE_%s %s" % (which_part, err_str, prefix, err_str, which_part, ver, err_str, prefix, err_str, which_part, ver, which_part, which_part, which_part, err_str)
 	#print(cmd)
 	p1 = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
@@ -31,30 +28,30 @@ def main():
 
 	errors = sys.argv[1]
 
-	errors = errors.split(",")				# errors = ['0.0', '0.0001', '0.0002', '0.0003', '0.0004', '0.0005', '0.0006', '0.0007', '0.0008', '0.0009']
+	errors = errors.split(",")
 
-	v_start = int(sys.argv[2])				# There are multiple versions of a simulated error
-	v_end = int(sys.argv[3])
-	v = v_start	
+	prefix = sys.argv[2]
 
-	kmer_list = sys.argv[4]					# text file with the format "kmer_string"<tab>"frequency" where all frequencies must be >= 1
-
-	prefix = sys.argv[5]					# prefix = 'AAG'							
+	# errors = ['0.0', '0.0001', '0.0002', '0.0003', '0.0004', '0.0005', '0.0006', '0.0007', '0.0008', '0.0009']
+	# errors = ['0.0', '0.0001']
+	# prefix = 'AAG'
+	v = 10
 
 	threads = list()
 
 	for e in errors:
-
-		while v <= v_end:	
-			xA = threading.Thread(target=run_count, args=(e, prefix, v, 'A', kmer_list))
+		i = 1
+		while i <= v:	
+			print("Starting thread xA") 
+			xA = threading.Thread(target=run_count, args=(e, prefix, i, 'A'))
 			threads.append(xA)
 
-			xB = threading.Thread(target=run_count, args=(e, prefix, v, 'B', kmer_list))
+			xB = threading.Thread(target=run_count, args=(e, prefix, i, 'B'))
 			threads.append(xB)
 
 			xA.start()
 			xB.start()
-			v += 1
+			i += 1
 		#####
 	#####
 
