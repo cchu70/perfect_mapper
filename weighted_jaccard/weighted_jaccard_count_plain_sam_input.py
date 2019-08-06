@@ -81,6 +81,7 @@ def main():
 
 	correct_count = 0
 	incorrect_count = 0
+	unmapped_count = 0
 
 	for line in open(sam_file, "r"):
 
@@ -90,6 +91,7 @@ def main():
 
 			if length < 0:
 				sys.stderr.write("Original sam file was: \n%s\n" % (sam_file))
+				unmapped_count += 1
 			else:
 
 				# Check which read (current or next) this alignment corresponds to 
@@ -126,10 +128,6 @@ def main():
 
 				score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
 
-				if score < 0:
-					# Error occured
-					sys.stderr.write("No kmers found in sequences.\nRef_start = %d, Ref_end = %d\nRead start = %d, Read_end = %d\nRead_seq: %s" % (ref_start, ref_end, read_start, read_end, curr_read_str))
-					assert False
 				if score > max_score[0]:
 					max_score = (score, ref_name)
 				#####
@@ -142,13 +140,13 @@ def main():
 
 	# Calculate Performance
 	
-	p_true = float(incorrect_count) / float(incorrect_count + correct_count) # turnover rate if which_reads_aligned == which error
-	p_false = float(correct_count) / float(incorrect_count + correct_count)		# retention rate if which_reads_aligned == which error
+	# p_true = float(incorrect_count) / float(incorrect_count + correct_count) # turnover rate if which_reads_aligned == which error
+	# p_false = float(correct_count) / float(incorrect_count + correct_count)		# retention rate if which_reads_aligned == which error
 
 	#print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t%s\t" % (err_rate, p_true, p_false, which_error, which_reads_aligned, sam_file))
 
 	# Or just return the counts, and calculate the rates later
-	print("%0.8f\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, which_error, which_reads_aligned, sam_file))
+	print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, sam_file))
 
 	# Check later for if which_reads_aligned == which error in downstream analysis for True positives and true negatives
 
