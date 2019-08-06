@@ -142,10 +142,10 @@ def main():
 
 	# Calculate Performance
 	
-	p_turnover = float(incorrect_count) / float(incorrect_count + correct_count)
-	p_remaining = float(correct_count) / float(incorrect_count + correct_count)
+	p_true = float(incorrect_count) / float(incorrect_count + correct_count) # turnover rate if which_reads_aligned == which error
+	p_false = float(correct_count) / float(incorrect_count + correct_count)		# retention rate if which_reads_aligned == which error
 
-	print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t" % (err_rate, p_turnover, p_remaining, which_error, sam_file))
+	print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t" % (err_rate, p_true, p_false, which_error, which_reads_aligned, sam_file))
 
 
 
