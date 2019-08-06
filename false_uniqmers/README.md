@@ -54,12 +54,14 @@ chr22_10000_12000   400
 chr22_10000_12000_+   200     4     400
 ```
 
-- **Uniqmer Loss Table** `${prefix}.uniqmer_loss.to_plot.txt`: Table that calculates the total number of uniq-mers in each simulated read, and compares it to the true number of kmers. Produces this dot plot.
+- **Uniqmer Loss Table** `${prefix}.uniqmer_loss.to_plot.txt`: Table that calculates the total number of uniq-mers in each simulated read, and compares it to the true number of kmers. Produces following dot plot.
 
 ```
 # read   sim_count   origin_count
 chr22_10000_12000_+   204     400
 ```
+![Uniq-mer Loss]
+(/images/uniq-mer loss)
 
 - **Uniqmer False Uniq-mer Rate Table** `${prefix}.false_uniqmer_rate.to_plot.txt` : Table to calculate the proportion of the uniq-mers found in a simulated read that are false. Produces this frequency histogram. 
 ```
