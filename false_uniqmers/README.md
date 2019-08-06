@@ -5,6 +5,7 @@ This package contains scripts to evaluate the number of surviving and false uniq
 ## Dependencies
 - canu
 - bedtools
+- Rscript
 
 ## Quick run
 ### Inputs
