@@ -19,8 +19,8 @@ def run_count(err_str, prefix, ver, which_part_aligned, which_part_errored):
 	align_file = "error_%s/%s_minimap2.N50_r3k.split.err_%s_%s.v_%s.aligned_%s.sam" % (err_str, prefix, err_str, which_part_errored, ver, which_part_aligned)
 	kmerlist = "GAGE.kmerlist.txt"
 	kmer_size = 21
-	which_part_aligned = "%s_%s" % (which_part_aligned)
-	which_part_errored = "%s_%s" % (which_part_errored)
+	which_part_aligned = "GAGE_%s" % (which_part_aligned)
+	which_part_errored = "GAGE_%s" % (which_part_errored)
 
 	cmd = "%s %s %s %s %s %s %s %s %s" % (script, sim_reads, target, align_file, kmerlist, kmer_size, which_part_aligned, which_part_errored, err_str)
 	# cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_%s.sim_reads.fasta error_%s/%s_split.err_%s_%s.v_%d.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_%s.v_%s.aligned_%s.sam GAGE.kmerlist.txt 21 GAGE_%s GAGE_%s %s" % (which_part, err_str, prefix, err_str, which_part, ver, err_str, prefix, err_str, which_part, ver, which_part, which_part, which_part, err_str)
