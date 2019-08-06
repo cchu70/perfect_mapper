@@ -102,7 +102,7 @@ def main():
 
 						if max_score[1]:
 							# the current read actually had an alignment
-							sys.stderr.write("Max score on %s, aligned %s\n" % ( max_score[1], which_reads_aligned))
+							#sys.stderr.write("Max score on %s, aligned %s\n" % ( max_score[1], which_reads_aligned))
 							if max_score[1] == which_reads_aligned: # GAGE_B
 								correct_count += 1
 							else:
@@ -110,6 +110,7 @@ def main():
 							#####
 						#####
 
+						# Reset
 						curr_read_name = read_name
 						curr_read_str = read_records[read_name]
 						max_score = (0, "")
@@ -126,9 +127,9 @@ def main():
 
 				# score alignments with different weighting schemes
 				shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
-				sys.stderr.write("%d, %d, %d, %d, %d, %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum))
+				#sys.stderr.write("%d, %d, %d, %d, %d, %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum))
 				score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
-				sys.stderr.write("Max score = %0.8f to part %s, Score = %0.8f\n" % (max_score[0], max_score[1], score))
+				#sys.stderr.write("Max score = %0.8f to part %s, Score = %0.8f\n" % (max_score[0], max_score[1], score))
 				if score > max_score[0]:
 					max_score = (score, ref_name)
 				#####
