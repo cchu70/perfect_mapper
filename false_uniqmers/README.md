@@ -61,7 +61,7 @@ chr22_10000_12000_+   200     4     400
 chr22_10000_12000_+   204     400
 ```
 ![Uniq-mer Loss]
-(/images/uniq-mer loss)
+(/Images/chr22.false_unique_kmer_histogram.png)
 
 - **Uniqmer False Uniq-mer Rate Table** `${prefix}.false_uniqmer_rate.to_plot.txt` : Table to calculate the proportion of the uniq-mers found in a simulated read that are false. Produces this frequency histogram. 
 ```
