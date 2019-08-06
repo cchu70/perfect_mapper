@@ -19,8 +19,8 @@ origin_ref_fasta=$3
 # Bedfile with the sim read positions (format)
 origin_pos_bedfile=$4
 
-# prefix
-
+# prefix to name the files (ex. chr22)
+prefix=$5
 
 ############################################
 # Script
@@ -54,6 +54,8 @@ cat $origin_read_dump_file | awk 'BEGIN { read = ""; count = 0 } { if (read) { i
 
 
 ###### Compile information ######
+
+# combine the information into single file
 reads_compiled_uniqmer_counts_outfile=${prefix}.reads_compiled_uniqmer_counts.txt
 awk ' if ( NR == FNR ){ true_count[$1] = $2 } else { print $0"\t"true_count[$1]} ' $origin_read_true_uniqmer_count $sim_read_true_false_uniqmer_count > $reads_compiled_uniqmer_counts_outfile
 
