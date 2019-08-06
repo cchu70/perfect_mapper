@@ -13,6 +13,6 @@ y_label=args[4]			# Y-axis label
 
 uniq_comp=read.table(table, header=T)
 
-ggplot(data=uniq_comp, aes(x=V2, y=V3)) + geom_point(size=0.2) + geom_abline(intercept = 0, slope=1) + xlab(x_label) + ylab(y_label)
+ggplot(data=uniq_comp, aes(x=V2, y=V3)) + geom_point(size=0.2) + geom_abline(intercept = 0, slope=1, col="red") + xlab(x_label) + ylab(y_label)
 
 ggsave(file=paste(out,'.dot_plot.png', sep=""))
