@@ -112,6 +112,7 @@ def main():
 
 						curr_read_name = read_name
 						curr_read_str = read_records[read_name]
+						max_score = (0, "")
 					# else, continue using this read
 					#####
 				else:
