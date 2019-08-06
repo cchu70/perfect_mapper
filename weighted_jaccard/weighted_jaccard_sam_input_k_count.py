@@ -15,11 +15,10 @@ def run_count(err_str, prefix, ver, which_part):
 
 	line = ""
 	cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_%s.sim_reads.fasta error_%s/%s.err_%s_%s.v_%d.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_%s.v_%s.aligned_%s.sam GAGE.kmerlist.txt 21 GAGE_%s GAGE_%s %s" % (which_part, err_str, prefix, err_str, which_part, ver, err_str, prefix, err_str, which_part, ver, which_part, which_part, which_part, err_str)
-
 	p1 = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
 	output = p1.communicate()[0]
-	print("%s\n%s" % (output, cmd))
+	print("%s\n%s" % (output,cmd))
 	return output
 
 
