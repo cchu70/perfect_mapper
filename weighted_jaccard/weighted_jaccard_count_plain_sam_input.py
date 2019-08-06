@@ -49,10 +49,10 @@ def main():
 	err_rate = float(sys.argv[8])			# The error rate introduced for book keeping purposes
 	
 	# only care if these are the same
-	if which_reads_aligned != which_error:
-		# Only consider the events where the reads we are mapping originates from the region we introduced error
-		return
-	#####
+	# if which_reads_aligned != which_error:
+	# 	# Only consider the events where the reads we are mapping originates from the region we introduced error
+	# 	return
+	# #####
 
 
 	# TO-DO: User input of uniqmer weight
@@ -145,7 +145,7 @@ def main():
 	p_turnover = float(incorrect_count) / float(incorrect_count + correct_count)
 	p_remaining = float(correct_count) / float(incorrect_count + correct_count)
 
-	print("%0.8f\t%0.8f\t%0.8f\t%s\t%s" % (err_rate, p_turnover, p_remaining, which_error, sam_file))
+	print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t" % (err_rate, p_turnover, p_remaining, which_error, sam_file))
 
 
 
