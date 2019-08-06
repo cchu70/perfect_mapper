@@ -18,7 +18,8 @@ def run_count(err_str, prefix, ver, which_part):
 	p1 = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
 	output = p1.communicate()[0]
-	print("%s\n%s" % (output,cmd))
+	# print("%s\n%s" % (output,cmd))
+	print(output)
 	return output
 
 
