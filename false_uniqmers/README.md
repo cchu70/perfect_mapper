@@ -5,6 +5,7 @@ This package contains scripts to evaluate the number of surviving and false uniq
 ## Dependencies
 - canu
 - bedtools
+- Rscript
 
 ## Quick run
 ### Inputs
@@ -60,11 +61,29 @@ chr22_10000_12000_+   200     4     400
 # read   sim_count   origin_count
 chr22_10000_12000_+   204     400
 ```
-![Uniq-mer Loss](chr22.org_sim_count_comp.png)
 
 - **Uniqmer False Uniq-mer Rate Table** `${prefix}.false_uniqmer_rate.to_plot.txt` : Table to calculate the proportion of the uniq-mers found in a simulated read that are false. Produces the following frequency histogram. 
 ```
 # read   Error
 chr22_10000_12000_+   .02   # 4/200
 ```
+## Plot
+
+### Uniq-mer Loss Plot
+
+#### Inputs
+- **Out file** : The name of the image (without the '.png') to output to
+- **Table** : From the file from output of running `false_uniq_analysis.sh` in the form `${prefix}.uniqmer_loss.to_plot.txt`
+- **X-axis label** : Label for the X-axis (the simulated read uniq-mer count)
+- **Y-axis label** : Label for the Y-axis (the origin read uniq-mer count)
+Command: 
+```
+Rscript false_uniqmer_plot_loss.R chr22.org_sim_count_comp chr22.uniqmer_loss.to_plot.txt "sim_count" "org_count"
+```
+![Uniq-mer Loss](chr22.org_sim_count_comp.png)
+
+
+### False Uniq-mer Plot
+Resulting Frequency histogram of the proportion of false uniq-mers
+
 ![False Uniqmers](chr22.false_unique_kmer_histogram.png)
