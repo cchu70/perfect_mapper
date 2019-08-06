@@ -145,7 +145,10 @@ def main():
 	p_true = float(incorrect_count) / float(incorrect_count + correct_count) # turnover rate if which_reads_aligned == which error
 	p_false = float(correct_count) / float(incorrect_count + correct_count)		# retention rate if which_reads_aligned == which error
 
-	print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t" % (err_rate, p_true, p_false, which_error, which_reads_aligned, sam_file))
+	#print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t%s\t" % (err_rate, p_true, p_false, which_error, which_reads_aligned, sam_file))
+
+	# Or just return the counts, and calculate the rates later
+	print("%0.8f\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, which_error, which_reads_aligned, sam_file))
 
 	# Check later for if which_reads_aligned == which error in downstream analysis for True positives and true negatives
 
