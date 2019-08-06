@@ -6,7 +6,7 @@ args = commandArgs(trailingOnly=T)
 
 
 out=args[1]				# Output name (no type ending)
-table=args[2]			# ${prefix}.uniqmer_loss.to_plot.txt
+table=args[2]			# ${prefix}.false_uniqmer_rate.to_plot.txt
 x_label=args[3]			# X-axis label
 y_label=args[4]			# Y-axis label
 
