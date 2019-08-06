@@ -147,6 +147,8 @@ def main():
 
 	print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t" % (err_rate, p_true, p_false, which_error, which_reads_aligned, sam_file))
 
+	# Check later for if which_reads_aligned == which error in downstream analysis for True positives and true negatives
+
 
 
 
