@@ -102,7 +102,7 @@ def main():
 
 						if max_score[1]:
 							# the current read actually had an alignment
-
+							sys.stderr.write("Max score on %s, aligned %s\n" % ( max_score[1], which_reads_aligned) )
 							if max_score[1] == which_reads_aligned: # GAGE_B
 								correct_count += 1
 							else:

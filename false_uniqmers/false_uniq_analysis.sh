@@ -7,14 +7,14 @@
 # Inputs
 ############################################
 
+# Base reference fasta (where the reads were simulated off of)
+origin_ref_fasta=$1
+
 # unique meryl DB
-uniq_meryl_db=$1
+uniq_meryl_db=$2
 
 # Simulated nanopore reads
-sim_reads_fasta=$2
-
-# Base reference fasta (where the reads were simulated off of)
-origin_ref_fasta=$3
+sim_reads_fasta=$3
 
 # Bedfile with the sim read positions (format)
 origin_pos_bedfile=$4
@@ -29,7 +29,7 @@ prefix=$5
 ##### Get the kmer counts on the simulated reads ######
 
 # Get all the positions of the unique kmers that exist in each read
-sim_read_dump_file=${prefix}.sim_reads.uniqmers.txt
+sim_read_dump_file=${prefix}.sim_reads.uniqmers.dump.txt
 meryl-lookup -dump -sequence $sim_reads_fasta -mers $uniq_meryl_db -threads 8 -memory 20g | awk '$5 > 0 {print $1"\t"$5}' > $sim_read_dump_file
 
 # Count the number of true and false uniqmers 
@@ -45,11 +45,11 @@ origin_reads_fasta=${prefix}.origin_reads.fasta
 bedtools getfasta $origin_pos_bedfile -name > $origin_reads_fasta
 
 # Get the uniqmers per read
-origin_read_dump_file=${prefix}.origin_reads.uniqmers.txt
+origin_read_dump_file=${prefix}.origin_reads.uniqmers.dump.txt
 meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$5 > 0{print $1"\t"$5}' > $origin_read_dump_file
 
 # Count the uniqmers
-origin_read_true_uniqmer_count=$${prefix}.sim_reads.sim_read_true_uniqmer_count.txt
+origin_read_true_uniqmer_count=${prefix}.sim_reads.sim_read_true_uniqmer_count.txt
 cat $origin_read_dump_file | awk 'BEGIN { read = ""; count = 0 } { if (read) { if ( $1 != read ) { print read"\t"count; read = $1; count = 1} else { count = count + 1 } } else { read = $1 } }' > $origin_read_true_uniqmer_count
 
 
@@ -70,3 +70,6 @@ cat $reads_compiled_uniqmer_counts_outfile | awk '{print $1"\t"($2 + $3)"\t"$4}'
 # uniqmer false uniqmer rate
 false_uniqmer_rate_table=${prefix}.false_uniqmer_rate.to_plot.txt
 cat $reads_compiled_uniqmer_counts_outfile	| awk '{ print $1"\t"( $NF / ( $NF + $(NF - 1) ) ) }' > $false_uniqmer_rate_table
+
+
+
