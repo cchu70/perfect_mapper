@@ -62,7 +62,9 @@ def main():
 	schemes_max_scores = {}
 	schemes_performance = {}
 	for s in schemes_list:
-		unique_kmer_weight, non_unique_kmer_weight = s.split(":")
+		data = s.split(":")
+		unique_kmer_weight = float(data[0])
+		non_unique_kmer_weight = float(data[1])
 		schemes_max_scores[(unique_kmer_weight, non_unique_kmer_weight)] = (0, "") # Max score
 		schemes_performance[(unique_kmer_weight, non_unique_kmer_weight)] = (0,0) # performance counts
 	####
@@ -149,11 +151,16 @@ def main():
 				# score alignments with different weighting schemes
 				shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
 				#sys.stderr.write("%d, %d, %d, %d, %d, %d\n" % (shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum))
-				score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
-				#sys.stderr.write("Max score = %0.8f to part %s, New Score = %0.8f to part %s\n" % (max_score[0], max_score[1], score, ref_name))
-				if score > max_score[0]:
-					max_score = (score, ref_name)
-				#####
+
+				for s in schemes_max_scores:
+					unique_kmer_weight = s[0]
+					non_unique_kmer_weight = s[1]
+					score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
+					#sys.stderr.write("Max score = %0.8f to part %s, New Score = %0.8f to part %s\n" % (max_score[0], max_score[1], score, ref_name))
+					max_score = schemes_max_scores[s]
+					if score > max_score[0]:
+						schemes_max_scores[s] = (score, ref_name)
+					#####
 			#####
 
 
