@@ -182,6 +182,8 @@ def main():
 	for scheme in schemes_performance:
 		unique_kmer_weight = scheme[0]
 		non_unique_kmer_weight =scheme[1]
+		correct_count = schemes_performance[scheme][0]
+		incorrect_count = schemes_performance[scheme][1]
 		print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%0.8f\t%0.8f\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, unique_kmer_weight, non_unique_kmer_weight, sam_file))
 
 	# Check later for if which_reads_aligned == which error in downstream analysis for True positives and true negatives
