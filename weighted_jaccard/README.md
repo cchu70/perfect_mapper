@@ -1,7 +1,7 @@
 # Weighted Jaccard Testing
 This collection of scripts calculates and evaluates the performance of a weighted Jaccard Scheme to select the correct alignment.
 
-![Weighted Uniq-mer Jaccard Index](images/NIH_SIP_Poster_Images-Weighting.png =100x20)
+![Weighted Uniq-mer Jaccard Index](images/NIH_SIP_Poster_Images-Weighting.png)
 
 # Dependencies
 - canu
@@ -28,6 +28,10 @@ chr22   2000    8000    chr22_2000_8000_+
 
 
 # Simulation on the GAGE locus
+To test the effects of variable error rates, we simulated random error in one half of the GAGE locus, and then realigned simulated reads back onto this new GAGE locus.
+
+![](images/NIH_SIP_Poster_Images-Simulated error test.png)
+
 
 ## Inputs
 
