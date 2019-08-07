@@ -66,7 +66,7 @@ def main():
 		unique_kmer_weight = float(data[0])
 		non_unique_kmer_weight = float(data[1])
 		schemes_max_scores[(unique_kmer_weight, non_unique_kmer_weight)] = (0, "") # Max score
-		schemes_performance[(unique_kmer_weight, non_unique_kmer_weight)] = (0,0) # performance counts
+		schemes_performance[(unique_kmer_weight, non_unique_kmer_weight)] = [0,0] # performance counts
 	####
 
 	print(schemes_max_scores)
