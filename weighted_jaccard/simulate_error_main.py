@@ -24,16 +24,16 @@ def main():
 	prefix= sys.argv[9]
 
 
-	script = sys.argv[10]
+	script = sys.argv[10] # /path/to/test_alignment_on_sim_errors.sh
 
 
 	e = error_rate_start
 	while e < error_rate_end:
 
-		# Error on A
+		# Error on A, none on B
 		pA = subprocess.Popen(["/bin/bash", script, GAGE_A, GAGE_B, 'A', 'B', str(e), str(iterations), GAGE_A_reads, GAGE_B_reads, prefix])
 
-		# Error on B
+		# Error on B, none on A
 		pB = subprocess.Popen(["/bin/bash", script, GAGE_A, GAGE_B, 'B', 'A', str(e), str(iterations), GAGE_A_reads, GAGE_B_reads, prefix])
 
 		e += error_rate_step

@@ -24,22 +24,23 @@ def main():
 			from_A_align_B = int(data[3])
 			from_B_align_B = int(data[4])
 			from_B_align_A = int(data[5])
-			from_A_unaligned = int(data[6])
-			from_B_unaligned = int(data[7])
+			# from_A_unaligned = int(data[6])
+			# from_B_unaligned = int(data[7])
 
 
 
 			if which_err == "A":
 				p_turnover = float(from_A_align_B) / float(from_A_align_A + from_A_align_B)
 				p_remaining = float(from_A_align_A) / float(from_A_align_A + from_A_align_B)
-				p_total_wrong = (float(from_A_align_B) + float(from_A_unaligned)) / float(from_A_align_A + from_A_align_B)
+				# p_total_wrong = (float(from_A_align_B) + float(from_A_unaligned)) / float(from_A_align_A + from_A_align_B)
 			else:
 				p_turnover = float(from_B_align_A) / float(from_B_align_B + from_B_align_A)
 				p_remaining = float(from_B_align_B) / float(from_B_align_B + from_B_align_A)
-				p_total_wrong = (float(from_B_align_B) + float(from_B_unaligned)) / float(from_B_align_B + from_B_align_A)
+				# p_total_wrong = (float(from_B_align_B) + float(from_B_unaligned)) / float(from_B_align_B + from_B_align_A)
 			#####
 
-			print("%0.8f\t%0.8f\t%0.8f\t%0.8f\t%s" % (err, p_turnover, p_remaining, p_total_wrong, which_err))
+			# print("%0.8f\t%0.8f\t%0.8f\t%0.8f\t%s" % (err, p_turnover, p_remaining, p_total_wrong, which_err))
+			print("%0.8f\t%0.8f\t%0.8f\t%s" % (err, p_turnover, p_remaining, which_err))
 
 
 		#####
