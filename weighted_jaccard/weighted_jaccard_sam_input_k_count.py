@@ -24,12 +24,11 @@ def run_count(err_str, prefix, ver, which_part_aligned, which_part_errored):
 
 	cmd = "%s %s %s %s %s %s %s %s %s" % (script, sim_reads, target, align_file, kmerlist, kmer_size, which_part_aligned, which_part_errored, err_str)
 	# cmd = "python ../../scripts/mashmap_postfilter/weighted_jaccard/weighted_jaccard_count_plain_sam_input.py GAGE_%s.sim_reads.fasta error_%s/%s_split.err_%s_%s.v_%d.fasta error_%s/%s_minimap2.N50_r3k.split.err_%s_%s.v_%s.aligned_%s.sam GAGE.kmerlist.txt 21 GAGE_%s GAGE_%s %s" % (which_part, err_str, prefix, err_str, which_part, ver, err_str, prefix, err_str, which_part, ver, which_part, which_part, which_part, err_str)
-	# print(cmd)
-	p1 = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+	print(cmd)
+	# p1 = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
-	output = p1.communicate()[0]
-	# print("%s\n%s" % (output,cmd))
-	print(output)
+	# output = p1.communicate()[0]
+	# print(output)
 	return output
 
 
