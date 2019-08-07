@@ -22,7 +22,7 @@ chr22   10000   12000   chr22_10000_12000_+
 chr22   2500    3450    chr22_2500_3450_+
 ...
 ```
-- *Prefix*: Used for tracking and naming output files (ex. `chr22`)
+- **Prefix**: Used for tracking and naming output files (ex. `chr22`)
 
 
 ### Command
