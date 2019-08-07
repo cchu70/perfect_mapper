@@ -1,6 +1,8 @@
 # Weighted Jaccard Testing
 This collection of scripts calculates and evaluates the performance of a weighted Jaccard Scheme to select the correct alignment.
 
+![Weighted Uniq-mer Jaccard Index](images/NIH_SIP_Poster_Images-Weighting.png =100x20)
+
 # Dependencies
 - canu
 - bedtools
