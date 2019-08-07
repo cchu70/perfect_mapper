@@ -69,9 +69,6 @@ def main():
 		schemes_performance[(unique_kmer_weight, non_unique_kmer_weight)] = [0,0] # performance counts
 	####
 
-	print(schemes_max_scores)
-	print(schemes_performance)
-
 
 	# Get read sequences
 	sys.stderr.write("Parsing Read fasta: %s\n" % read_fasta)
