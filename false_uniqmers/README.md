@@ -76,7 +76,7 @@ chr22_10000_12000_+   .02   # 4/200
 - **Table** : From the file from output of running `false_uniq_analysis.sh` in the form `${prefix}.uniqmer_loss.to_plot.txt`
 - **X-axis label** : Label for the X-axis (the simulated read uniq-mer count)
 - **Y-axis label** : Label for the Y-axis (the origin read uniq-mer count)
-Command: 
+#### Command: 
 ```
 Rscript false_uniqmer_plot_loss.R chr22.org_sim_count_comp chr22.uniqmer_loss.to_plot.txt "sim_count" "org_count"
 ```
@@ -91,7 +91,7 @@ Resulting Frequency histogram of the proportion of false uniq-mers
 - **Table** : From the file from output of running `false_uniq_analysis.sh` in the form `${prefix}.false_uniqmer_rate.to_plot.txt`
 - **X-axis label** : Label for the X-axis (the false uniq-mer rates)
 - **Y-axis label** : Label for the Y-axis (the frequency of reads with x false uniq-mer rate)
-Command
+#### Command
 ```
 Rscript false_uniqmer_plot_loss.R chr22.org_sim_count_comp chr22.uniqmer_loss.to_plot.txt "Error rate" "Number of reads with error rate"
 ```
