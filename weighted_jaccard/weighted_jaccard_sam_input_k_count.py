@@ -60,11 +60,14 @@ def main():
 
 				xB = threading.Thread(target=run_count, args=(e, prefix, i, 'B', part))
 				threads.append(xB)
-				xA.start()
-				xB.start()
 			#####
 			i += 1
 		#####
+	#####
+
+
+	for index, thread in enumerate(threads):
+		thread.start()
 	#####
 
 	for index, thread in enumerate(threads):
