@@ -30,7 +30,7 @@ chr22   2000    8000    chr22_2000_8000_+
 # Simulation on the GAGE locus
 To test the effects of variable error rates, we simulated random error in one half of the GAGE locus, and then realigned simulated reads back onto this new GAGE locus.
 
-![GAGE locus error simulation](images/NIH_SIP_Poster_Images-Simulated_error_test.png)
+![](images/NIH_SIP_Poster_Images-Simulated error test.png)
 
 
 ## Inputs
