@@ -55,9 +55,8 @@ def main():
 	# #####
 
 
-	# TO-DO: User input of uniqmer weight
-	unique_kmer_weight = 10 ###########################
-	non_unique_kmer_weight = 1
+	unique_kmer_weight = float(sys.argv[9])
+	non_unique_kmer_weight = float(sys.argv[10])
 
 
 	# Get read sequences
