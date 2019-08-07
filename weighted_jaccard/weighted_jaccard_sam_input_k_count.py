@@ -52,7 +52,7 @@ def main():
 
 	for uniq_w in uniq_weights:
 		for non_uniq_w in non_uniq_weights:
-			schemes.append(":".join(uniq_w, non_uniq_w))
+			schemes.append("%s:%s" % (uniq_w, non_uniq_w))
 		#####
 	####
 
