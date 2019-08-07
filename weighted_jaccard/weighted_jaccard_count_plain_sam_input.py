@@ -65,7 +65,7 @@ def main():
 	read_records = parseFasta(read_fasta) # Dictionary of read names and it's corresponding sequence
 
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
-	ref_record = list(parseFasta(ref_fasta).values())
+	ref_record = parseFasta(ref_fasta)
 
 	sys.stderr.write("Parsing kmer file: %s\n" % k_file)
 	kmer_table = parseKmerFile(k_file)
