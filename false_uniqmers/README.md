@@ -22,7 +22,7 @@ chr22   10000   12000   chr22_10000_12000_+
 chr22   2500    3450    chr22_2500_3450_+
 ...
 ```
-- *Prefix*: Used for tracking and naming output files (ex. `chr22`)
+- **Prefix**: Used for tracking and naming output files (ex. `chr22`)
 
 
 ### Command
@@ -76,7 +76,7 @@ chr22_10000_12000_+   .02   # 4/200
 - **Table** : From the file from output of running `false_uniq_analysis.sh` in the form `${prefix}.uniqmer_loss.to_plot.txt`
 - **X-axis label** : Label for the X-axis (the simulated read uniq-mer count)
 - **Y-axis label** : Label for the Y-axis (the origin read uniq-mer count)
-Command: 
+#### Command: 
 ```
 Rscript false_uniqmer_plot_loss.R chr22.org_sim_count_comp chr22.uniqmer_loss.to_plot.txt "sim_count" "org_count"
 ```
@@ -86,4 +86,13 @@ Rscript false_uniqmer_plot_loss.R chr22.org_sim_count_comp chr22.uniqmer_loss.to
 ### False Uniq-mer Plot
 Resulting Frequency histogram of the proportion of false uniq-mers
 
+#### Inputs
+- **Out file** : The name of the image (without the '.png') to output to
+- **Table** : From the file from output of running `false_uniq_analysis.sh` in the form `${prefix}.false_uniqmer_rate.to_plot.txt`
+- **X-axis label** : Label for the X-axis (the false uniq-mer rates)
+- **Y-axis label** : Label for the Y-axis (the frequency of reads with x false uniq-mer rate)
+#### Command
+```
+Rscript false_uniqmer_plot_loss.R chr22.false_uniqmer_rate chr22.false_uniqmer_rate.to_plot.txt "Percent false uniqmer rate" "Number of reads"
+```
 ![False Uniqmers](chr22.false_unique_kmer_histogram.png)
