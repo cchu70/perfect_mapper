@@ -157,6 +157,7 @@ def main():
 					non_unique_kmer_weight = s[1]
 					score = weightJaccard(non_unique_kmer_weight, unique_kmer_weight, shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum)
 					#sys.stderr.write("Max score = %0.8f to part %s, New Score = %0.8f to part %s\n" % (max_score[0], max_score[1], score, ref_name))
+
 					max_score = schemes_max_scores[s]
 					if score > max_score[0]:
 						schemes_max_scores[s] = (score, ref_name)
@@ -176,9 +177,12 @@ def main():
 	#print("%0.8f\t%0.8f\t%0.8f\t%s\t%s\t%s\t" % (err_rate, p_true, p_false, which_error, which_reads_aligned, sam_file))
 
 	# Or just return the counts, and calculate the rates later
-	print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, sam_file))
+	# print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, sam_file))
 
-	print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, unique_kmer_weight, non_unique_kmer_weight, sam_file))
+	for scheme in schemes_performance:
+		unique_kmer_weight = scheme[0]
+		non_unique_kmer_weight =scheme[1]
+		print("%0.8f\t%d\t%d\t%d\t%0.8f\t%0.8f\t%0.8f\t%0.8f\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, unique_kmer_weight, non_unique_kmer_weight, sam_file))
 
 	# Check later for if which_reads_aligned == which error in downstream analysis for True positives and true negatives
 
