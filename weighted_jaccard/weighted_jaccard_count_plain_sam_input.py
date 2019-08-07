@@ -122,7 +122,9 @@ def main():
 								if max_score[1] == which_reads_aligned: # GAGE_B
 									#sys.stderr.write("Correct! %s = %s" % (max_score[1], which_reads_aligned))
 									# correct_count += 1
-									schemes_performance[scheme][0] += 1
+									print(schemes_performance[scheme][0])
+									assert False
+									schemes_performance[scheme][0] = 1
 								else:
 									# incorrect_count += 1 # GAGE_A
 									schemes_performance[scheme][1] += 1
