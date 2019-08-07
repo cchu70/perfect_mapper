@@ -65,7 +65,7 @@ def main():
 	read_records = parseFasta(read_fasta) # Dictionary of read names and it's corresponding sequence
 
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
-	ref_record = list(parseFasta(ref_fasta).values())[0] # Should only be one reference
+	ref_record = list(parseFasta(ref_fasta).values())
 
 	sys.stderr.write("Parsing kmer file: %s\n" % k_file)
 	kmer_table = parseKmerFile(k_file)
@@ -124,7 +124,7 @@ def main():
 				#####
 
 				# Get the alignment region's kmers
-				ref_k_set = getKmers(ref_record[ref_start:ref_end], k_size)
+				ref_k_set = getKmers(ref_record[ref_name][ref_start:ref_end], k_size)
 
 				# score alignments with different weighting schemes
 				shared_unique_sum, shared_non_unique_sum, non_shared_unique_sum, non_shared_non_unique_sum, shared_error_sum, non_shared_error_sum = counts(getKmers(curr_read_str[read_start:read_end], k_size), ref_k_set, kmer_table)
