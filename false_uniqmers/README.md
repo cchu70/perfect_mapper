@@ -93,6 +93,6 @@ Resulting Frequency histogram of the proportion of false uniq-mers
 - **Y-axis label** : Label for the Y-axis (the frequency of reads with x false uniq-mer rate)
 #### Command
 ```
-Rscript false_uniqmer_plot_loss.R chr22.org_sim_count_comp chr22.uniqmer_loss.to_plot.txt "Error rate" "Number of reads with error rate"
+Rscript false_uniqmer_plot_loss.R chr22.false_uniqmer_rate chr22.false_uniqmer_rate.to_plot.txt "Percent false uniqmer rate" "Number of reads"
 ```
 ![False Uniqmers](chr22.false_unique_kmer_histogram.png)
