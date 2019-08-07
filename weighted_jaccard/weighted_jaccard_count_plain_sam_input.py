@@ -55,8 +55,20 @@ def main():
 	# #####
 
 
-	unique_kmer_weight = float(sys.argv[9])
-	non_unique_kmer_weight = float(sys.argv[10])
+	schemes_str = sys.argv[9]
+
+	schemes_list = schemes_str.split(",")
+
+	schemes_max_scores = {}
+	schemes_performance = {}
+	for s in schemes_list:
+		unique_kmer_weight, non_unique_kmer_weight = s.split(":")
+		schemes_max_scores[(unique_kmer_weight, non_unique_kmer_weight)] = (0, "") # Max score
+		schemes_performance[(unique_kmer_weight, non_unique_kmer_weight)] = (0,0) # performance counts
+	####
+
+	print(schemes_max_scores)
+	print(schemes_performance)
 
 
 	# Get read sequences
@@ -99,21 +111,30 @@ def main():
 						# evaluate the curr read performance
 						# print("%s" % max_score[1])
 
-						if max_score[1]:
-							# the current read actually had an alignment
-							#sys.stderr.write("Max score on %s, aligned %s\n" % ( max_score[1], which_reads_aligned))
-							if max_score[1] == which_reads_aligned: # GAGE_B
-								#sys.stderr.write("Correct! %s = %s" % (max_score[1], which_reads_aligned))
-								correct_count += 1
-							else:
-								incorrect_count += 1 # GAGE_A
+						for scheme in schemes_max_scores:
+							max_score = schemes_max_scores[scheme]
+
+							if max_score[1]:
+								# the current read actually had an alignment
+								#sys.stderr.write("Max score on %s, aligned %s\n" % ( max_score[1], which_reads_aligned))
+								if max_score[1] == which_reads_aligned: # GAGE_B
+									#sys.stderr.write("Correct! %s = %s" % (max_score[1], which_reads_aligned))
+									# correct_count += 1
+									schemes_performance[scheme][0] += 1
+								else:
+									# incorrect_count += 1 # GAGE_A
+									schemes_performance[scheme][1] += 1
+								#####
 							#####
+
+							# Reset
+							schemes_max_scores[scheme] = (0, "")
 						#####
 
 						# Reset
 						curr_read_name = read_name
 						curr_read_str = read_records[read_name]
-						max_score = (0, "")
+						# max_score = (0, "")
 					# else, continue using this read
 					#####
 				else:
@@ -149,6 +170,8 @@ def main():
 
 	# Or just return the counts, and calculate the rates later
 	print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, sam_file))
+
+	print("%0.8f\t%d\t%d\t%d\t%s\t%s\t%s\t" % (err_rate, correct_count, incorrect_count, unmapped_count, which_error, which_reads_aligned, unique_kmer_weight, non_unique_kmer_weight, sam_file))
 
 	# Check later for if which_reads_aligned == which error in downstream analysis for True positives and true negatives
 
