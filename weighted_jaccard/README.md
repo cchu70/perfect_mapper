@@ -160,7 +160,7 @@ samtools view [filter options] <SAM or BAM file> | python /path/to/weighted_jacc
 
 
 # 2.) Evaluate the performance of minimap2
-python /path/to/weighted_jaccard/pid_diff_eval/py <SAM + pid> > <minimap2 correctness>
+python /path/to/weighted_jaccard/pid_diff_eval.py <SAM + pid> > <minimap2 correctness>
 
 
 # 3.) Evaluate the performance of the weighted jaccard method using selected scheme
