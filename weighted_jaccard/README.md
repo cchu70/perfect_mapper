@@ -98,27 +98,88 @@ This outlines how to get the scores for the alignments given the kmer counts fro
 - **Alignment file of Simulated Reads + Ground Truth** The ground truth ("True" or "False") is appended at the end of each line. From the **Counting K-mers** stage above. 
 - **Scheme start** : Starting weight to give to the k-mers
 - **Scheme end** : Last weight to give to the k-mers
-= **Scheme step** : Step size between the start and end schemes. Each combination of these weights for uniq and non-uniq-mers will be tested.
+- **Scheme step** : Step size between the start and end schemes. Each combination of these weights for uniq and non-uniq-mers will be tested.
+- **Prefix** : for naming output files. Recommend including information on the current run.
 
 ### Command
 ```
-python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py <k-mer count alignment file> 
+# 1.) Calculate the scores for each scheme
+python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py <k-mer count alignment file> > <Scheme score file>
 
 # Example
-python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.k_counts.0_4.txt 0 10 1
+# python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.k_counts.0_4.txt 0 10 1 > representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.scheme_scores.0_4.txt
 
 # Schemes tested: (0,0), (0,1), ..., (1,0), (1,1), ...
 
-```
+# 2.) Evaluate the performance of each scheme
+python /path/to/weighted_jaccard/weighted_jaccard_eval_main.py <Scheme score file> <prefix>
 
+# 3.) Plot a ROC curve
+Rscript /path/to/weighted_jaccard/<place holder>.R <prefix>.performance.txt
+```
 ### Outputs
-- **Scheme score**
+- **Scheme score file**
   1. read name
-  2. something
-  3. scheme and corresponding score
+  2. Map truth ("P" or "S" for chosen mapper)
+  3. Alignment start index
+  4. Alignment end index
+  5. Ground Truth ("True" or "False")
+  6. Scores in the form `(<uniqmer_weight>,<non-uniqmer_weight>)=score`, tab delimited
 ```
 # Example
+chrX_59147642_59157542_+        S       59218397        59228062        False   0.84987067      (1.000, 22.000)=0.0633438601309 (1.000, 23.000)=0.0620884289746 (1.000, 24.000)=0.0608852041935
+chrX_59147642_59157542_+        S       59783244        59793022        False   0.84966251      (1.000, 22.000)=0.0419976944886 (1.000, 23.000)=0.0410373066424
+...
 ```
+- **Incorrectly aligned reads file** `<prefix>.wrong_aligned_reads.txt`: List the reads that were incorrectly mapped
+- **Performance File** `<prefix>.performance.txt`: Test file with each scheme and it's performance. Use to plot ROC curves and other performance analysis
+  1. Scheme `(w_uniq,w_nonuniq)`
+  2. True Positive count
+  3. False Positive count
+  4. False Negative count
+  5. True Negative count
+  6. True positive rate
+  7. False positive rate
+  8. Precision
+
+## Percent Identity Effects
+To see the potential effects of variable percent identity between a read and multiple candidate alignments, I calculate the percent ID for each alignment. Then for each mapping method, I compared the percent ID between the mapper's "primary" alignment and the true alignment (if said primary alignment was false), or the second best alignment (if the primary alignment was already true to begin with)
+
+### Inputs
+- **SAM/BAM file + ground truth** : Alignment file to be evaluated. Will use the cigar string to calculate the pid. To append the ground truth on each alignment line, refer to the **Ground Truth** section
+- **Reduced SAM/BAM file + ground truth + scheme score** : Run the **Scheme Score** section. Select only one weighting scheme to test. Select the best scheme by looking at the performance curves, mentioned in the same section
+
+### Commands
+```
+# 1.) Append the %idy on each alignment string
+samtools view [filter options] <SAM or BAM file> | python /path/to/weighted_jaccard/calc_percent_identity.py > <Reduced SAM + pid>
+
+
+# 2.) Evaluate the performance of minimap2
+python /path/to/weighted_jaccard/pid_diff_eval/py <SAM + pid> > <minimap2 correctness>
+
+
+# 3.) Evaluate the performance of the weighted jaccard method using selected scheme
+
+python /path/to/weighted_jaccard/weighted_jaccard_pid_diff_eval_schemes.py <Reduced SAM/BAM file + ground truth + scheme score> > <Weighted Jaccard correctness>
+
+# 4.) Plot
+Rscript /path/to/<place holder> <Weighted Jaccard correctness>
+Rscript /path/to/<place holder> <minimap2 correctness>
+
+```
+### Outputs
+- **Reduced SAM + pid** : Reduced alignment file with the percent identity appended to the end
+  1. Read Name
+  2. Mapper truth ("P" for primary, "S" for secondary)
+  3. Alignment start index
+  4. Alignment end index
+  5. Ground Truth
+  6. Percent Identity
+- **minimap2 correctness** and **Weighted Jaccard correctness** : For each read the mapper aligned, lists if it is correct, and it's corresponding percent identity difference between either the True alignment (if it exists) or the second best alignment if it is already true
+
+### Plots
+![]()
 
 
 ## Simulation on the GAGE locus
