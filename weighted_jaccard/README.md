@@ -26,13 +26,13 @@ To determine if an alignment is true, we treat the alignment of the non-errored 
 - **Prefix** : To name files
 
 ### Commands
+```
+# 1. Align the origin reads onto the target sequence
 
-1. Align the origin reads onto the target sequence
-```
 /path/to/weighted_jaccard/get_new_ground_truth.sh <origin reference fasta> <origin read fasta> <prefix> 
-```
-2. Label the alignments of the simulated reads alignments with the ground truth file
-```
+
+# 2. Label the alignments of the simulated reads alignments with the ground truth file
+
 samtools view <simulated read alignment file> | /path/to/ground_truth_from_origin_alignment.py <Ground Truth File> > output
 ```
 ### Outputs
@@ -164,8 +164,8 @@ python /path/to/weighted_jaccard/pid_diff_eval/py <SAM + pid> > <minimap2 correc
 python /path/to/weighted_jaccard/weighted_jaccard_pid_diff_eval_schemes.py <Reduced SAM/BAM file + ground truth + scheme score> > <Weighted Jaccard correctness>
 
 # 4.) Plot
-Rscript /path/to/<place holder> <Weighted Jaccard correctness>
-Rscript /path/to/<place holder> <minimap2 correctness>
+Rscript /path/to/plot_pid_diff.R <Weighted Jaccard correctness Prefix for png file> <Weighted Jaccard correctness>
+Rscript /path/to/plot_pid_diff.R <minimap2 correctness prefix for png file> <minimap2 correctness>
 
 ```
 ### Outputs
@@ -177,8 +177,8 @@ Rscript /path/to/<place holder> <minimap2 correctness>
   5. Ground Truth
   6. Percent Identity
 - **minimap2 correctness** and **Weighted Jaccard correctness** : For each read the mapper aligned, lists if it is correct, and it's corresponding percent identity difference between either the True alignment (if it exists) or the second best alignment if it is already true
+- **minimap2 correctness plot** and **Weighted Jaccard correctness plot** : Plots of the difference in percent identity of multiple candidate alignments
 
-### Plots
 ![](images/chrX_minimap2_pid_diff.png)
 ![](images/chrX_wj_pid_diff_plot.png)
 
