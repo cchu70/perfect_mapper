@@ -8,7 +8,7 @@ This collection of scripts calculates and evaluates the performance of a weighte
 - bedtools
 - minimap2 or mashmap
 
-## Using an existing reference
+# Using an existing reference
 This section consists of the following steps:
 1. Parsing an alignment file (BAM or mashmap output)
 2. Evaluating mapper
@@ -101,7 +101,7 @@ This outlines how to get the scores for the alignments given the kmer counts fro
 - **Scheme step** : Step size between the start and end schemes. Each combination of these weights for uniq and non-uniq-mers will be tested.
 - **Prefix** : for naming output files. Recommend including information on the current run.
 
-### Command
+### Commands
 ```
 # 1.) Calculate the scores for each scheme
 python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py <k-mer count alignment file> > <Scheme score file>
@@ -141,6 +141,8 @@ chrX_59147642_59157542_+        S       59783244        59793022        False   
   6. True positive rate
   7. False positive rate
   8. Precision
+ - **Plots** : Plot of the performance of each weight, labeled on each point 
+ ![](images/chrX_prepolished_weighted_jaccard_whole_nums.png)
 
 ## Percent Identity Effects
 To see the potential effects of variable percent identity between a read and multiple candidate alignments, I calculate the percent ID for each alignment. Then for each mapping method, I compared the percent ID between the mapper's "primary" alignment and the true alignment (if said primary alignment was false), or the second best alignment (if the primary alignment was already true to begin with)
@@ -240,8 +242,8 @@ cat <Weighted Jaccard Performance Count> | grep "GAGE" | awk '{print $1"\t"($2/(
 
 cat <minimap2 Performance Count> | grep "GAGE" | awk '{print $1"\t"($2/($2 + $3))"\t"$5"\t"$6"\t"$7"\t"$8}' > <minimap2 Performance Percentage>.to_plot.txt
 
-Rscript /path/to/plot_sim_error.R <Weighted Jaccard Performance Percentage>.to_plot.txt
-Rscript /path/to/plot_sim_error.R <minimap2 Performance Percentage>.to_plot.txt
+Rscript /path/to/plot_sim_error_weighted_jaccard.R <Weighted Jaccard Performance Percentage>.to_plot.txt
+Rscript /path/to/plot_sim_error_minimap2.R <minimap2 Performance Percentage>.to_plot.txt
 
 ```
 
@@ -287,9 +289,8 @@ Step 3:
 Step 4:
 - **Weighted Jaccard Performance Percentage**
 - **minimap2 Performance Percentage**
-- **Plots!**
+- **Plots!** : In the form `*.plot_sim_error_minimap2.png` or `*.plot_sim_error_weighted_jaccard.png`. Enough information are in the above plots to compare the two, view specific weights, etc. 
 
-![]()
-![]()
+![](images/GAGE_vary_weights_performance.plot_sim_error_weighted_jaccard.png)
 
 
