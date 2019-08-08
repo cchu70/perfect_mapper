@@ -8,24 +8,24 @@ This collection of scripts calculates and evaluates the performance of a weighte
 - bedtools
 - minimap2 or mashmap
 
-# Using an existing reference
+## Using an existing reference
 This section consists of the following steps:
 1. Parsing an alignment file (BAM or mashmap output)
 2. Evaluating mapper
 3. Evaluating performance of multiple weighting schemes
 4. Comparing performance
 
-# Ground Truth
+## Ground Truth
 To determine if an alignment is true, we treat the alignment of the non-errored version of a simulated read as the Ground Truth, and as long as the simulated read aligns such that it covers at least 50% of the original alignment, this counts as true
 
-## Inputs
+### Inputs
 - **Target Fasta** : Fasta file used to derive the reads
 - **Unique meryl database** : Database with only unique kmers and their positions in the reference mentioned above (refer to make meryl db script)
 - **Simulated Read Alignment File** : A Sam file with the alignments for the simulated reads onto the target sequence
 - **Origin Read Fasta**
 - **Prefix** : To name files
 
-## Commands
+### Commands
 
 1. Align the origin reads onto the target sequence
 ```
@@ -35,33 +35,21 @@ To determine if an alignment is true, we treat the alignment of the non-errored 
 ```
 samtools view <simulated read alignment file> | /path/to/ground_truth_from_origin_alignment.py <Ground Truth File> > output
 ```
-## Outputs
+### Outputs
 - **Alignment file for origin reads on the target**
 - **Ground Truth File**
   1. Read name
   2. Index of start of the alignment
-- **Alignment file of Simulated Reads + Ground Truth**
+- **Alignment file of Simulated Reads + Ground Truth** The ground truth ("True" or "False") is appended at the end of each line
 
-# Something Else
-
-## Inputs
-- **Target Fasta** : The target (or reference) that will be use to simulate nanopore reads and mapped onto by said simulated reads 
-- **Simulated Reads Fasta** : simulated nanopore reads with fasta headers indicating their original start and end position in the reference
-- **Simulated Reads True Positions bedfile** : Bedfile with the original positions of each simulated read
-```
-# Origin_seq    start   end   read_name
-chr22   2000    8000    chr22_2000_8000_+
-```
-## Outputs
-
-# Counting k-mers
+## Counting k-mers
 This section takes each alignments and count the number of:
 - shared uniq-mers
 - non-shared uniq-mers
 - shared non-uniq-mers
 - non-shared non-uniq-mers
 
-## Inputs
+### Inputs
 - **Target Fasta** : The target (or reference) that will be use to simulate nanopore reads and mapped onto by said simulated reads 
 - **Simulated Reads Fasta** : simulated nanopore reads with fasta headers indicating their original start and end position in the reference
 - **Alignment File** : A SAM file (no header) or mashmap output file with the **ground truth** appended at the end of each line
@@ -69,7 +57,7 @@ This section takes each alignments and count the number of:
 - **K-mer list** : A file containing each kmer that exists in the Target, or set of "true" kmers, and their corresponding frequency. There are kmers with a frequency of 0. Refer to _Unique db_ package
 - **k-mer size** : Indicate the size of the k-mers used in the **k-mer list** mentioned above.
 
-## Command
+### Command
 To get the k-mer counts for each alignment, run the following
 ```
 python /path/to/weighted_jaccard/weighted_jaccard_count.py <Read Fasta> <Target Fasta> <Align File> <Align File type> <kmer list file> <k-mer size> > outfile.txt
@@ -78,7 +66,7 @@ python /path/to/weighted_jaccard/weighted_jaccard_count.py <Read Fasta> <Target 
 python /path/to/weighted_jaccard/weighted_jaccard_count.py /data/Phillippy/projects/perfect-polish/chr22_info/chr22.sim_reads.fasta /data/Phillippy/projects/perfect-polish/chr22_info/chr22.fasta /data/Phillippy/projects/perfect-polish/chr22_info/representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.sam /data/Phillippy/projects/perfect-polish/chr22_info/chr22.asm.sck_list.txt sam 21 > representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.k_counts.0_4.txt
 ```
 
-## Output
+### Output
 - **Count File** : A text file with reduced information from the original alignment file and the k-mer counts
  1. Read Name
  2. "P" - Primary, "S" - Secondary
@@ -103,12 +91,42 @@ chr22_part24_103255_113647      S       21526317        21536678        False   
 ...
 ```
 
-# Simulation on the GAGE locus
+## Scheme Scoring
+This outlines how to get the scores for the alignments given the kmer counts from the previous stage
+
+### Inputs
+- **Alignment file of Simulated Reads + Ground Truth** The ground truth ("True" or "False") is appended at the end of each line. From the **Counting K-mers** stage above. 
+- **Scheme start** : Starting weight to give to the k-mers
+- **Scheme end** : Last weight to give to the k-mers
+= **Scheme step** : Step size between the start and end schemes. Each combination of these weights for uniq and non-uniq-mers will be tested.
+
+### Command
+```
+python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py <k-mer count alignment file> 
+
+# Example
+python /path/to/weighted_jaccard/weighted_jaccard_scheme_score.py representative_only.multiple_aligns_only.rev_false.minimap2_N50_30kb.real.k_counts.0_4.txt 0 10 1
+
+# Schemes tested: (0,0), (0,1), ..., (1,0), (1,1), ...
+
+```
+
+### Outputs
+- **Scheme score**
+  1. read name
+  2. something
+  3. scheme and corresponding score
+```
+# Example
+```
+
+
+## Simulation on the GAGE locus
 To test the effects of variable error rates, we simulated random error in one half of the GAGE locus, and then realigned simulated reads back onto this new GAGE locus.
 
 ![](images/NIH_SIP_Poster_Images-Simulated_error_test.png)
 
 
-## Inputs
+### Inputs
 
-## Outputs
+### Outputs
