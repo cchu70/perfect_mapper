@@ -16,8 +16,8 @@ uniq_meryl_db=$2
 # Simulated nanopore reads
 sim_reads_fasta=$3
 
-# Bedfile with the sim read positions (format)
-origin_pos_bedfile=$4
+# Origin version of the above nanopore reads (use bedtools fasta)
+origin_reads_fasta=$4
 
 # prefix to name the files (ex. chr22)
 prefix=$5
@@ -40,13 +40,13 @@ awk 'BEGIN{read="read"; true="true"; false="false"}{if(NR==FNR){start[$4]=$2;end
 
 ###### Get the kmers in the origin reads ######
 
-# Get the fasta file of the original simulated reads (with no errors)
-origin_reads_fasta=${prefix}.origin_reads.fasta
-bedtools getfasta $origin_pos_bedfile -name > $origin_reads_fasta
+# # Get the fasta file of the original simulated reads (with no errors)
+# origin_reads_fasta=${prefix}.origin_reads.fasta
+# bedtools getfasta $origin_pos_bedfile -name > $origin_reads_fasta
 
 # Get the uniqmers per read
 origin_read_dump_file=${prefix}.origin_reads.uniqmers.dump.txt
-meryl-lookup -dump -sequence chr22_info/chr22.sim_reads.fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$5 > 0{print $1"\t"$5}' > $origin_read_dump_file
+meryl-lookup -dump -sequence $origin_reads_fasta -mers chr22.asm.sck_pos.meryl -threads 8 -memory 20g | awk '$5 > 0{print $1"\t"$5}' > $origin_read_dump_file
 
 # Count the uniqmers
 origin_read_true_uniqmer_count=${prefix}.sim_reads.sim_read_true_uniqmer_count.txt

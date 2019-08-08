@@ -35,7 +35,7 @@ def main():
 
 	sys.stderr.write("Parsing Ref fasta: %s\n" % ref_fasta)
 	ref_record = list(parseFasta(ref_fasta).values())[0] # Should only be one reference
-3
+
 	sys.stderr.write("Parsing kmer file: %s\n" % k_file)
 	kmer_table = parseKmerFile(k_file)
 	sys.stderr.write("Number of true kmers: %d\n" % len(kmer_table))
