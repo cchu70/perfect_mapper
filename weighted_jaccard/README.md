@@ -179,7 +179,8 @@ Rscript /path/to/<place holder> <minimap2 correctness>
 - **minimap2 correctness** and **Weighted Jaccard correctness** : For each read the mapper aligned, lists if it is correct, and it's corresponding percent identity difference between either the True alignment (if it exists) or the second best alignment if it is already true
 
 ### Plots
-![]()
+![](images/chrX_minimap2_pid_diff.png)
+![](images/chrX_wj_pid_diff_plot.png)
 
 
 ## Simulation on the GAGE locus
