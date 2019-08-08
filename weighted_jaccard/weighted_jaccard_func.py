@@ -305,7 +305,7 @@ class Alignment:
 	#####
 
 	def scoreString(self):
-		scores_string = "\t".join(["(%0.3f, %0.3f)=%s" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch]) for sch in self.scores])
+		scores_string = "\t".join(["(%0.3f, %0.3f)=%0.8f" % (sch.non_unique_weight, sch.unique_weight, self.scores[sch]) for sch in self.scores])
 		return "%s\t%s\t%d\t%d\t%s\t%0.8f\t%s" % (self.read_name, self.map_truth, self.start_idx, self.end_idx, self.ground_truth,  self.pid, scores_string)
 	#####
 
