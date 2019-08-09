@@ -57,6 +57,6 @@ python /path/to/get_multiple_alignments_from_mashmap.py <mashmap out> <True Posi
 ```
 ### Outputs
 - **Multiple Alignments + Ground Truth**:
-  1 - x.) Original alignment file format
-  x + 1) Ground Truth ("True" or "False")
+  1. The original alignment line
+  2. Ground Truth ("True" or "False")
 
