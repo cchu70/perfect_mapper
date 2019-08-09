@@ -1,7 +1,7 @@
 # Simulation on the GAGE locus
 To test the effects of variable error rates, we simulated random error in one half of the GAGE locus, and then realigned simulated reads back onto this new GAGE locus.
 
-![](images/NIH_SIP_Poster_Images-Simulated_error_test.png)
+![](../images/NIH_SIP_Poster_Images-Simulated_error_test.png)
 
 ## Inputs
 Steps 1 - 2 : Evaluate Minimap2
