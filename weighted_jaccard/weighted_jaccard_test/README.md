@@ -98,4 +98,4 @@ chrX_59147642_59157542_+        S       59783244        59793022        False   
   7. False positive rate
   8. Precision
  - **Plots** : Plot of the performance of each weight, labeled on each point 
- ![](images/chrX_prepolished_weighted_jaccard_whole_nums.png)
+ ![](../images/chrX_prepolished_weighted_jaccard_whole_nums.png)
