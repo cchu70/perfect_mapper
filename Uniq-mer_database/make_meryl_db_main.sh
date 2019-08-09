@@ -27,7 +27,7 @@ path_to_scripts=$11
 
 
 echo Making unique position database 
-$path_to_scripts/make_meryl_db.sh $chr.asm $asm_fa $k_size unique position $asm_sck_pos_db
+$path_to_scripts/make_meryl_db.sh $chr.asm $asm_fa $k_size $asm_sck_pos_db
 # make unique position datbaase for the assembly
 
 echo Making simulated read database

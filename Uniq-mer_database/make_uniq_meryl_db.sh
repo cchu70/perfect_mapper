@@ -44,7 +44,7 @@ meryl-lookup -dump -mers $main_meryl -sequence $input_fa -threads $threads -memo
 
 # meryl-import -k 21 -kmers chr22.asm.sck_pos.to_import.txt -output chr22.asm.sck_pos.meryl -threads 8 -memory 20g
 
-echo Done making database! 
+echo Done making databases! 
 
 
 
