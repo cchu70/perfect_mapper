@@ -21,6 +21,7 @@ To test this idea, I took existing alignments for each read from minimap2 or mas
 Go to the `weighted_jaccard_test` folder.
 This is a pure implementation of the second picture above. It includes the following steps.
 
+### Steps
 0. (Optional) Filter alignments to only get reads where they have multiple to pick from. Refer to the Format package. 
 1. **Ground Truth** : Append the ground truth to the end of each alignment line
 2. **Counting k-mers** Count the shared/non-shared unique/non-unique k-mers between the read and it's candidate alignment region
@@ -34,6 +35,7 @@ To see the potential effects of variable percent identity between a read and its
 
 Optional, but you can just analyze reads with multiple alignments. Refer to the Format folder for more info.
 
+### Steps
 1. Append the percent identity for each alignment
 2. Evaluate each read's primary alignment's correctness and difference in percent identity with the second best alignment
 3. Run the **Testing Multiple Alignments** section on the alignment file + percent identity. 
@@ -50,6 +52,7 @@ To test the effects of variable error rates, we simulated random error in one ha
 
 ![](images/NIH_SIP_Poster_Images-Simulated_error_test.png)
 
+### Steps
 1. Simulate errors and make the alignment files using minimap2 -N50 -r3000 (hard-coded)
 2. Evaluate minimap2 performance
 3. Evaluate the weighted Jaccard approach with different schemes. 
