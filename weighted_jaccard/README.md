@@ -5,7 +5,6 @@ This collection of scripts calculates and evaluates the performance of a weighte
 
 To test this idea, I took existing alignments for each read from minimap2 or mashmap, and then used the weighted jaccard index to pick the alignment with the highest score as the new primary read 
 
-![](images/NIH_SIP_Poster_Images-Filter_alignments.png)
 
 # Dependencies
 - canu
@@ -16,6 +15,9 @@ To test this idea, I took existing alignments for each read from minimap2 or mas
 # Multiple Approaches and Analysis
 
 ## Testing multiple alignments
+
+![](images/NIH_SIP_Poster_Images-Filter_alignments.png)
+
 Go to the `weighted_jaccard_test` folder.
 This is a pure implementation of the second picture above. It includes the following steps.
 
