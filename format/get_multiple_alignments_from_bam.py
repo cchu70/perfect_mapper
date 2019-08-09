@@ -18,7 +18,7 @@ def isTrue(align_start, true_start, true_end):
 def main():
 
 	# Stdin for sam file
-	paf_file = sys.stdin
+	sam_file = sys.stdin
 
 	true_origin_bedfile = sys.argv[1] # bedfile for the true regions of the reads
 
@@ -34,7 +34,7 @@ def main():
 	curr_read_name = ""
 	first_data = ""
 
-	for line in paf_file:
+	for line in sam_file:
 		read_name = line.split()[0]
 
 		# paf file
