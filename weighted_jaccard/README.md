@@ -28,6 +28,8 @@ This is a pure implementation of the second picture above. It includes the follo
 3. **Scheme Scores** : Get the scores of each alignment using different weighting schemes on the above k-mer counts
 4. **Evaluate Performance** : Determine which weight gives the best performance
 
+
+### Plots
  ![](images/chrX_prepolished_weighted_jaccard_whole_nums.png)
 
 ## Comparing difference in percent identity
@@ -41,7 +43,8 @@ Optional, but you can just analyze reads with multiple alignments. Refer to the 
 3. Run the **Testing Multiple Alignments** section on the alignment file + percent identity. 
 4. Evaluate the performance of the weighted jaccard method by selecting **ONE** scheme. 
 
-The plot below only considered reads where at least one of it's alignments are True.
+### Plots
+The plots below only considered reads where at least one of it's alignments are True.
 
 ![](images/chrX_minimap2_pid_diff.png)
 ![](images/chrX_wj_pid_diff_plot.png)
@@ -57,6 +60,7 @@ To test the effects of variable error rates, we simulated random error in one ha
 2. Evaluate minimap2 performance
 3. Evaluate the weighted Jaccard approach with different schemes. 
 
+### Plots
 ![](images/GAGE_vary_weights_performance.plot_sim_error_weighted_jaccard.png)
 
 
